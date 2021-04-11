@@ -9,4 +9,14 @@ public class Field {
         this.y=y;
         this.type=t;
     }
+    void setState(Type t){
+        type=t;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Field){
+            return ((Field) o).x==x && ((Field) o).y==y && ((Field) o).type==type;
+        }
+        return false;
+    }
 }
