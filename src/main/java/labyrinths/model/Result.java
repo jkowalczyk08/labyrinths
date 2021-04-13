@@ -14,4 +14,5 @@ public class Result {
     void add(Field f){
         changes.add(f);
     }
+    public List<Field> getChanges() {return changes;}
 }

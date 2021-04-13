@@ -37,7 +37,7 @@ public class LabyrinthController implements Initializable {
         int width = 15, height = 30;
         constructEmptyLabyrinth(width, height);
         Labyrinth labyrinthModel = new Labyrinth(width, height);
-        //applyChanges(labyrinthModel.getDefault());
+        applyChanges(labyrinthModel.getDefault());
     }
     void constructEmptyLabyrinth(int width, int height) {
         fields = new ArrayList<>();
@@ -69,7 +69,7 @@ public class LabyrinthController implements Initializable {
             switch (field.getType()) {
                 case WALL:
                     button.setBackground(new Background(
-                            new BackgroundFill(Color.DEEPSKYBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+                            new BackgroundFill(Color.CHOCOLATE, CornerRadii.EMPTY, Insets.EMPTY)));
                     break;
                 case START:
                     button.setText("S");

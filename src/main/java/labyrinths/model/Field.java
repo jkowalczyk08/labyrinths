@@ -12,6 +12,9 @@ public class Field {
     void setState(Type t){
         type=t;
     }
+    public Type getType() {return type;}
+    public int getX() {return x;}
+    public int getY() {return y;}
     @Override
     public boolean equals(Object o){
         if(o instanceof Field){
