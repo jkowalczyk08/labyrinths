@@ -5,52 +5,60 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Graph {
-    Map<Field, LinkedList<Field>> graph;
-    Graph(int width, int height, Type[][] tab){
+    Map<Node, LinkedList<Node>> graph;
+    Graph(int height, int width,  Type[][] tab){
         graph=new HashMap<>();
-        for(int i=0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+        for(int i=1; i < height-1; i++) {
+            for (int j = 1; j < width-1; j++) {
                 if(tab[i][j]!=Type.WALL)
-                addVertex(new Field(i, j, tab[i][j]));
+                addVertex(new Node(i, j));
             }
         }
-        for(int i=0; i<height; i++) {
-            for (int j = 0; j < width; j++) {
-                if(i-1>=0&&graph.containsKey(new Field(i-1, j, tab[i-1][j]))){
-                    this.addEdge(new Field(i, j, tab[i][j]), new Field(i-1, j, tab[i-1][j]));
+        for(int i=1; i<height-1; i++) {
+            for (int j = 1; j < width-1; j++) {
+                if(i-1>=0&&graph.containsKey(new Node(i-1, j))){
+                    this.addEdge(new Node(i, j), new Node(i-1, j));
                 }
-                if(i+1<height&&graph.containsKey(new Field(i+1, j, tab[i+1][j]))){
-                    this.addEdge(new Field(i, j, tab[i][j]), new Field(i+1, j, tab[i+1][j]));
+                if(i+1<height&&graph.containsKey(new Node(i+1, j))){
+                    this.addEdge(new Node(i, j), new Node(i+1, j));
                 }
-                if(j-1>=0&&graph.containsKey(new Field(i, j-1, tab[i][j-1]))){
-                    this.addEdge(new Field(i, j, tab[i][j]), new Field(i, j-1, tab[i][j-1]));
+                if(j-1>=0&&graph.containsKey(new Node(i, j-1))){
+                    this.addEdge(new Node(i, j), new Node(i, j-1));
                 }
-                if(j+1<width&&graph.containsKey(new Field(i, j+1, tab[i][j+1]))) {
-                    this.addEdge(new Field(i, j, tab[i][j]), new Field(i, j + 1, tab[i][j + 1]));
+                if(j+1<width&&graph.containsKey(new Node(i, j+1))) {
+                    this.addEdge(new Node(i, j), new Node(i, j + 1));
                 }
             }
         }
     }
-    void addVertex(Field x){
+    void addVertex(Node x){
         graph.put(x, new LinkedList<>());
+        //graph.get(x).add(x);System.out.println(graph.get(x));
     }
-    void addEdge(Field one, Field two){
+    void addEdge(Node one, Node two){
+       // System.out.println(one);
         if(!graph.get(one).contains(two)){
             graph.get(one).add(two);
         }
         if(!graph.get(two).contains(one)){
             graph.get(two).add(one);
         }
+        //System.out.println(graph.get(one));
     }
-    void removeEdge(Field one, Field two){
-        graph.get(one).remove(two);
+    void removeEdge(Node one, Node two){
+        //graph.get(one).remove(two);
         graph.get(two).remove(one);
     }
-    void removeVertex(Field vertex){
+    void removeVertex(Node vertex){
         if(!graph.containsKey(vertex)) return;
-        for(Field x : graph.get(vertex)){
+        //System.out.println(vertex.toString() + graph.get(vertex) );
+        for(Node x : graph.get(vertex)){
             this.removeEdge(vertex, x);
         }
-        graph.remove(vertex);
+        graph.remove(vertex, graph.get(vertex));
+    }
+    @Override
+    public String toString(){
+        return graph.toString();
     }
 }

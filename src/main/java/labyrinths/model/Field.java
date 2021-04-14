@@ -4,9 +4,14 @@ public class Field {
     int w;
     int h;
     Type type;
-    Field(int x, int y, Type t){
-        this.w =x;
-        this.h =y;
+     public Field(Node n, Type t){
+        this.w =n.w-1;
+        this.h =n.h-1;
+        this.type=t;
+    }
+    public Field(int x, int y, Type t){
+        this.w =y;
+        this.h =x;
         this.type=t;
     }
     void setState(Type t){
@@ -21,5 +26,13 @@ public class Field {
             return ((Field) o).w == w && ((Field) o).h == h && ((Field) o).type==type;
         }
         return false;
+    }
+    @Override
+    public int hashCode(){
+        return 31*w+h;
+    }
+    @Override
+    public String toString(){
+        return h + " " + w + " " + type;
     }
 }

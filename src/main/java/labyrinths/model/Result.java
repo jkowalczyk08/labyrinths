@@ -15,4 +15,8 @@ public class Result {
         changes.add(f);
     }
     public List<Field> getChanges() {return changes;}
+    @Override
+    public String toString(){
+        return changes.toString();
+    }
 }
