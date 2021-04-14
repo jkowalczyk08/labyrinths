@@ -8,19 +8,24 @@ public class Graph {
     Map<Field, LinkedList<Field>> graph;
     Graph(int width, int height, Type[][] tab){
         graph=new HashMap<>();
-        for(int i=0; i<height; i++){
-            for(int j=0; j<width; j++){
+        for(int i=0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(tab[i][j]!=Type.WALL)
                 addVertex(new Field(i, j, tab[i][j]));
-                if(i-1>=0){
+            }
+        }
+        for(int i=0; i<height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(i-1>=0&&graph.containsKey(new Field(i-1, j, tab[i-1][j]))){
                     this.addEdge(new Field(i, j, tab[i][j]), new Field(i-1, j, tab[i-1][j]));
                 }
-                if(i+1<height){
+                if(i+1<height&&graph.containsKey(new Field(i+1, j, tab[i+1][j]))){
                     this.addEdge(new Field(i, j, tab[i][j]), new Field(i+1, j, tab[i+1][j]));
                 }
-                if(j-1>=0){
+                if(j-1>=0&&graph.containsKey(new Field(i, j-1, tab[i][j-1]))){
                     this.addEdge(new Field(i, j, tab[i][j]), new Field(i, j-1, tab[i][j-1]));
                 }
-                if(j+1<width) {
+                if(j+1<width&&graph.containsKey(new Field(i, j+1, tab[i][j+1]))) {
                     this.addEdge(new Field(i, j, tab[i][j]), new Field(i, j + 1, tab[i][j + 1]));
                 }
             }

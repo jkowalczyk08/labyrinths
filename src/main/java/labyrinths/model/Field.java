@@ -1,24 +1,24 @@
 package labyrinths.model;
 
 public class Field {
-    int x;
-    int y;
+    int w;
+    int h;
     Type type;
     Field(int x, int y, Type t){
-        this.x=x;
-        this.y=y;
+        this.w =x;
+        this.h =y;
         this.type=t;
     }
     void setState(Type t){
         type=t;
     }
     public Type getType() {return type;}
-    public int getX() {return x;}
-    public int getY() {return y;}
+    public int getW() {return w;}
+    public int getH() {return h;}
     @Override
     public boolean equals(Object o){
         if(o instanceof Field){
-            return ((Field) o).x==x && ((Field) o).y==y && ((Field) o).type==type;
+            return ((Field) o).w == w && ((Field) o).h == h && ((Field) o).type==type;
         }
         return false;
     }
