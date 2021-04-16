@@ -1,5 +1,7 @@
 package labyrinths.controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,21 +27,22 @@ import java.util.ResourceBundle;
 import static javafx.application.Application.launch;
 
 public class LabyrinthController implements Initializable {
-    @FXML
-    Pane labyrinthPane;
 
     List<List<Button>> fields;
     Labyrinth labyrinthModel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //labyrinthPane.setBackground(new Background(new BackgroundFill(Color.ROSYBROWN, CornerRadii.EMPTY, Insets.EMPTY)));
         int width = 15, height = 30;
-        constructEmptyLabyrinth(width, height);
-        Labyrinth labyrinthModel = new Labyrinth(width, height);
-        applyChanges(labyrinthModel.getDefault());
+        labyrinthModel = new Labyrinth(height, width);
+        constructEmptyLabyrinth(height, width);
+        applyChanges(labyrinthModel.getDefault(), 0);
+        initializeButtons();
     }
-    void constructEmptyLabyrinth(int width, int height) {
+
+    @FXML
+    Pane labyrinthPane;
+    void constructEmptyLabyrinth(int height, int width) {
         fields = new ArrayList<>();
         for(int i=0; i<height; ++i) {
             List<Button> row = new ArrayList<>();
@@ -51,7 +54,6 @@ public class LabyrinthController implements Initializable {
             }
             fields.add(row);
         }
-
         GridPane labyrinth = new GridPane();
         for(int i=0; i<height; ++i) {
             for(int j=0; j<width; ++j){
@@ -63,13 +65,13 @@ public class LabyrinthController implements Initializable {
         labyrinthPane.getChildren().add(labyrinth);
     }
 
-    void applyChanges(Result result) {
+    void applyChanges(Result result, long waitMillis) {
         for(Field field : result.getChanges()) {
-            Button button = fields.get(field.getX()).get(field.getY());
+            Button button = fields.get(field.getH()).get(field.getW());
             switch (field.getType()) {
                 case WALL:
                     button.setBackground(new Background(
-                            new BackgroundFill(Color.CHOCOLATE, CornerRadii.EMPTY, Insets.EMPTY)));
+                            new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
                     break;
                 case START:
                     button.setText("S");
@@ -77,7 +79,29 @@ public class LabyrinthController implements Initializable {
                 case TARGET:
                     button.setText("T");
                     break;
+                case PATH:
+                    button.setBackground(new Background(
+                            new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                    break;
+                case HIGHLIGHTED:
+                    button.setBackground(new Background(
+                            new BackgroundFill(Color.IVORY, CornerRadii.EMPTY, Insets.EMPTY)));
+                    break;
+            }
+            try {
+                Thread.sleep(waitMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    Button clearBtn;
+    @FXML
+    Button dfsBtn;
+    void initializeButtons() {
+        clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
+        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 0)); //should be an enum
     }
 }
