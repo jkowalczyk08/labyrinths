@@ -20,15 +20,13 @@ import java.util.concurrent.CountDownLatch;
 import static javafx.application.Application.launch;
 
 public class LabyrinthController implements Initializable {
-    static List<List<Button>> fields;
+    static Fields fields;
     static Labyrinth labyrinthModel;
 
-    public static List<List<Button>> getFields() {
-        return fields;
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labyrinthModel = LabyrinthGetter.getLabyrinthModel();
+        fields = new Fields(labyrinthModel);
         constructEmptyLabyrinth();
         applyChanges(labyrinthModel.getDefault(), 0);
         initializeButtons();
@@ -38,15 +36,6 @@ public class LabyrinthController implements Initializable {
     Pane labyrinthPane;
     void constructEmptyLabyrinth() {
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
-        fields = new ArrayList<>();
-        for(int i=0; i<height; ++i) {
-            List<Button> row = new ArrayList<>();
-            for (int j = 0; j < width; ++j) {
-                Button field = new Button("");
-                row.add(field);
-            }
-            fields.add(row);
-        }
         GridPane labyrinth = new GridPane();
         for(int i=0; i<height; ++i) {
             for(int j=0; j<width; ++j) {
@@ -62,7 +51,7 @@ public class LabyrinthController implements Initializable {
     }
 
     void applyChanges(Result result, long waitMillis) {
-        new Thread(new changesApplier(result, waitMillis)).start();
+        new Thread(new changesApplier(result, waitMillis, fields)).start();
     }
 
     @FXML
@@ -71,6 +60,6 @@ public class LabyrinthController implements Initializable {
     Button dfsBtn;
     void initializeButtons() {
         clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
-        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 20)); //should be an enum
+        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 10)); //should be an enum
     }
 }

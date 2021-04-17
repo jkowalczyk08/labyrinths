@@ -1,7 +1,6 @@
 package labyrinths.controller;
 
 import javafx.application.Platform;
-import javafx.concurrent.Service;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -12,21 +11,21 @@ import labyrinths.model.Field;
 import labyrinths.model.Result;
 import labyrinths.model.Type;
 
-import java.util.List;
-
 public class changesApplier implements Runnable {
     Result result;
     long waitMillis;
+    Fields fields;
 
-    changesApplier(Result result, long waitMillis) {
+    changesApplier(Result result, long waitMillis, Fields fields) {
         this.result = result;
         this.waitMillis = waitMillis;
+        this.fields = fields;
     }
 
     @Override
     public void run() {
         for(Field field : result.getChanges()) {
-            Button button = LabyrinthController.getFields().get(field.getH()).get(field.getW());
+            Button button = fields.get(field.getH()).get(field.getW());
             Platform.runLater(() -> changeFieldType(button, field.getType()));
             try {
                 Thread.sleep(waitMillis);
