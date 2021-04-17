@@ -1,10 +1,7 @@
-package labyrinths.controller;
+package labyrinths.controller.labyrinthView;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import labyrinths.model.Labyrinth;
 
 import java.io.IOException;

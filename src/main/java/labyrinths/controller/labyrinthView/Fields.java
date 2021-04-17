@@ -1,4 +1,4 @@
-package labyrinths.controller;
+package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.Button;
 import labyrinths.model.Labyrinth;

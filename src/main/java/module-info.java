@@ -6,4 +6,6 @@ module labyrinths {
     exports labyrinths;
     opens labyrinths.controller to javafx.fxml;
     exports labyrinths.controller;
+    opens labyrinths.controller.labyrinthView to javafx.fxml;
+    exports labyrinths.controller.labyrinthView;
 }

@@ -1,21 +1,14 @@
-package labyrinths.controller;
+package labyrinths.controller.labyrinthView;
 
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import labyrinths.model.Field;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.Result;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.CountDownLatch;
 
 import static javafx.application.Application.launch;
 
