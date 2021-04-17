@@ -1,9 +1,13 @@
 package labyrinths.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import labyrinths.model.Field;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.Result;
 
@@ -11,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 
 import static javafx.application.Application.launch;
 
@@ -48,7 +53,7 @@ public class LabyrinthController implements Initializable {
                 Button field = fields.get(i).get(j);
                 field.prefWidthProperty().bind(labyrinthPane.widthProperty());
                 field.prefHeightProperty().bind(labyrinthPane.heightProperty());
-                labyrinth.add(field, i, j);
+                labyrinth.add(field, j, i);
             }
         }
         labyrinth.prefWidthProperty().bind(labyrinthPane.widthProperty());
@@ -57,7 +62,7 @@ public class LabyrinthController implements Initializable {
     }
 
     void applyChanges(Result result, long waitMillis) {
-        new changesApplier(result, waitMillis).run();
+        new Thread(new changesApplier(result, waitMillis)).start();
     }
 
     @FXML
@@ -66,6 +71,6 @@ public class LabyrinthController implements Initializable {
     Button dfsBtn;
     void initializeButtons() {
         clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
-        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 1)); //should be an enum
+        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 20)); //should be an enum
     }
 }

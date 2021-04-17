@@ -1,5 +1,7 @@
 package labyrinths.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Service;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -25,7 +27,7 @@ public class changesApplier implements Runnable {
     public void run() {
         for(Field field : result.getChanges()) {
             Button button = LabyrinthController.getFields().get(field.getH()).get(field.getW());
-            changeFieldType(button, field.getType());
+            Platform.runLater(() -> changeFieldType(button, field.getType()));
             try {
                 Thread.sleep(waitMillis);
             } catch (InterruptedException e) {
@@ -34,11 +36,11 @@ public class changesApplier implements Runnable {
         }
     }
 
-    void changeFieldType(Button button, Type type) {
+    static void changeFieldType(Button button, Type type) {
         switch (type) {
             case WALL:
                 button.setBackground(new Background(
-                        new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
+                        new BackgroundFill(Color.DIMGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case START:
                 button.setText("S");
@@ -48,11 +50,11 @@ public class changesApplier implements Runnable {
                 break;
             case PATH:
                 button.setBackground(new Background(
-                        new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
+                        new BackgroundFill(Color.CORAL, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case HIGHLIGHTED:
                 button.setBackground(new Background(
-                        new BackgroundFill(Color.IVORY, CornerRadii.EMPTY, Insets.EMPTY)));
+                        new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
         }
     }
