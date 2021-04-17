@@ -1,64 +1,61 @@
 package labyrinths.model;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Graph {
-    Map<Node, LinkedList<Node>> graph;
-    Graph(int height, int width,  Type[][] tab){
-        graph=new HashMap<>();
-        for(int i=1; i < height-1; i++) {
-            for (int j = 1; j < width-1; j++) {
-                if(tab[i][j]!=Type.WALL)
-                addVertex(new Node(i, j));
+    int width;
+    int height;
+    List<Node> graph;
+    Graph(int height, int width){
+        this.height=height;
+        this.width=width;
+        graph=new ArrayList<>();
+        for(int i=0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(i!=0&&j!=0&&i!=height-1&&j!=width-1)
+                    graph.add(new Node(i, j, Type.FREE));
+                else
+                    graph.add(new Node(i, j, Type.WALL));
             }
         }
-        for(int i=1; i<height-1; i++) {
+        for(int i=1; i < height-1; i++) {
             for (int j = 1; j < width-1; j++) {
-                if(i-1>=0&&graph.containsKey(new Node(i-1, j))){
-                    this.addEdge(new Node(i, j), new Node(i-1, j));
+                if(i-1>0){
+                    graph.get(indexOf(i, j)).neighbors.add(indexOf(i-1, j));
                 }
-                if(i+1<height&&graph.containsKey(new Node(i+1, j))){
-                    this.addEdge(new Node(i, j), new Node(i+1, j));
+                if(i+1<height-1){
+                    graph.get(indexOf(i, j)).neighbors.add(indexOf(i+1, j));
                 }
-                if(j-1>=0&&graph.containsKey(new Node(i, j-1))){
-                    this.addEdge(new Node(i, j), new Node(i, j-1));
+                if(j-1>0){
+                    graph.get(indexOf(i, j)).neighbors.add(indexOf(i, j-1));
                 }
-                if(j+1<width&&graph.containsKey(new Node(i, j+1))) {
-                    this.addEdge(new Node(i, j), new Node(i, j + 1));
+                if(j+1>width-1){
+                    graph.get(indexOf(i, j)).neighbors.add(indexOf(i, j+1));
                 }
             }
         }
     }
     void addVertex(Node x){
-        graph.put(x, new LinkedList<>());
-        //graph.get(x).add(x);System.out.println(graph.get(x));
     }
     void addEdge(Node one, Node two){
-       // System.out.println(one);
-        if(!graph.get(one).contains(two)){
-            graph.get(one).add(two);
-        }
-        if(!graph.get(two).contains(one)){
-            graph.get(two).add(one);
-        }
-        //System.out.println(graph.get(one));
+
     }
     void removeEdge(Node one, Node two){
-        //graph.get(one).remove(two);
-        graph.get(two).remove(one);
     }
-    void removeVertex(Node vertex){
-        if(!graph.containsKey(vertex)) return;
-        //System.out.println(vertex.toString() + graph.get(vertex) );
-        for(Node x : graph.get(vertex)){
-            this.removeEdge(vertex, x);
+    void removeVertex(int h, int w){
+        for(int nei : graph.get(indexOf(h, w)).neighbors){
+            graph.get(nei).neighbors.remove(indexOf(h, w));
         }
-        graph.remove(vertex, graph.get(vertex));
+        graph.get(indexOf(h, w)).neighbors.clear();
     }
     @Override
     public String toString(){
         return graph.toString();
+    }
+    Integer indexOf(Integer h, Integer w){
+        return h*width+w;
+    }
+    Integer indexOf(Node n){
+        return indexOf(n.field.h, n.field.w);
     }
 }
