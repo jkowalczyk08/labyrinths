@@ -20,7 +20,7 @@ public class Labyrinth {
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
-        target=width*(height-1)-1;
+        target=width*(height-1)-2;
         res.add(new Field(height-2-1, width-2-1, Type.TARGET));
         for(int i=2; i<height-1; i+=2){
             for(int j=1; j<width-1; j++){

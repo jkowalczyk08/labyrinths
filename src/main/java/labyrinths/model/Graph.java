@@ -29,7 +29,7 @@ public class Graph {
                 if(j-1>0){
                     graph.get(indexOf(i, j)).neighbors.add(indexOf(i, j-1));
                 }
-                if(j+1>width-1){
+                if(j+1<width-1){
                     graph.get(indexOf(i, j)).neighbors.add(indexOf(i, j+1));
                 }
             }
