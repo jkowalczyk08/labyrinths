@@ -4,32 +4,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Dfs {
-    static List<Field> process=new LinkedList<>();
-    static List<Field> path=new LinkedList<>();
-    public static List<Field> startDfs(Graph graph, Type[][] table, Node start){
-        if(!runDfs(graph, table, new Node(1, 1))) return process;
+    public static List<Field> startDfs(Graph graph, int start, int target){
+        List<Field> process=new LinkedList<>();
+        List<Field> path=new LinkedList<>();
+        if(!runDfs(graph, start, target, process, path) )return process;
         process.addAll(path);
         return process;
     }
-    static boolean runDfs(Graph graph, Type[][] table, Node current){
-        if(table[current.h][current.w]==Type.TARGET){
-            table[current.h][current.w]=Type.PATH;
-            path.add(new Field(current, Type.PATH));
+    static boolean runDfs(Graph graph, int current, int target, List<Field> process, List<Field>path){
+        if(current==target){
+            path.add(new Field(graph.graph.get(current), Type.PATH));
             return true;
+        }path.add(new Field(graph.graph.get(current), Type.PATH));
+        if(graph.graph.get(current).field.type!=Type.FREE){
+            return false;
         }
-        process.add(new Field(current, Type.HIGHLIGHTED));
+        process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
         //System.out.println(process);
-        table[current.h][current.w]=Type.PATH;
-        path.add(new Field(current, Type.PATH));
-        for(Node x : graph.graph.get(current)){
+
+        graph.graph.get(current).field.type=Type.PATH;
+        for(int x : graph.graph.get(current).neighbors){
             //System.out.println(x);
-            if(table[x.h][x.w]==Type.FREE||table[x.h][x.w]==Type.TARGET){
-                if(runDfs(graph, table, x))
+                if(runDfs(graph, x, target, process, path))
                     return true;
-                table[x.h][x.w]=Type.HIGHLIGHTED;
                 path.remove(path.size()-1);
-            }
-        }
+        }graph.graph.get(current).field.type=Type.HIGHLIGHTED;
         return false;
     }
 }

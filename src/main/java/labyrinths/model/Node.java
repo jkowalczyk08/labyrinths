@@ -1,25 +1,28 @@
 package labyrinths.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
-    int w;
-    int h;
-    Node(int x, int y){
-        w=y;
-        h=x;
+    Field field;
+    List<Integer> neighbors;
+    Node(int x, int y, Type t){
+        field=new Field(x, y, t);
+        neighbors=new ArrayList<>();
     }
     @Override
     public boolean equals(Object o){
         if(o instanceof Node){
-            return ((Node) o).w == w && ((Node) o).h == h ;
+            return ((Node) o).field.equals(field);
         }
         return false;
     }
     @Override
     public int hashCode(){
-        return 31*w+h;
+        return 31;
     }
     @Override
     public String toString(){
-        return h + " " + w;
+        return field.toString()+neighbors.toString();
     }
 }

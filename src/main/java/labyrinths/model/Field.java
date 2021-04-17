@@ -5,8 +5,8 @@ public class Field {
     int h;
     Type type;
      public Field(Node n, Type t){
-        this.w =n.w-1;
-        this.h =n.h-1;
+        this.w =n.field.w-1;
+        this.h =n.field.h-1;
         this.type=t;
     }
     public Field(int x, int y, Type t){
