@@ -32,14 +32,12 @@ public class ControlPanelLogic {
             Button button = fields.get(field.getH()).get(field.getW());
             ChangesApplier.changeFieldType(button, field.getType());
             progressBar.setProgress((double)i++/result.getChanges().size());
-            if(!fastForward){
+            if(!fastForward && waitMillis>0) {
                 try {
-                    if(!stopped)
-                        Thread.sleep(waitMillis);
-                    else {
-                        synchronized (lock) {
+                    synchronized (lock) {
+                        lock.wait(waitMillis);
+                        if(stopped)
                             lock.wait();
-                        }
                     }
                 } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -80,16 +78,20 @@ public class ControlPanelLogic {
     void pause() {
         fastForward();
         controlPanel.setDisable(START_STOP, false);
-        controlPanel.setDisable(FAST_FORWARD, true);
         controlPanel.setDisable(PAUSE, true);
         controlPanel.setToStart();
         progressBar.setProgress(0);
-        controlPanel.setToStart();
+        //function to clear here
     }
     void fastForward() {
-        controlPanel.setDisable(FAST_FORWARD, true);
         fastForward = true;
-        if(stopped)
-            goOn();
+        if(!stopped)
+            stop();
+        goOn();
+        try {
+            workingThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
