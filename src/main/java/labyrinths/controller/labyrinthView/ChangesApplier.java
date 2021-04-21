@@ -1,35 +1,42 @@
 package labyrinths.controller.labyrinthView;
 
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import labyrinths.model.Type;
+import labyrinths.model.Field;
+import labyrinths.model.Result;
+
 
 public class ChangesApplier {
-    static void changeFieldType(Button button, Type type) {
-        switch (type) {
-            case WALL:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.DIMGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-                break;
-            case START:
-                button.setText("S");
-                break;
-            case TARGET:
-                button.setText("T");
-                break;
-            case PATH:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.CORAL, CornerRadii.EMPTY, Insets.EMPTY)));
-                break;
-            case HIGHLIGHTED:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
-                break;
+    Fields fields;
+    ControlPanelLogic logic;
+    final Object lock = new Object();
+
+    public Object getLock() {
+        return lock;
+    }
+
+    ChangesApplier(Fields fields) {
+        this.fields = fields;
+    }
+    public void initialize(ControlPanelLogic logic) {
+        this.logic = logic;
+    }
+
+    public void applyChanges(Result result, long waitMillis) {
+        int i=0;
+        for(Field field : result.getChanges()) {
+            fields.changeFieldType(field.getH(), field.getW(), field.getType());
+            logic.getProgressBar().setProgress((double)i++/result.getChanges().size());
+            if(!logic.ifFastForward() && waitMillis>0) {
+                try {
+                    synchronized (lock) {
+                        lock.wait(waitMillis);
+                        if(logic.ifStopped())
+                            lock.wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        logic.end();
     }
 }

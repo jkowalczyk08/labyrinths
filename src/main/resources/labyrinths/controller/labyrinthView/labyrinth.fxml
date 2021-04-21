@@ -8,19 +8,19 @@
 
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.labyrinthView.LabyrinthController">
    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <HBox spacing="20.0">
+      <HBox alignment="BOTTOM_LEFT" spacing="20.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="30.0" top="50.0" />
+            <Insets left="80.0" right="65.0" top="50.0" />
          </padding>
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <Label text="Algorithm:">
             <font>
-               <Font name="System Bold" size="18.0" />
+               <Font name="System Bold" size="24.0" />
             </font>
          </Label>
          <Button fx:id="dfsBtn" mnemonicParsing="false" text="DFS">
@@ -31,35 +31,33 @@
                <Font size="14.0" />
             </font>
          </Button>
-      </HBox>
-      <HBox spacing="20.0">
-         <padding>
-            <Insets left="30.0" top="30.0"/>
-         </padding>
+         <Pane prefHeight="12.0" HBox.hgrow="ALWAYS" />
          <Button fx:id="startStopBtn" mnemonicParsing="false">
             <graphic>
-               <ImageView fx:id="startStopImg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true"
-                          preserveRatio="true">
+               <ImageView fx:id="startStopImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                </ImageView>
             </graphic>
          </Button>
          <Button fx:id="fastForwardBtn" mnemonicParsing="false">
             <graphic>
-               <ImageView fx:id="fastForwardImg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true"
-                          preserveRatio="true"/>
+               <ImageView fx:id="fastForwardImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
             </graphic>
          </Button>
          <Button fx:id="pauseBtn" mnemonicParsing="false">
             <graphic>
-               <ImageView fx:id="pauseImg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true"/>
+               <ImageView fx:id="pauseImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
             </graphic>
          </Button>
       </HBox>
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
          <VBox.margin>
-            <Insets left="30.0" right="100.0" top="20.0"/>
+            <Insets top="20.0" />
          </VBox.margin>
-         <ProgressBar fx:id="progressBar" progress="0.0" HBox.hgrow="ALWAYS"/>
+         <ProgressBar fx:id="progressBar" progress="0.0" HBox.hgrow="ALWAYS" />
+         <Label />
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </HBox>
       <Pane fx:id="labyrinthPane" VBox.vgrow="ALWAYS">
          <VBox.margin>

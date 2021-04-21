@@ -57,14 +57,16 @@ public class LabyrinthController implements Initializable {
     @FXML
     ProgressBar progressBar;
     void initializePanel(Labyrinth labyrinthModel) {
-        File file = new File("src/main/resources/drawable/start.png");
-        startStopImg.setImage(new Image(file.toURI().toString()));
         File file2 = new File("src/main/resources/drawable/fastForward.png");
         fastForwardImg.setImage(new Image(file2.toURI().toString()));
         File file3 = new File("src/main/resources/drawable/pause.png");
         pauseImg.setImage(new Image(file3.toURI().toString()));
-        progressBar.prefWidthProperty().bind(labyrinthPane.widthProperty().divide(2));
-        ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, fields, progressBar);
+
+        progressBar.prefWidthProperty().bind(labyrinthPane.widthProperty());
+        ChangesApplier applier = new ChangesApplier(fields);
+        ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, progressBar);
+        applier.initialize(logic);
+
         ControlPanel panel = new ControlPanel(logic, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
         panel.initialize();
     }
