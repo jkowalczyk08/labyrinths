@@ -3,10 +3,14 @@ package labyrinths.controller.labyrinthView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.Result;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,11 +52,23 @@ public class LabyrinthController implements Initializable {
     }
 
     @FXML
-    Button clearBtn;
+    Button dfsBtn, startStopBtn, fastForwardBtn, pauseBtn;
     @FXML
-    Button dfsBtn;
+    ImageView startStopImg, fastForwardImg, pauseImg;
+    @FXML
+    ProgressBar progressBar;
+
     void initializeButtons() {
-        clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
-        dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 10)); //should be an enum
+        File file = new File("src/main/resources/drawable/start.png");
+        startStopImg.setImage(new Image(file.toURI().toString()));
+        File file2 = new File("src/main/resources/drawable/fastForward.png");
+        fastForwardImg.setImage(new Image(file2.toURI().toString()));
+        File file3 = new File("src/main/resources/drawable/pause.png");
+        pauseImg.setImage(new Image(file3.toURI().toString()));
+
+        startStopBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 10));//should be an enum
+        fastForwardBtn.setDisable(true);
+        pauseBtn.setDisable(true);//should be an enum
+        progressBar.prefWidthProperty().bind(labyrinthPane.widthProperty().divide(2));
     }
 }
