@@ -27,7 +27,6 @@ public class LabyrinthController implements Initializable {
         mainPane.setBackground(new Background(
                 new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
-        fields = new Fields(labyrinthModel);
         constructEmptyLabyrinth(labyrinthModel);
         initializePanel(labyrinthModel);
     }
@@ -35,19 +34,20 @@ public class LabyrinthController implements Initializable {
     @FXML
     Pane labyrinthPane;
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
+        fields = new Fields(labyrinthModel);
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
-        GridPane labyrinth = new GridPane();
+        GridPane gridPane = new GridPane();
         for(int i=0; i<height; ++i) {
             for(int j=0; j<width; ++j) {
                 Button field = fields.get(i).get(j);
-                field.prefWidthProperty().bind(labyrinthPane.widthProperty());
-                field.prefHeightProperty().bind(labyrinthPane.heightProperty());
-                labyrinth.add(field, j, i);
+                field.prefWidthProperty().bind(labyrinthPane.widthProperty().divide(width));
+                field.prefHeightProperty().bind(labyrinthPane.heightProperty().divide(height));
+                gridPane.add(field, j, i);
             }
         }
-        labyrinth.prefWidthProperty().bind(labyrinthPane.widthProperty());
-        labyrinth.prefHeightProperty().bind(labyrinthPane.heightProperty());
-        labyrinthPane.getChildren().add(labyrinth);
+        labyrinthPane.getChildren().add(gridPane);
+        labyrinthPane.prefHeightProperty().bind(mainPane.heightProperty());
+        labyrinthPane.prefWidthProperty().bind(mainPane.widthProperty());
     }
 
     @FXML
@@ -56,7 +56,6 @@ public class LabyrinthController implements Initializable {
     ImageView startStopImg, fastForwardImg, pauseImg;
     @FXML
     ProgressBar progressBar;
-
     void initializePanel(Labyrinth labyrinthModel) {
         File file = new File("src/main/resources/drawable/start.png");
         startStopImg.setImage(new Image(file.toURI().toString()));

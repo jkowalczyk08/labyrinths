@@ -1,6 +1,5 @@
 package labyrinths.controller.labyrinthView;
 
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import labyrinths.model.Field;
@@ -9,14 +8,13 @@ import labyrinths.model.Result;
 
 import static labyrinths.controller.labyrinthView.ControlPanel.ButtonType.*;
 
-
 public class ControlPanelLogic {
     Labyrinth labyrinthModel;
     Fields fields;
     ProgressBar progressBar;
+    ControlPanel controlPanel;
     final Object lock = new Object();
 
-    ControlPanel controlPanel;
     String algorithm = "dfs"; // change to enum
     boolean fastForward, stopped;
     Thread workingThread;
@@ -80,14 +78,13 @@ public class ControlPanelLogic {
         controlPanel.setToStop();
     }
     void pause() {
+        fastForward();
         controlPanel.setDisable(START_STOP, false);
-        controlPanel.setToStart();
         controlPanel.setDisable(FAST_FORWARD, true);
         controlPanel.setDisable(PAUSE, true);
+        controlPanel.setToStart();
         progressBar.setProgress(0);
         controlPanel.setToStart();
-        fastForward();
-        stopped = false;
     }
     void fastForward() {
         controlPanel.setDisable(FAST_FORWARD, true);
@@ -95,5 +92,4 @@ public class ControlPanelLogic {
         if(stopped)
             goOn();
     }
-
 }
