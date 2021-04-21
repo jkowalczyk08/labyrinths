@@ -8,33 +8,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import labyrinths.model.Field;
+import labyrinths.model.Labyrinth;
 import labyrinths.model.Result;
 import labyrinths.model.Type;
 
-public class changesApplier implements Runnable {
-    Result result;
-    long waitMillis;
-    Fields fields;
-
-    changesApplier(Result result, long waitMillis, Fields fields) {
-        this.result = result;
-        this.waitMillis = waitMillis;
-        this.fields = fields;
-    }
-
-    @Override
-    public void run() {
-        for(Field field : result.getChanges()) {
-            Button button = fields.get(field.getH()).get(field.getW());
-            Platform.runLater(() -> changeFieldType(button, field.getType()));
-            try {
-                Thread.sleep(waitMillis);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+public class ChangesApplier {
     static void changeFieldType(Button button, Type type) {
         switch (type) {
             case WALL:

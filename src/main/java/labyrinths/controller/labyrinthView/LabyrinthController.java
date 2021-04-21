@@ -2,13 +2,14 @@ package labyrinths.controller.labyrinthView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import labyrinths.model.Labyrinth;
-import labyrinths.model.Result;
 
 import java.io.File;
 import java.net.URL;
@@ -17,21 +18,23 @@ import java.util.ResourceBundle;
 import static javafx.application.Application.launch;
 
 public class LabyrinthController implements Initializable {
-    static Fields fields;
-    static Labyrinth labyrinthModel;
+    Fields fields;
 
+    @FXML
+    AnchorPane mainPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        labyrinthModel = LabyrinthGetter.getLabyrinthModel();
+        mainPane.setBackground(new Background(
+                new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
         fields = new Fields(labyrinthModel);
-        constructEmptyLabyrinth();
-        applyChanges(labyrinthModel.getDefault(), 0);
-        initializeButtons();
+        constructEmptyLabyrinth(labyrinthModel);
+        initializePanel(labyrinthModel);
     }
 
     @FXML
     Pane labyrinthPane;
-    void constructEmptyLabyrinth() {
+    void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
         GridPane labyrinth = new GridPane();
         for(int i=0; i<height; ++i) {
@@ -47,10 +50,6 @@ public class LabyrinthController implements Initializable {
         labyrinthPane.getChildren().add(labyrinth);
     }
 
-    void applyChanges(Result result, long waitMillis) {
-        new Thread(new changesApplier(result, waitMillis, fields)).start();
-    }
-
     @FXML
     Button dfsBtn, startStopBtn, fastForwardBtn, pauseBtn;
     @FXML
@@ -58,17 +57,16 @@ public class LabyrinthController implements Initializable {
     @FXML
     ProgressBar progressBar;
 
-    void initializeButtons() {
+    void initializePanel(Labyrinth labyrinthModel) {
         File file = new File("src/main/resources/drawable/start.png");
         startStopImg.setImage(new Image(file.toURI().toString()));
         File file2 = new File("src/main/resources/drawable/fastForward.png");
         fastForwardImg.setImage(new Image(file2.toURI().toString()));
         File file3 = new File("src/main/resources/drawable/pause.png");
         pauseImg.setImage(new Image(file3.toURI().toString()));
-
-        startStopBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 10));//should be an enum
-        fastForwardBtn.setDisable(true);
-        pauseBtn.setDisable(true);//should be an enum
         progressBar.prefWidthProperty().bind(labyrinthPane.widthProperty().divide(2));
+        ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, fields, progressBar);
+        ControlPanel panel = new ControlPanel(logic, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
+        panel.initialize();
     }
 }
