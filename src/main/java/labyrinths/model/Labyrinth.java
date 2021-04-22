@@ -1,5 +1,9 @@
 package labyrinths.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Labyrinth {
     Graph graph;
     int start;
@@ -16,7 +20,7 @@ public class Labyrinth {
     public Result perform(String algorithm){
         return new Result(Dfs.startDfs(graph, start, target));
     }
-    public Result getDefault(){
+    public Result getSnake(){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
@@ -33,4 +37,47 @@ public class Labyrinth {
         }
         return res;
     }
+    public Result getDefault(){
+        Result res=new Result();
+        res.add(new Field(0, 0, Type.START));
+        start=width+1;
+        target=width*(height-1)-2;
+        res.add(new Field(height-2-1, width-2-1, Type.TARGET));
+        FileReader fr= null;
+        try {
+            fr = new FileReader("src/main/resources/labyrinths/sampleLabyrinth15x30(2).txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int i=0;
+        int j=0;
+        while(true) {
+            try {
+                assert fr != null;
+                if ((j = fr.read()) == -1) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if((char)j=='x') {
+                graph.removeVertex(i / width +1, i % width+1);
+                res.add(new Field(i / width , i % width , Type.WALL));
+            }
+            i++;
+        }
+        try {
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    public Result getClear(){
+        Result res=new Result();
+        for(int i=0; i<width*height; i++){
+            if(graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH)
+                res.add(new Field(i/width-1, i%width-1, Type.FREE));
+        }
+        return res;
+    }
+
 }

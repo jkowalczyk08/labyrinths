@@ -13,6 +13,7 @@ public class Dfs {
     }
     static boolean runDfs(Graph graph, int current, int target, List<Field> process, List<Field>path){
         if(current==target){
+            process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
             path.add(new Field(graph.graph.get(current), Type.PATH));
             return true;
         }path.add(new Field(graph.graph.get(current), Type.PATH));
