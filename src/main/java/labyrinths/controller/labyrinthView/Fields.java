@@ -1,13 +1,8 @@
 package labyrinths.controller.labyrinthView;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.Type;
 
@@ -45,9 +40,11 @@ public class Fields {
     void changeFieldType(int height, int width, Type type) {
         Button button = fields.get(height).get(width);
         switch (type) {
+            case FREE:
+                button.setStyle("-fx-background-color: white;");
+                break;
             case WALL:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.DIMGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                button.setStyle("-fx-background-color: dimgrey;");
                 break;
             case START:
                 button.setGraphic(getImageView(button, "adventurer.png"));
@@ -56,12 +53,10 @@ public class Fields {
                 button.setGraphic(getImageView(button, "treasure.jpg"));
                 break;
             case PATH:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.CORAL, CornerRadii.EMPTY, Insets.EMPTY)));
+                button.setStyle("-fx-background-color: coral;");
                 break;
             case HIGHLIGHTED:
-                button.setBackground(new Background(
-                        new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
+                button.setStyle("-fx-background-color: burlywood;");
                 break;
         }
     }

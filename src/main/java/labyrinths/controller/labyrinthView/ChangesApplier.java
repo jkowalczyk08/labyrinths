@@ -28,9 +28,10 @@ public class ChangesApplier {
             if(!logic.ifFastForward() && waitMillis>0) {
                 try {
                     synchronized (lock) {
-                        lock.wait(waitMillis);
                         if(logic.ifStopped())
                             lock.wait();
+                        else
+                            lock.wait(waitMillis);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

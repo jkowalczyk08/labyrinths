@@ -34,6 +34,7 @@ public class LabyrinthController implements Initializable {
     @FXML
     Pane labyrinthPane;
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
+        labyrinthPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         fields = new Fields(labyrinthModel);
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
         GridPane gridPane = new GridPane();

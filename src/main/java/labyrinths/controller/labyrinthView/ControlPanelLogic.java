@@ -2,6 +2,7 @@ package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.ProgressBar;
 import labyrinths.model.Labyrinth;
+import labyrinths.model.Result;
 
 import static labyrinths.controller.labyrinthView.ControlPanel.ButtonType.*;
 
@@ -33,22 +34,27 @@ public class ControlPanelLogic {
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
-        applier.applyChanges(labyrinthModel.getDefault(), 0);
+        launch(labyrinthModel.getDefault(), 0);
         pause();
     }
 
-    void start() {
+    void launch(Result result, int waitMillis) {
         fastForward = false;
-        workingThread = new Thread(()->applier.applyChanges(labyrinthModel.perform(algorithm), 10));
-        workingThread.setDaemon(true);
-        workingThread.start();
+        stopped = false;
         controlPanel.setDisable(FAST_FORWARD, false);
         controlPanel.setDisable(PAUSE, false);
         controlPanel.setToStop();
+        workingThread = new Thread(()->applier.applyChanges(result, waitMillis));
+        workingThread.setDaemon(true);
+        workingThread.start();
+    }
+
+    void start() {
+        launch(labyrinthModel.perform(algorithm), 10);
     }
     void stop() {
+        stopped = true;
         synchronized (applier.getLock()) {
-            stopped = true;
             applier.getLock().notify();
         }
         controlPanel.setToGoOn();
@@ -62,9 +68,8 @@ public class ControlPanelLogic {
     }
     void fastForward() {
         fastForward = true;
-        if(!stopped)
-            stop();
-        goOn();
+        if(stopped)
+            goOn();
         try {
             workingThread.join();
         } catch (InterruptedException e) {
@@ -73,11 +78,11 @@ public class ControlPanelLogic {
     }
     void pause() {
         fastForward();
+        launch(labyrinthModel.getClear(), 0);
+        fastForward();
         controlPanel.setDisable(START_STOP, false);
         controlPanel.setDisable(PAUSE, true);
-        controlPanel.setToStart();
         progressBar.setProgress(0);
-        //function to clear here
     }
     public void end() {
         controlPanel.setToStart();
