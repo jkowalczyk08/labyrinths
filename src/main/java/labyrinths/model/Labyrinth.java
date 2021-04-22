@@ -76,6 +76,7 @@ public class Labyrinth {
         for(int i=0; i<width*height; i++){
             if(graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH)
                 res.add(new Field(i/width-1, i%width-1, Type.FREE));
+                graph.graph.get(i).field.type=Type.FREE;
         }
         return res;
     }

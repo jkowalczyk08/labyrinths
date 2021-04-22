@@ -15,6 +15,7 @@ public class Dfs {
         if(current==target){
             process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
             path.add(new Field(graph.graph.get(current), Type.PATH));
+            graph.graph.get(current).field.type=Type.PATH;
             return true;
         }path.add(new Field(graph.graph.get(current), Type.PATH));
         if(graph.graph.get(current).field.type!=Type.FREE){
