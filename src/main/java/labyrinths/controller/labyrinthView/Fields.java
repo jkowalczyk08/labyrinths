@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fields {
-    Background free = new Background(
-        new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
     List<List<Button>> fields;
     Fields(Labyrinth labyrinthModel) {
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
@@ -45,6 +43,8 @@ public class Fields {
         return imageView;
     }
 
+    Background free = new Background(
+            new BackgroundFill(Color.GAINSBORO, CornerRadii.EMPTY, Insets.EMPTY));
     Background wall = new Background(
             new BackgroundFill(Color.DIMGRAY, CornerRadii.EMPTY, Insets.EMPTY));
     Background path = new Background(
@@ -55,11 +55,9 @@ public class Fields {
         Button button = fields.get(height).get(width);
         switch (type) {
             case FREE:
-                //button.setStyle("-fx-background-color: white;");
                 button.setBackground(free);
                 break;
             case WALL:
-                //button.setStyle("-fx-background-color: dimgrey;");
                 button.setBackground(wall);
                 break;
             case START:
@@ -69,11 +67,9 @@ public class Fields {
                 button.setGraphic(getImageView(button, "treasure.jpg"));
                 break;
             case PATH:
-                //button.setStyle("-fx-background-color: coral;");
                 button.setBackground(path);
                 break;
             case HIGHLIGHTED:
-                //button.setStyle("-fx-background-color: burlywood;");
                 button.setBackground(highlighted);
                 break;
         }

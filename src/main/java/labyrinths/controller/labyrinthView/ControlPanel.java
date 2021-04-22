@@ -43,19 +43,18 @@ public class ControlPanel {
                 break;
         }
     }
+    Image stop = new Image(new File("src/main/resources/drawable/stop_grey.png").toURI().toString());
+    Image start = new Image(new File("src/main/resources/drawable/start.png").toURI().toString());
     public void setToStart() {
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.start());
-        File file = new File("src/main/resources/drawable/start.png");
-        startStopImg.setImage(new Image(file.toURI().toString()));
+        startStopImg.setImage(start);
     }
     public void setToStop() {
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.stop());
-        File file = new File("src/main/resources/drawable/stop.png");
-        startStopImg.setImage(new Image(file.toURI().toString()));
+        startStopImg.setImage(stop);
     }
     public void setToGoOn() {
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.goOn());
-        File file = new File("src/main/resources/drawable/start.png");
-        startStopImg.setImage(new Image(file.toURI().toString()));
+        startStopImg.setImage(start);
     }
 }

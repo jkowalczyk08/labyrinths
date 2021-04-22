@@ -62,7 +62,6 @@ public class LabyrinthController implements Initializable {
         File file3 = new File("src/main/resources/drawable/pause.png");
         pauseImg.setImage(new Image(file3.toURI().toString()));
 
-        progressBar.prefWidthProperty().bind(labyrinthPane.widthProperty());
         ChangesApplier applier = new ChangesApplier(fields);
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, progressBar);
         applier.initialize(logic);
