@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import java.net.URL?>
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.labyrinthView.LabyrinthController">
    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <HBox alignment="BOTTOM_LEFT" spacing="20.0">
@@ -60,6 +61,9 @@
          </padding>
       </HBox>
       <Pane fx:id="labyrinthPane" VBox.vgrow="ALWAYS">
+         <stylesheets>
+            <URL value="@style.css" />
+         </stylesheets>
          <VBox.margin>
             <Insets bottom="50.0" left="80.0" right="80.0" top="30.0" />
          </VBox.margin>
