@@ -65,7 +65,7 @@ public class Labyrinth {
             case PRESET_10x10:
                 return getDefault("src/main/resources/textFiles/sampleLabyrinth10x10.txt");
             case PRESET_15x30:
-                return getDefault("src/main/resources/textFiles/sampleLabyrinth15x30.txt");
+                return getDefault("src/main/resources/textFiles/sampleLabyrinth15x30(2).txt");
             case PRESET_20x40:
                 return getDefault("src/main/resources/textFiles/sampleLabyrinth20x40.txt");
         }
