@@ -34,6 +34,7 @@ public class ControlPanel {
         pauseBtn.setOnAction(actionEvent -> controlPanelLogic.pause());
     }
     public void back() {
+        MainMenuTest.mainStage.setMaximized(false);
         MainMenuTest.mainStage.setScene(MainMenuTest.scene);
     }
     public void setDisable(ButtonType type, boolean value) {
