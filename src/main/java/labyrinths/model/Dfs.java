@@ -1,5 +1,6 @@
 package labyrinths.model;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Dfs {
         //System.out.println(process);
 
         graph.graph.get(current).field.type=Type.PATH;
+        Collections.shuffle(graph.graph.get(current).neighbors);
         for(int x : graph.graph.get(current).neighbors){
             //System.out.println(x);
                 if(runDfs(graph, x, target, process, path))
