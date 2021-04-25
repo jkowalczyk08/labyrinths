@@ -28,7 +28,7 @@ public class Labyrinth {
         res.add(new Field(height-2-1, width-2-1, Type.TARGET));
         for(int i=2; i<height-1; i+=2){
             for(int j=1; j<width-1; j+=2){
-                if(!(i==height-2-1&&j==width-2-1)){
+                if(!(i==height-2&&j==width-2)){
                     //System.out.println(new Node(i, j))
                     graph.removeVertex(i, j);
                     res.add(new Field(i-1, j-1, Type.WALL));
