@@ -37,7 +37,22 @@ public class Labyrinth {
         }
         return res;
     }
-    public Result getDefault(){
+    public Result getPreset(LabyrinthPreset presetType) {
+        switch (presetType) {
+            case EMPTY:
+                return new Result();
+            case SNAKE:
+                return getSnake();
+            case PRESET_10x10:
+                return getDefault("src/main/resources/textFiles/sampleLabyrinth10x10.txt");
+            case PRESET_15x30:
+                return getDefault("src/main/resources/textFiles/sampleLabyrinth15x30.txt");
+            case PRESET_20x40:
+                return getDefault("src/main/resources/textFiles/sampleLabyrinth20x40.txt");
+        }
+        return new Result();
+    }
+    public Result getDefault(String s){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
@@ -45,7 +60,7 @@ public class Labyrinth {
         res.add(new Field(height-2-1, width-2-1, Type.TARGET));
         FileReader fr= null;
         try {
-            fr = new FileReader("src/main/resources/labyrinths/sampleLabyrinth15x30(2).txt");
+            fr = new FileReader(s);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
