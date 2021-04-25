@@ -20,7 +20,24 @@ public class Labyrinth {
     public Result perform(String algorithm){
         return new Result(Dfs.startDfs(graph, start, target));
     }
-    public Result getSnake(){
+    Result getDefault(){
+        Result res=new Result();
+        res.add(new Field(0, 0, Type.START));
+        start=width+1;
+        target=width*(height-1)-2;
+        res.add(new Field(height-2-1, width-2-1, Type.TARGET));
+        for(int i=2; i<height-1; i+=2){
+            for(int j=1; j<width-1; j+=2){
+                if(!(i==height-2-1&&j==width-2-1)){
+                    //System.out.println(new Node(i, j))
+                    graph.removeVertex(i, j);
+                    res.add(new Field(i-1, j-1, Type.WALL));
+                }
+            }
+        }
+        return res;
+    }
+    Result getSnake(){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
@@ -43,6 +60,8 @@ public class Labyrinth {
                 return new Result();
             case SNAKE:
                 return getSnake();
+            case DEFAULT:
+                return getDefault();
             case PRESET_10x10:
                 return getDefault("src/main/resources/textFiles/sampleLabyrinth10x10.txt");
             case PRESET_15x30:
@@ -52,7 +71,7 @@ public class Labyrinth {
         }
         return new Result();
     }
-    public Result getDefault(String s){
+    Result getDefault(String s){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
