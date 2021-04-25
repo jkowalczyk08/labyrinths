@@ -2,12 +2,9 @@ module labyrinths {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens labyrinths to javafx.fxml;
-    opens labyrinths.controller to javafx.fxml;
     opens labyrinths.controller.labyrinthView to javafx.fxml;
-    opens labyrinths.controller.menu to javafx.fxml;
+    opens labyrinths.controller.menuView to javafx.fxml;
 
     exports labyrinths;
-    exports labyrinths.controller;
-    exports labyrinths.controller.menu;
+    exports labyrinths.controller.menuView;
 }

@@ -1,4 +1,4 @@
-package labyrinths.controller.menu;
+package labyrinths.controller.menuView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import labyrinths.App;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
 import labyrinths.model.LabyrinthPreset;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenuTestController implements Initializable {
+public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,8 +37,8 @@ public class MainMenuTestController implements Initializable {
 
         preset10x10Btn.setOnAction(actionEvent -> {
             try {
-                MainMenuTest.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(10,10,LabyrinthPreset.PRESET_10x10));
-                MainMenuTest.mainStage.setMaximized(true);
+                App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(10,10,LabyrinthPreset.PRESET_10x10));
+                App.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -46,8 +47,8 @@ public class MainMenuTestController implements Initializable {
 
         preset15x30Btn.setOnAction(actionEvent -> {
             try {
-                MainMenuTest.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(15,30,LabyrinthPreset.PRESET_15x30));
-                MainMenuTest.mainStage.setMaximized(true);
+                App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(15,30,LabyrinthPreset.PRESET_15x30));
+                App.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,8 +57,8 @@ public class MainMenuTestController implements Initializable {
 
         preset20x40Btn.setOnAction(actionEvent -> {
             try {
-                MainMenuTest.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(20,40,LabyrinthPreset.PRESET_20x40));
-                MainMenuTest.mainStage.setMaximized(true);
+                App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(20,40,LabyrinthPreset.PRESET_20x40));
+                App.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,9 +67,9 @@ public class MainMenuTestController implements Initializable {
 
         confirmBtn.setOnAction((actionEvent -> {
             try {
-                MainMenuTest.mainStage.setScene(LabyrinthGetter.
+                App.mainStage.setScene(LabyrinthGetter.
                         getLabyrinthScene((int) heightSlider.getValue(),(int) widthSlider.getValue(), LabyrinthPreset.DEFAULT));
-                MainMenuTest.mainStage.setMaximized(true);
+                App.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }

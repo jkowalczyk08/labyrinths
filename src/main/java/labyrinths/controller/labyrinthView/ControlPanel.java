@@ -1,10 +1,9 @@
 package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import labyrinths.controller.menu.MainMenuTest;
+import labyrinths.App;
 
 import java.io.File;
 
@@ -34,8 +33,8 @@ public class ControlPanel {
         pauseBtn.setOnAction(actionEvent -> controlPanelLogic.pause());
     }
     public void back() {
-        MainMenuTest.mainStage.setMaximized(false);
-        MainMenuTest.mainStage.setScene(MainMenuTest.scene);
+        App.mainStage.setMaximized(false);
+        App.mainStage.setScene(App.scene);
     }
     public void setDisable(ButtonType type, boolean value) {
         switch (type) {
