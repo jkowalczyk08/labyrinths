@@ -11,7 +11,7 @@ Application visualising graph searching algorithms. User will be able to build a
 
 **Features to implement:**
 
-- Possibility to build custom labirynths
+- Possibility to build custom labyrinths
 - Custom labyrinth size
 - Custom start and finish nodes
 - Range of search algorithms to choose from
