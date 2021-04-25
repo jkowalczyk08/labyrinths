@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import labyrinths.model.Labyrinth;
+import labyrinths.model.LabyrinthPreset;
 import labyrinths.model.Result;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class UIController implements Initializable {
         labyrinthModel = new Labyrinth(properties.getHeight(), properties.getWidth());
         fields = new Fields(labyrinthModel);
         constructEmptyLabyrinth();
-        applyChanges(labyrinthModel.getDefault(),0);
+        applyChanges(labyrinthModel.getPreset(LabyrinthPreset.SNAKE),0);
         initializeButtons();
     }
 
@@ -62,7 +63,7 @@ public class UIController implements Initializable {
         TODO: clearBtn should ideally apply changes labyrinthModel.clear() and labyrinthModel.getDefault()
                 (so that it clears only the path, not the labyrinth walls)
          */
-        clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
+        //clearBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.getDefault(), 0));
         dfsBtn.setOnAction(actionEvent -> applyChanges(labyrinthModel.perform("dfs"), 10));
         settingsBtn.setOnAction(actionEvent -> {
             try {

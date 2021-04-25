@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import labyrinths.controller.menu.MainMenuTest;
 
 import java.io.File;
 
@@ -11,24 +12,29 @@ public class ControlPanel {
     public enum ButtonType {
         START_STOP, FAST_FORWARD, PAUSE
     }
-    Button startStopBtn, fastForwardBtn, pauseBtn;
+    Button backBtn, startStopBtn, fastForwardBtn, pauseBtn;
     ControlPanelLogic controlPanelLogic;
     ImageView startStopImg;
-    ControlPanel(ControlPanelLogic controlLogic, Button startStopBtn, Button fastForwardBtn, Button pauseBtn,
+    ControlPanel(ControlPanelLogic controlLogic, Button backBtn, Button startStopBtn, Button fastForwardBtn, Button pauseBtn,
                  ImageView startStopImg) {
         this.controlPanelLogic = controlLogic;
         this.startStopBtn = startStopBtn;
         this.fastForwardBtn = fastForwardBtn;
         this.pauseBtn = pauseBtn;
         this.startStopImg = startStopImg;
+        this.backBtn = backBtn;
     }
 
     public void initialize() {
         controlPanelLogic.initialize(this);
 
+        backBtn.setOnAction(actionEvent -> back());
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.start());
         fastForwardBtn.setOnAction(actionEvent -> controlPanelLogic.fastForward());
         pauseBtn.setOnAction(actionEvent -> controlPanelLogic.pause());
+    }
+    public void back() {
+        MainMenuTest.mainStage.setScene(MainMenuTest.scene);
     }
     public void setDisable(ButtonType type, boolean value) {
         switch (type) {

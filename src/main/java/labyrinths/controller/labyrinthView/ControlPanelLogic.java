@@ -49,7 +49,7 @@ public class ControlPanelLogic {
         workingThread.start();
     }
     void start() {
-        launch(labyrinthModel.perform(algorithm), 100);
+        launch(labyrinthModel.perform(algorithm), 50);
     }
     void stop() {
         stopped = true;

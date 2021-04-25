@@ -51,7 +51,7 @@ public class LabyrinthController implements Initializable {
     }
 
     @FXML
-    Button dfsBtn, startStopBtn, fastForwardBtn, pauseBtn;
+    Button backBtn, dfsBtn, startStopBtn, fastForwardBtn, pauseBtn;
     @FXML
     ImageView startStopImg, fastForwardImg, pauseImg;
     @FXML
@@ -66,7 +66,7 @@ public class LabyrinthController implements Initializable {
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, progressBar);
         applier.initialize(logic);
 
-        ControlPanel panel = new ControlPanel(logic, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
+        ControlPanel panel = new ControlPanel(logic, backBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
         panel.initialize();
     }
 }
