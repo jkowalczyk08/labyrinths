@@ -34,7 +34,7 @@ public class ControlPanelLogic {
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
-        launch(labyrinthModel.getDefault(), 0);
+        launch(labyrinthModel.getSnake(), 0);
         pause();
     }
 
@@ -48,9 +48,8 @@ public class ControlPanelLogic {
         workingThread.setDaemon(true);
         workingThread.start();
     }
-
     void start() {
-        launch(labyrinthModel.perform(algorithm), 10);
+        launch(labyrinthModel.perform(algorithm), 100);
     }
     void stop() {
         stopped = true;

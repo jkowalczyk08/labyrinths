@@ -3,6 +3,8 @@ package labyrinths.controller.labyrinthView;
 import labyrinths.model.Field;
 import labyrinths.model.Result;
 
+import java.util.Timer;
+
 
 public class ChangesApplier {
     Fields fields;
@@ -22,16 +24,18 @@ public class ChangesApplier {
 
     public void applyChanges(Result result, long waitMillis) {
         int i=0;
+
         for(Field field : result.getChanges()) {
+            long lastTime = System.currentTimeMillis();
             fields.changeFieldType(field.getH(), field.getW(), field.getType());
             logic.getProgressBar().setProgress((double)i++/result.getChanges().size());
-            if(!logic.ifFastForward() && waitMillis>0) {
+            if(!logic.ifFastForward()) {
                 try {
                     synchronized (lock) {
                         if(logic.ifStopped())
                             lock.wait();
                         else
-                            lock.wait(waitMillis);
+                            lock.wait(Math.max(lastTime+waitMillis-System.currentTimeMillis(), 0));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
