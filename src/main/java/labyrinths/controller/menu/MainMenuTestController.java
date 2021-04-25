@@ -28,9 +28,9 @@ public class MainMenuTestController implements Initializable {
     @FXML
     ImageView preset10x10Img, preset15x30Img, preset20x40Img;
 
-    Image preset10x10 = new Image(new File("src/main/resources/drawable/banana.png").toURI().toString());
-    Image preset15x30 = new Image(new File("src/main/resources/drawable/banana.png").toURI().toString());
-    Image preset20x40 = new Image(new File("src/main/resources/drawable/banana.png").toURI().toString());
+    Image preset10x10 = new Image(new File("src/main/resources/drawable/preset_10x10.png").toURI().toString());
+    Image preset15x30 = new Image(new File("src/main/resources/drawable/preset_15x30.png").toURI().toString());
+    Image preset20x40 = new Image(new File("src/main/resources/drawable/preset_20x40.png").toURI().toString());
 
     void initializeControls() {
 
