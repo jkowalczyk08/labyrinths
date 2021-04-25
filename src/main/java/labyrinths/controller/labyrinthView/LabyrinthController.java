@@ -40,7 +40,7 @@ public class LabyrinthController implements Initializable {
         for(int i=0; i<height; ++i) {
             for(int j=0; j<width; ++j) {
                 Button field = fields.get(i).get(j);
-                field.prefWidthProperty().bind(labyrinthPane.widthProperty().divide(width));
+                field.prefWidthProperty().bind(labyrinthPane.heightProperty().divide(height));
                 field.prefHeightProperty().bind(labyrinthPane.heightProperty().divide(height));
                 gridPane.add(field, j, i);
             }

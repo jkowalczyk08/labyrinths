@@ -67,7 +67,7 @@ public class MainMenuTestController implements Initializable {
         confirmBtn.setOnAction((actionEvent -> {
             try {
                 MainMenuTest.mainStage.setScene(LabyrinthGetter.
-                        getLabyrinthScene((int) heightSlider.getValue(),(int) widthSlider.getValue(), LabyrinthPreset.SNAKE));
+                        getLabyrinthScene((int) heightSlider.getValue(),(int) widthSlider.getValue(), LabyrinthPreset.DEFAULT));
                 MainMenuTest.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
