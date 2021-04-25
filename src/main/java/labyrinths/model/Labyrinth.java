@@ -17,7 +17,7 @@ public class Labyrinth {
         this.height=height+2;
         graph=new Graph(this.height, this.width);
     }
-    public Result perform(String algorithm){
+    public Result perform(Algorithms algorithm){
         return new Result(Dfs.startDfs(graph, start, target));
     }
     Result getDefault(){

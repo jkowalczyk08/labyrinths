@@ -1,6 +1,7 @@
 package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.ProgressBar;
+import labyrinths.model.Algorithms;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
 import labyrinths.model.Result;
@@ -13,7 +14,6 @@ public class ControlPanelLogic {
     ProgressBar progressBar;
     ChangesApplier applier;
 
-    String algorithm = "dfs"; // change to enum
     boolean fastForward, stopped;
     Thread workingThread = new Thread(()->{});
 
@@ -50,7 +50,7 @@ public class ControlPanelLogic {
         workingThread.start();
     }
     void start() {
-        launch(labyrinthModel.perform(algorithm), 50);
+        launch(labyrinthModel.perform(Algorithms.DFS), 50);
     }
     void stop() {
         stopped = true;
