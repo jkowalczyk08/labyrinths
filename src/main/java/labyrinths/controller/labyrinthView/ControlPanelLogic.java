@@ -2,6 +2,7 @@ package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.ProgressBar;
 import labyrinths.model.Labyrinth;
+import labyrinths.model.LabyrinthPreset;
 import labyrinths.model.Result;
 
 import static labyrinths.controller.labyrinthView.ControlPanel.ButtonType.*;
@@ -34,7 +35,7 @@ public class ControlPanelLogic {
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
-        launch(labyrinthModel.getSnake(), 0);
+        launch(labyrinthModel.getPreset(LabyrinthPreset.DEFAULT), 0);
         pause();
     }
 
