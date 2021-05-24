@@ -6,13 +6,16 @@ import javafx.stage.Stage;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
+import labyrinths.model.Result;
 
 import java.io.IOException;
 
-public class LabyrinthTest extends Application {
+public class LabyrinthTest extends Application { //class for test purpose only
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = LabyrinthGetter.getLabyrinthScene(15, 30, LabyrinthPreset.SNAKE);
+        Labyrinth labyrinth = new Labyrinth(15, 30);
+        Result result = labyrinth.getPreset(LabyrinthPreset.SNAKE);
+        Scene scene = LabyrinthGetter.getLabyrinthScene(labyrinth, result);
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();

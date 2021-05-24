@@ -35,7 +35,7 @@ public class ControlPanelLogic {
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
-        launch(labyrinthModel.getPreset(LabyrinthGetter.getPreset()), 0);
+        launch(LabyrinthGetter.getInitResult(), 0);
         pause();
     }
 

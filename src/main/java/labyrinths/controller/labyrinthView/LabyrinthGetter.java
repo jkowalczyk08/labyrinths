@@ -4,21 +4,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
+import labyrinths.model.Result;
 
 import java.io.IOException;
 
 public class LabyrinthGetter {
     static Labyrinth labyrinthModel;
-    static LabyrinthPreset preset;
+    static Result initResult;
 
     public static Labyrinth getLabyrinthModel() {
         return labyrinthModel;
     }
-    public static LabyrinthPreset getPreset() { return preset; }
+    public static Result getInitResult() {
+        return initResult;
+    }
 
-    public static Scene getLabyrinthScene(int height, int width, LabyrinthPreset preset) throws IOException {
-        labyrinthModel = new Labyrinth(height, width);
-        LabyrinthGetter.preset = preset;
+    public static Scene getLabyrinthScene(Labyrinth labyrinthModel, Result initResult) throws IOException {
+        LabyrinthGetter.labyrinthModel = labyrinthModel;
+        LabyrinthGetter.initResult = initResult;
         FXMLLoader fxmlLoader = new FXMLLoader(LabyrinthController.class.getResource("labyrinth.fxml"));
         return new Scene(fxmlLoader.load());
     }
