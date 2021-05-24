@@ -6,7 +6,8 @@ public class Testing {
         //System.out.println();
         //l.getDefault();
         //System.out.println(l.graph);
-        //l.table[5][5]=Type.TARGET;
-        //System.out.println(l.perform("dfs"));
+        //l.setStart(1,1);
+        //l.setTarget(3,3);
+        //System.out.println(l.perform(Algorithms.BFS));
     }
 }

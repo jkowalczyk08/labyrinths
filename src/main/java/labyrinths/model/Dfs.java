@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Dfs {
-    public static List<Field> startDfs(Graph graph, int start, int target){
+    public static List<Field> startAlgorithm(Graph graph, int start, int target){
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();
         if(!runDfs(graph, start, target, process, path) )return process;

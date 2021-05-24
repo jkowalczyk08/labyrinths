@@ -1,5 +1,6 @@
 package labyrinths.model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,10 +16,16 @@ public class Labyrinth {
     public Labyrinth(int height, int width){
         this.width=width+2;
         this.height=height+2;
+        start=0;
+        target=0;
         graph=new Graph(this.height, this.width);
     }
     public Result perform(Algorithms algorithm){
-        return new Result(Dfs.startDfs(graph, start, target));
+        if(algorithm==Algorithms.DFS)
+            return new Result(Dfs.startAlgorithm(graph, start, target));
+        if(algorithm==Algorithms.BFS)
+            return new Result(Bfs.startAlgorithm(graph, start, target));
+        return new Result();
     }
     Result getDefault(){
         Result res=new Result();
@@ -104,6 +111,34 @@ public class Labyrinth {
             e.printStackTrace();
         }
         return res;
+    }
+    public Result removeWall(int h, int w){
+        Result result=new Result();
+        result.add(new Field(h, w, Type.FREE));
+        graph.removeVertex(h+1, w+1);
+        return result;
+    }
+    public Result addWall(int h, int w){
+        Result result=new Result();
+        result.add(new Field(h, w, Type.WALL));
+        graph.addVertex(h+1, w+1);
+        return result;
+    }
+    public Result setStart(int h, int w){
+        Result result=new Result();
+        start=graph.indexOf(h+1, w+1);
+        result.add(new Field(h, w, Type.START));
+        if(start!=0)
+            result.add(new Field(graph.graph.get(start), Type.FREE));
+        return result;
+    }
+    public Result setTarget(int h, int w){
+        Result result=new Result();
+        target=graph.indexOf(h+1, w+1);
+        result.add(new Field(h, w, Type.TARGET));
+        if(target!=0)
+            result.add(new Field(graph.graph.get(target), Type.FREE));
+        return result;
     }
     public Result getClear(){
         Result res=new Result();

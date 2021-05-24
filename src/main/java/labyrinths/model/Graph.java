@@ -35,11 +35,34 @@ public class Graph {
             }
         }
     }
-    void addVertex(Node x){
+    void addVertex(int h, int w){
+        if(graph.get(indexOf(h, w)).field.type!=Type.WALL) return;
+        if(h-1>0&&graph.get(indexOf(h-1, w)).field.type!=Type.WALL){
+            graph.get(indexOf(h, w)).neighbors.add(indexOf(h-1, w));
+            graph.get(indexOf(h-1, w)).neighbors.add(indexOf(h, w));
+        }
+        if(h+1<height-1&&graph.get(indexOf(h+1, w)).field.type!=Type.WALL){
+            graph.get(indexOf(h, w)).neighbors.add(indexOf(h+1, w));
+            graph.get(indexOf(h+1, w)).neighbors.add(indexOf(h, w));
+        }
+        if(w-1>0&&graph.get(indexOf(h, w-1)).field.type!=Type.WALL){
+            graph.get(indexOf(h, w)).neighbors.add(indexOf(h, w-1));
+            graph.get(indexOf(h, w-1)).neighbors.add(indexOf(h, w));
+        }
+        if(w+1<width-1&&graph.get(indexOf(h, w+1)).field.type!=Type.WALL){
+            graph.get(indexOf(h, w)).neighbors.add(indexOf(h, w+1));
+            graph.get(indexOf(h, w+1)).neighbors.add(indexOf(h, w));
+        }
     }
     void addEdge(Node one, Node two){
+        if(!one.neighbors.contains(indexOf(two)))
+        one.neighbors.add(indexOf(two));
+        if(!two.neighbors.contains(indexOf(one)))
+            two.neighbors.add(indexOf(one));
     }
     void removeEdge(Node one, Node two){
+            one.neighbors.remove(indexOf(two));
+            two.neighbors.remove(indexOf(one));
     }
     void removeVertex(int h, int w){
         for(int nei : graph.get(indexOf(h, w)).neighbors){
