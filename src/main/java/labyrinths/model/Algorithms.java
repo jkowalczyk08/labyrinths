@@ -1,5 +1,5 @@
 package labyrinths.model;
 
 public enum Algorithms {
-    DFS, BFS
+    DFS, BFS, Astar
 }

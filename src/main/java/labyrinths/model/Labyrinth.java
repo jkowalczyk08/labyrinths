@@ -26,6 +26,8 @@ public class Labyrinth {
             return new Result(Dfs.startAlgorithm(graph, start, target));
         if(algorithm==Algorithms.BFS)
             return new Result(Bfs.startAlgorithm(graph, start, target));
+        if(algorithm==Algorithms.Astar)
+            return new Result(Astar.startAlgorithm(graph, start, target));
         return new Result();
     }
     Result getFromString(String s){
