@@ -1,18 +1,27 @@
 package labyrinths.controller.labyrinthView;
 
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
+import labyrinths.controller.Config;
 import labyrinths.model.Algorithms;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
 import labyrinths.model.Result;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static javafx.collections.FXCollections.observableArrayList;
 import static labyrinths.controller.labyrinthView.ControlPanel.ButtonType.*;
 
-public class ControlPanelLogic {
+public class ControlPanelLogic implements Config {
     Labyrinth labyrinthModel;
     ControlPanel controlPanel;
     ProgressBar progressBar;
     ChangesApplier applier;
+    ModificationPanel modificationPanel;
+    ChoiceBox<String> algorithmBox;
 
     boolean fastForward, stopped;
     Thread workingThread = new Thread(()->{});
@@ -27,16 +36,22 @@ public class ControlPanelLogic {
         return progressBar;
     }
 
-    ControlPanelLogic(Labyrinth labyrinthModel, ChangesApplier applier, ProgressBar progressBar) {
+    ControlPanelLogic(Labyrinth labyrinthModel, ChangesApplier applier, ModificationPanel modificationPanel,
+                      ProgressBar progressBar, ChoiceBox<String> algorithmBox) {
         this.labyrinthModel = labyrinthModel;
         this.applier = applier;
         this.progressBar = progressBar;
+        this.algorithmBox = algorithmBox;
+        this.modificationPanel = modificationPanel;
     }
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
         launch(LabyrinthGetter.getInitResult(), 0);
         pause();
+        String[] algorithms = {"DFS", "BFS"};
+        algorithmBox.setItems(observableArrayList(algorithms));
+        algorithmBox.setValue("DFS");
     }
 
     void launch(Result result, int waitMillis) {
@@ -45,23 +60,27 @@ public class ControlPanelLogic {
         controlPanel.setDisable(FAST_FORWARD, false);
         controlPanel.setDisable(PAUSE, false);
         controlPanel.setToStop();
+        modificationPanel.setDisable(true);
         workingThread = new Thread(()->applier.applyChanges(result, waitMillis));
         workingThread.setDaemon(true);
         workingThread.start();
     }
     void start() {
-        launch(labyrinthModel.perform(Algorithms.DFS), 50);
+        if(algorithmBox.getValue().equals("DFS"))
+            launch(labyrinthModel.perform(Algorithms.DFS), ALGORITHM_DELAY);
+        else
+            launch(labyrinthModel.perform(Algorithms.BFS), ALGORITHM_DELAY);
     }
     void stop() {
-        stopped = true;
         synchronized (applier.getLock()) {
+            stopped = true;
             applier.getLock().notify();
         }
         controlPanel.setToGoOn();
     }
     void goOn() {
-        stopped = false;
         synchronized (applier.getLock()) {
+            stopped = false;
             applier.getLock().notify();
         }
         controlPanel.setToStop();
@@ -88,5 +107,6 @@ public class ControlPanelLogic {
         controlPanel.setToStart();
         controlPanel.setDisable(START_STOP, true);
         controlPanel.setDisable(FAST_FORWARD, true);
+        modificationPanel.setDisable(false);
     }
 }

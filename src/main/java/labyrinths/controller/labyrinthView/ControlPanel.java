@@ -23,7 +23,6 @@ public class ControlPanel {
         this.startStopImg = startStopImg;
         this.backBtn = backBtn;
     }
-
     public void initialize() {
         controlPanelLogic.initialize(this);
 

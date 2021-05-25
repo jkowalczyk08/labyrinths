@@ -3,8 +3,7 @@ package labyrinths.controller.labyrinthView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -51,19 +50,26 @@ public class LabyrinthController implements Initializable {
     }
 
     @FXML
-    Button backBtn, dfsBtn, startStopBtn, fastForwardBtn, pauseBtn;
+    Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn;
+    @FXML
+    ToggleButton freeBtn, wallBtn, startBtn, targetBtn;
+    @FXML
+    ChoiceBox<String> algorithmBox;
     @FXML
     ImageView startStopImg, fastForwardImg, pauseImg;
     @FXML
     ProgressBar progressBar;
     void initializePanel(Labyrinth labyrinthModel) {
-        File file2 = new File("src/main/resources/drawable/fastForward.png");
-        fastForwardImg.setImage(new Image(file2.toURI().toString()));
-        File file3 = new File("src/main/resources/drawable/pause.png");
-        pauseImg.setImage(new Image(file3.toURI().toString()));
+        File file = new File("src/main/resources/drawable/fastForward.png");
+        fastForwardImg.setImage(new Image(file.toURI().toString()));
+        File file2 = new File("src/main/resources/drawable/pause.png");
+        pauseImg.setImage(new Image(file2.toURI().toString()));
+
+        ModificationPanel modificationPanel = new ModificationPanel(freeBtn, wallBtn, startBtn, targetBtn);
+        modificationPanel.initialize();
 
         ChangesApplier applier = new ChangesApplier(fields);
-        ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, progressBar);
+        ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, modificationPanel, progressBar, algorithmBox);
         applier.initialize(logic);
 
         ControlPanel panel = new ControlPanel(logic, backBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
