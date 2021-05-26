@@ -35,6 +35,9 @@ public class ControlPanelLogic implements Config {
     public ProgressBar getProgressBar() {
         return progressBar;
     }
+    public Labyrinth getLabyrinthModel() {
+        return labyrinthModel;
+    }
 
     ControlPanelLogic(Labyrinth labyrinthModel, ChangesApplier applier, ModificationPanel modificationPanel,
                       ProgressBar progressBar, ChoiceBox<String> algorithmBox) {
@@ -53,7 +56,9 @@ public class ControlPanelLogic implements Config {
         algorithmBox.setItems(observableArrayList(algorithms));
         algorithmBox.setValue("DFS");
     }
-
+    void quickApply(Result result) {
+        applier.quickApply(result);
+    }
     void launch(Result result, int waitMillis) {
         fastForward = false;
         stopped = false;

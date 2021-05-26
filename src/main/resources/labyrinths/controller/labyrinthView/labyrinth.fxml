@@ -34,8 +34,7 @@
                   <Font name="System Bold" size="24.0"/>
                </font>
             </Label>
-            <ToggleButton fx:id="wallBtn" mnemonicParsing="false" text="Wall"/>
-            <ToggleButton fx:id="freeBtn" mnemonicParsing="false" text="Free"/>
+            <ToggleButton fx:id="changeBtn" mnemonicParsing="false" text="Change"/>
             <ToggleButton fx:id="startBtn" layoutX="236.0" layoutY="33.0" mnemonicParsing="false" text="Start"/>
             <ToggleButton fx:id="targetBtn" layoutX="177.0" layoutY="33.0" mnemonicParsing="false" text="Target"/>
          </HBox>

@@ -18,14 +18,18 @@ import static javafx.application.Application.launch;
 
 public class LabyrinthController implements Initializable {
     Fields fields;
+    ModificationPanel modificationPanel;
 
     @FXML
     AnchorPane mainPane;
+    @FXML
+    ToggleButton changeBtn, startBtn, targetBtn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainPane.setBackground(new Background(
                 new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
+        modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn);
         constructEmptyLabyrinth(labyrinthModel);
         initializePanel(labyrinthModel);
     }
@@ -33,7 +37,7 @@ public class LabyrinthController implements Initializable {
     @FXML
     Pane labyrinthPane;
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
-        fields = new Fields(labyrinthModel);
+        fields = new Fields(labyrinthModel, modificationPanel);
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
         GridPane gridPane = new GridPane();
         for(int i=0; i<height; ++i) {
@@ -52,8 +56,6 @@ public class LabyrinthController implements Initializable {
     @FXML
     Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn;
     @FXML
-    ToggleButton freeBtn, wallBtn, startBtn, targetBtn;
-    @FXML
     ChoiceBox<String> algorithmBox;
     @FXML
     ImageView startStopImg, fastForwardImg, pauseImg;
@@ -65,12 +67,11 @@ public class LabyrinthController implements Initializable {
         File file2 = new File("src/main/resources/drawable/pause.png");
         pauseImg.setImage(new Image(file2.toURI().toString()));
 
-        ModificationPanel modificationPanel = new ModificationPanel(freeBtn, wallBtn, startBtn, targetBtn);
-        modificationPanel.initialize();
-
         ChangesApplier applier = new ChangesApplier(fields);
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, modificationPanel, progressBar, algorithmBox);
         applier.initialize(logic);
+        modificationPanel.initialize(logic);
+
 
         ControlPanel panel = new ControlPanel(logic, backBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
         panel.initialize();

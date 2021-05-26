@@ -22,9 +22,14 @@ public class ChangesApplier {
         this.logic = logic;
     }
 
+    public void quickApply(Result result) {
+        System.out.println(result.getChanges());
+        for(Field field : result.getChanges())
+            fields.changeFieldType(field.getH(), field.getW(), field.getType());
+    }
     public void applyChanges(Result result, long waitMillis) {
+        System.out.println(result.getChanges());
         int i=0;
-
         for(Field field : result.getChanges()) {
             long lastTime = System.currentTimeMillis();
             fields.changeFieldType(field.getH(), field.getW(), field.getType());

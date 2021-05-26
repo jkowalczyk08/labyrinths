@@ -17,7 +17,9 @@ import java.util.List;
 
 public class Fields {
     List<List<Button>> fields;
-    Fields(Labyrinth labyrinthModel) {
+    ModificationPanel modificationPanel;
+    Fields(Labyrinth labyrinthModel, ModificationPanel modificationPanel) {
+        this.modificationPanel = modificationPanel;
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
         fields = new ArrayList<>();
         for(int i=0; i<height; ++i) {
@@ -25,6 +27,8 @@ public class Fields {
             for (int j = 0; j < width; ++j) {
                 Button field = new Button("");
                 field.setBackground(free);
+                final int finalI = i, finalJ = j;
+                field.setOnAction(e -> this.modificationPanel.modify(finalI, finalJ));
                 row.add(field);
             }
             fields.add(row);
@@ -38,8 +42,8 @@ public class Fields {
         Image image = new Image(new File("src/main/resources/drawable/"+name).toURI().toString());
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.fitHeightProperty().bind(button.prefHeightProperty().subtract(10));
-        imageView.fitWidthProperty().bind(button.prefWidthProperty().subtract(17));
+        imageView.fitHeightProperty().bind(button.prefHeightProperty().subtract(12));
+        imageView.fitWidthProperty().bind(button.prefWidthProperty().subtract(18));
         return imageView;
     }
 
@@ -55,6 +59,7 @@ public class Fields {
         Button button = fields.get(height).get(width);
         switch (type) {
             case FREE:
+                button.setGraphic(null);
                 button.setBackground(free);
                 break;
             case WALL:
