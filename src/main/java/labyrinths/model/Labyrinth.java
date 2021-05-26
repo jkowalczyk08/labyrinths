@@ -30,8 +30,10 @@ public class Labyrinth {
                 return new Result(Bfs.startAlgorithm(graph, start, target));
             if(algorithm.equals("Astar"))
                 return new Result(Astar.startAlgorithm(graph, start, target));
-        if(algorithm.equals("BidirectionalBFS"))
-            return new Result(BidirectionalBFS.startAlgorithm(graph, start, target));
+            if(algorithm.equals("BidirectionalBFS"))
+                return new Result(BidirectionalBFS.startAlgorithm(graph, start, target));
+        if(algorithm.equals("GreedyBestFirstSearch"))
+            return new Result(GreedyBestFirstSearch.startAlgorithm(graph, start, target));
             return new Result();
     }
     public List<String> availableAlgorithms(){
@@ -40,6 +42,7 @@ public class Labyrinth {
         a.add("BFS");
         a.add("Astar");
         a.add("BidirectionalBFS");
+        a.add("GreedyBestFirstSearch");
         return a;
     }
     Result getFromString(String s){

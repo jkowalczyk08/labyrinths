@@ -51,7 +51,6 @@ public class BidirectionalBFS{
                 path.add(new Field(graph.graph.get(current1), Type.PATH));
                 graph.graph.get(current2).field.type=Type.PATH;
                 path.add(new Field(graph.graph.get(current2), Type.PATH));
-                System.out.println(path);
                 return true;
             }
             process.add(new Field(graph.graph.get(current1), Type.HIGHLIGHTED));
@@ -88,7 +87,6 @@ public class BidirectionalBFS{
                 path.add(new Field(graph.graph.get(current1), Type.PATH));
                 graph.graph.get(current2).field.type=Type.PATH;
                 path.add(new Field(graph.graph.get(current2), Type.PATH));
-                System.out.println(path);
                 return true;
             }
             graph.graph.get(current2).field.type=Type.HIGHLIGHTED2;
