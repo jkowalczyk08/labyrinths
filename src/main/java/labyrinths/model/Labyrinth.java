@@ -24,16 +24,16 @@ public class Labyrinth {
         graph=new Graph(this.height, this.width);
     }
     public Result perform(String algorithm){
-            if(algorithm=="DFS")
+            if(algorithm.equals("DFS"))
                 return new Result(Dfs.startAlgorithm(graph, start, target));
-            if(algorithm=="BFS")
+            if(algorithm.equals("BFS"))
                 return new Result(Bfs.startAlgorithm(graph, start, target));
-            if(algorithm=="Astar")
+            if(algorithm.equals("Astar"))
                 return new Result(Astar.startAlgorithm(graph, start, target));
             return new Result();
     }
-    List<String> availableAlgorithms(){
-        List<String> a=new ArrayList<String>();
+    public List<String> availableAlgorithms(){
+        List<String> a=new ArrayList<>();
         a.add("DFS");
         a.add("BFS");
         a.add("Astar");
@@ -56,9 +56,8 @@ public class Labyrinth {
         target=width*(height-1)-2;
         res.add(new Field(height-2-1, width-2-1, Type.TARGET));
         int i=0;
-        int j=0;
         while(i<s.length()) {
-            j=s.charAt(i);
+            int j=s.charAt(i);
             if((char)j=='x') {
                 graph.removeVertex(i / width +1, i % width+1);
                 res.add(new Field(i / width , i % width , Type.WALL));

@@ -10,6 +10,7 @@ import labyrinths.model.Result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -52,9 +53,9 @@ public class ControlPanelLogic implements Config {
         this.controlPanel = controlPanel;
         launch(LabyrinthGetter.getInitResult(), 0);
         pause();
-        String[] algorithms = {"DFS", "BFS"};
+        List<String> algorithms = labyrinthModel.availableAlgorithms();
         algorithmBox.setItems(observableArrayList(algorithms));
-        algorithmBox.setValue("DFS");
+        algorithmBox.setValue(algorithms.get(0));
     }
     void quickApply(Result result) {
         applier.quickApply(result);
@@ -71,10 +72,7 @@ public class ControlPanelLogic implements Config {
         workingThread.start();
     }
     void start() {
-        if(algorithmBox.getValue().equals("DFS"))
-            launch(labyrinthModel.perform(Algorithms.DFS), ALGORITHM_DELAY);
-        else
-            launch(labyrinthModel.perform(Algorithms.BFS), ALGORITHM_DELAY);
+        launch(labyrinthModel.perform(algorithmBox.getValue()), ALGORITHM_DELAY);
     }
     void stop() {
         synchronized (applier.getLock()) {
