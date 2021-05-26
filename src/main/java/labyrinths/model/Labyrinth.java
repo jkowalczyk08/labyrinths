@@ -148,6 +148,8 @@ public class Labyrinth {
     }
     public Result addWall(int h, int w){
         Result result=new Result();
+        if(teleports.contains(graph.indexOf(h+1, w+1)))
+            setTeleport(h,w);
         if(graph.graph.get(graph.indexOf(h+1, w+1)).field.type!=Type.WALL){
             result.add(new Field(h, w, Type.WALL));
             graph.removeVertex(h+1, w+1);
