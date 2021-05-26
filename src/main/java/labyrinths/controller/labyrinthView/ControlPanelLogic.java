@@ -103,6 +103,7 @@ public class ControlPanelLogic implements Config {
         progressBar.setProgress(0);
     }
     public void end() {
+        progressBar.setProgress(1);
         controlPanel.setToStart();
         controlPanel.setDisable(START_STOP, true);
         controlPanel.setDisable(FAST_FORWARD, true);

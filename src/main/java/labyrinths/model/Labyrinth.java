@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Labyrinth {
@@ -174,10 +175,23 @@ public class Labyrinth {
         return result;
     }
     public Result setTeleport(int h, int w){
-        for(Integer i : teleports){
-            graph.addEdge(graph.indexOf(h,w), i);
+        int f=graph.indexOf(h+1,w+1);
+        if(teleports.contains(f)){
+            graph.removeVertex(h+1,w+1);
+            graph.addVertex(h+1,w+1);
+            teleports.remove(f);
+            Result result=new Result();
+            if(f==start)
+                result.add(new Field(h, w, Type.START));
+            else if(f==target)
+                result.add(new Field(h, w, Type.TARGET));
+            else result.add(new Field(h, w, Type.TELEPORT));
+            return result;
         }
-        teleports.add(graph.indexOf(h,w));
+        for(Integer i : teleports){
+            graph.addEdge(f, i);
+        }
+        teleports.add(f);
         Result result=new Result();
         result.add(new Field(h, w, Type.TELEPORT));
         return result;

@@ -27,41 +27,39 @@
          <Pane prefHeight="12.0" HBox.hgrow="ALWAYS" />
          <HBox alignment="BOTTOM_LEFT" spacing="20.0">
             <HBox.margin>
-               <Insets/>
+               <Insets />
             </HBox.margin>
             <Label text="Modify:">
                <font>
-                  <Font name="System Bold" size="24.0"/>
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <ToggleButton fx:id="changeBtn" mnemonicParsing="false" text="Change"/>
-            <ToggleButton fx:id="startBtn" layoutX="236.0" layoutY="33.0" mnemonicParsing="false" text="Start"/>
-            <ToggleButton fx:id="targetBtn" layoutX="177.0" layoutY="33.0" mnemonicParsing="false" text="Target"/>
+            <ToggleButton fx:id="changeBtn" mnemonicParsing="false" text="Change" />
+            <ToggleButton fx:id="startBtn" layoutX="236.0" layoutY="33.0" mnemonicParsing="false" text="Start" />
+            <ToggleButton fx:id="targetBtn" layoutX="177.0" layoutY="33.0" mnemonicParsing="false" text="Target" />
+            <ToggleButton fx:id="teleportBtn" layoutX="256.0" layoutY="33.0" mnemonicParsing="false" text="Teleport" />
          </HBox>
          <HBox alignment="BOTTOM_LEFT" spacing="20.0">
             <Label text="Algorithm:">
                <font>
-                  <Font name="System Bold" size="24.0"/>
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="algorithmBox" prefWidth="150.0"/>
+            <ChoiceBox fx:id="algorithmBox" prefWidth="150.0" />
             <Button fx:id="startStopBtn" mnemonicParsing="false">
                <graphic>
-                  <ImageView fx:id="startStopImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true"
-                             preserveRatio="true">
+                  <ImageView fx:id="startStopImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </graphic>
             </Button>
             <Button fx:id="fastForwardBtn" mnemonicParsing="false">
                <graphic>
-                  <ImageView fx:id="fastForwardImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true"
-                             preserveRatio="true"/>
+                  <ImageView fx:id="fastForwardImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="pauseBtn" mnemonicParsing="false">
                <graphic>
-                  <ImageView fx:id="pauseImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true"
-                             preserveRatio="true"/>
+                  <ImageView fx:id="pauseImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
          </HBox>
