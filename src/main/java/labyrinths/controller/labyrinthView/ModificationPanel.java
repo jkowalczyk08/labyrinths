@@ -19,16 +19,18 @@ public class ModificationPanel {
     ToggleButton changeBtn;
     ToggleButton startBtn;
     ToggleButton targetBtn;
+    ToggleButton teleportBtn;
     List<ToggleButton> buttons;
     ToggleButton current = null;
     ControlPanelLogic logic;
 
-    ModificationPanel(ToggleButton changeBtn,
-                      ToggleButton startBtn, ToggleButton targetBtn) {
+    ModificationPanel( ToggleButton changeBtn, ToggleButton startBtn,
+                       ToggleButton targetBtn, ToggleButton teleportBtn) {
         this.changeBtn = changeBtn;
         this.startBtn = startBtn;
         this.targetBtn = targetBtn;
-        buttons = Arrays.asList(changeBtn, startBtn, targetBtn);
+        this.teleportBtn = teleportBtn;
+        buttons = Arrays.asList(changeBtn, startBtn, targetBtn, teleportBtn);
     }
     public void initialize(ControlPanelLogic logic) {
         this.logic = logic;
@@ -67,6 +69,9 @@ public class ModificationPanel {
         }
         else if(current == targetBtn) {
             logic.quickApply(logic.getLabyrinthModel().setTarget(h, w));
+        }
+        else if(current == teleportBtn) {
+            logic.quickApply(logic.getLabyrinthModel().setTeleport(h, w));
         }
     }
 }

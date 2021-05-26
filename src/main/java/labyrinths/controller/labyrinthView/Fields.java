@@ -57,6 +57,8 @@ public class Fields {
             new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY));
     Background highlighted2 = new Background(
             new BackgroundFill(Color.MEDIUMSEAGREEN, CornerRadii.EMPTY, Insets.EMPTY));
+    Background teleport = new Background(
+            new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY));
     void changeFieldType(int height, int width, Type type) {
         Button button = fields.get(height).get(width);
         switch (type) {
@@ -81,6 +83,9 @@ public class Fields {
                 break;
             case HIGHLIGHTED2:
                 button.setBackground(highlighted2);
+                break;
+            case TELEPORT:
+                button.setBackground(teleport);
                 break;
         }
     }
