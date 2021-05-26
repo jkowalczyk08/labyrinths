@@ -26,8 +26,11 @@ public class LabyrinthController implements Initializable {
     ToggleButton changeBtn, startBtn, targetBtn, teleportBtn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mainPane.setBackground(new Background(
-                new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        File file = new File("src/main/resources/drawable/white_background.png");
+        BackgroundImage myBI = new BackgroundImage(new Image(file.toURI().toString()),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        mainPane.setBackground(new Background(myBI));
         Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
         modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn, teleportBtn);
         constructEmptyLabyrinth(labyrinthModel);
