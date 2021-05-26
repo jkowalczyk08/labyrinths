@@ -10,18 +10,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.min;
 
 public class Astar{
-    class Anode{
-        Integer node;
-        Integer toTarget;
-        Integer fromStart;
-        Integer sum;
-        Anode(Integer n, Integer h, Integer w, Graph g){
-            node=n;
-            toTarget=n/g.width+n%g.height;
-            fromStart=Integer.MAX_VALUE;
-            sum=Integer.MAX_VALUE;
-        }
-    }
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();

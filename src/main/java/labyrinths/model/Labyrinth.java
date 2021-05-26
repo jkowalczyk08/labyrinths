@@ -30,6 +30,8 @@ public class Labyrinth {
                 return new Result(Bfs.startAlgorithm(graph, start, target));
             if(algorithm.equals("Astar"))
                 return new Result(Astar.startAlgorithm(graph, start, target));
+        if(algorithm.equals("BidirectionalBFS"))
+            return new Result(BidirectionalBFS.startAlgorithm(graph, start, target));
             return new Result();
     }
     public List<String> availableAlgorithms(){
@@ -37,18 +39,9 @@ public class Labyrinth {
         a.add("DFS");
         a.add("BFS");
         a.add("Astar");
+        a.add("BidirectionalBFS");
         return a;
     }
-
-   /* public Result perform(Algorithms algorithm){
-        if(algorithm==Algorithms.DFS)
-            return new Result(Dfs.startAlgorithm(graph, start, target));
-        if(algorithm==Algorithms.BFS)
-            return new Result(Bfs.startAlgorithm(graph, start, target));
-        if(algorithm==Algorithms.Astar)
-            return new Result(Astar.startAlgorithm(graph, start, target));
-        return new Result();
-    }*/
     Result getFromString(String s){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
@@ -180,11 +173,13 @@ public class Labyrinth {
     public Result getClear(){
         Result res=new Result();
         for(int i=0; i<width*height; i++){
-            if(graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH) {
+            if(graph.graph.get(i).field.type==Type.HIGHLIGHTED2||graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH) {
                 res.add(new Field(i / width - 1, i % width - 1, Type.FREE));
                 graph.graph.get(i).field.type = Type.FREE;
             }
         }
+        res.add(new Field(start/ width - 1, start % width - 1, Type.START));
+        res.add(new Field(target/ width - 1, target % width - 1, Type.TARGET));
         return res;
     }
 
