@@ -215,4 +215,36 @@ public class Labyrinth {
         return res;
     }
 
+    public Result getInitialResult(String s) {
+        Result res=new Result();
+        int i=0;
+        while(i<s.length()) {
+            int j=s.charAt(i);
+
+            if((char)j=='x') {
+                graph.removeVertex(i / width +1, i % width+1);
+                res.add(new Field(i / width , i % width , Type.WALL));
+            }
+
+            if((char)j=='s') {
+                start=graph.indexOf(i / width +1, i % width +1);
+                res.add(new Field(i / width , i % width , Type.START));
+            }
+            else if((char)j=='f') {
+                target = graph.indexOf(i / width +1, i % width +1);
+                res.add(new Field(i / width , i % width , Type.TARGET));
+            }
+            else if((char)j=='t') {
+                int f=graph.indexOf(i / width +1, i % width +1);
+                for(Integer t : teleports){
+                    graph.addEdge(f, t);
+                }
+                teleports.add(f);
+                res.add(new Field(i / width, i % width, Type.TELEPORT));
+            }
+            i++;
+        }
+        return res;
+    }
+
 }

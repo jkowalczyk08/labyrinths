@@ -12,10 +12,12 @@ import labyrinths.App;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
+import labyrinths.model.Result;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
@@ -55,7 +57,21 @@ public class MainMenuController implements Initializable {
         chooseFileBtn.setOnAction(actionEvent -> {
             labyrinthFile = fileChooser.showOpenDialog(App.mainStage);
             if(labyrinthFile != null) {
-                fileLabel.setText(labyrinthFile.getName());
+                try {
+                    String labRepresentation = Files.readString(labyrinthFile.toPath());
+                    String[] labParameters = labRepresentation.split(";");
+                    int height = Integer.parseInt(labParameters[0]);
+                    int width = Integer.parseInt(labParameters[1]);
+                    Labyrinth labyrinth = new Labyrinth(height,width);
+                    Result initialResult = labyrinth.getInitialResult(labParameters[2]);
+                    System.out.println(height);
+                    System.out.println(width);
+                    System.out.println(labParameters[2]);
+                    App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, initialResult));
+                    App.mainStage.setMaximized(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
