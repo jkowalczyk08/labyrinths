@@ -23,13 +23,13 @@ public class LabyrinthController implements Initializable {
     @FXML
     AnchorPane mainPane;
     @FXML
-    ToggleButton changeBtn, startBtn, targetBtn;
+    ToggleButton changeBtn, startBtn, targetBtn, teleportBtn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainPane.setBackground(new Background(
                 new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
-        modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn);
+        modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn, teleportBtn);
         constructEmptyLabyrinth(labyrinthModel);
         initializePanel(labyrinthModel);
     }
