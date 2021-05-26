@@ -179,13 +179,13 @@ public class Labyrinth {
         if(teleports.contains(f)){
             graph.removeVertex(h+1,w+1);
             graph.addVertex(h+1,w+1);
-            teleports.remove(f);
+            teleports.remove(teleports.indexOf(f));
             Result result=new Result();
             if(f==start)
                 result.add(new Field(h, w, Type.START));
             else if(f==target)
                 result.add(new Field(h, w, Type.TARGET));
-            else result.add(new Field(h, w, Type.TELEPORT));
+            else result.add(new Field(h, w, Type.FREE));
             return result;
         }
         for(Integer i : teleports){
