@@ -1,9 +1,10 @@
 package labyrinths.model;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Labyrinth {
     Graph graph;
@@ -25,7 +26,27 @@ public class Labyrinth {
             return new Result(Dfs.startAlgorithm(graph, start, target));
         if(algorithm==Algorithms.BFS)
             return new Result(Bfs.startAlgorithm(graph, start, target));
+        if(algorithm==Algorithms.Astar)
+            return new Result(Astar.startAlgorithm(graph, start, target));
         return new Result();
+    }
+    Result getFromString(String s){
+        Result res=new Result();
+        res.add(new Field(0, 0, Type.START));
+        start=width+1;
+        target=width*(height-1)-2;
+        res.add(new Field(height-2-1, width-2-1, Type.TARGET));
+        int i=0;
+        int j=0;
+        while(i<s.length()) {
+            j=s.charAt(i);
+            if((char)j=='x') {
+                graph.removeVertex(i / width +1, i % width+1);
+                res.add(new Field(i / width , i % width , Type.WALL));
+            }
+            i++;
+        }
+        return res;
     }
     Result getDefault(){
         Result res=new Result();
