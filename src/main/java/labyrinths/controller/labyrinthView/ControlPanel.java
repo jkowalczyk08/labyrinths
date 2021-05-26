@@ -3,6 +3,7 @@ package labyrinths.controller.labyrinthView;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import labyrinths.App;
 
 import java.io.File;
@@ -11,10 +12,10 @@ public class ControlPanel {
     public enum ButtonType {
         START_STOP, FAST_FORWARD, PAUSE
     }
-    Button backBtn, startStopBtn, fastForwardBtn, pauseBtn;
+    Button backBtn, saveBtn, startStopBtn, fastForwardBtn, pauseBtn;
     ControlPanelLogic controlPanelLogic;
     ImageView startStopImg;
-    ControlPanel(ControlPanelLogic controlLogic, Button backBtn, Button startStopBtn, Button fastForwardBtn, Button pauseBtn,
+    ControlPanel(ControlPanelLogic controlLogic, Button backBtn, Button saveBtn, Button startStopBtn, Button fastForwardBtn, Button pauseBtn,
                  ImageView startStopImg) {
         this.controlPanelLogic = controlLogic;
         this.startStopBtn = startStopBtn;
@@ -22,11 +23,13 @@ public class ControlPanel {
         this.pauseBtn = pauseBtn;
         this.startStopImg = startStopImg;
         this.backBtn = backBtn;
+        this.saveBtn = saveBtn;
     }
     public void initialize() {
         controlPanelLogic.initialize(this);
 
         backBtn.setOnAction(actionEvent -> back());
+        saveBtn.setOnAction(actionEvent -> save());
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.start());
         fastForwardBtn.setOnAction(actionEvent -> controlPanelLogic.fastForward());
         pauseBtn.setOnAction(actionEvent -> controlPanelLogic.pause());
@@ -61,5 +64,16 @@ public class ControlPanel {
     public void setToGoOn() {
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.goOn());
         startStopImg.setImage(start);
+    }
+
+    public void save() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save labyrinth");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("LAB file", "*.lab"));
+        File lab = fileChooser.showSaveDialog(App.mainStage);
+        if(lab != null) {
+            /* TODO: ADD SAVING FUNCTIONALITY */
+            System.out.println("saving file");
+        }
     }
 }

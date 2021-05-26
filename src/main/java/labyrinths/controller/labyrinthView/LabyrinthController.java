@@ -57,7 +57,7 @@ public class LabyrinthController implements Initializable {
     }
 
     @FXML
-    Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn;
+    Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn, saveBtn;
     @FXML
     ChoiceBox<String> algorithmBox;
     @FXML
@@ -76,7 +76,7 @@ public class LabyrinthController implements Initializable {
         modificationPanel.initialize(logic);
 
 
-        ControlPanel panel = new ControlPanel(logic, backBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
+        ControlPanel panel = new ControlPanel(logic, backBtn, saveBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
         panel.initialize();
     }
 }
