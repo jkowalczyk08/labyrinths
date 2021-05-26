@@ -49,6 +49,9 @@ public class MainMenuController implements Initializable {
 
     void initializeControls() {
 
+        heightSlider.setValue(14);
+        widthSlider.setValue(30);
+
         chooseFileBtn.setOnAction(actionEvent -> {
             labyrinthFile = fileChooser.showOpenDialog(App.mainStage);
             if(labyrinthFile != null) {
