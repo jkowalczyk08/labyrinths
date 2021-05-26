@@ -206,6 +206,9 @@ public class Labyrinth {
         }
         res.add(new Field(start/ width - 1, start % width - 1, Type.START));
         res.add(new Field(target/ width - 1, target % width - 1, Type.TARGET));
+        for(Integer i : teleports){
+            res.add(new Field(i/ width - 1, i % width - 1, Type.TELEPORT));
+        }
         return res;
     }
 
