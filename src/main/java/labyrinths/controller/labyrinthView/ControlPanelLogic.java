@@ -3,14 +3,9 @@ package labyrinths.controller.labyrinthView;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import labyrinths.controller.Config;
-import labyrinths.model.Algorithms;
 import labyrinths.model.Labyrinth;
-import labyrinths.model.LabyrinthPreset;
 import labyrinths.model.Result;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -51,8 +46,10 @@ public class ControlPanelLogic implements Config {
 
     public void initialize(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
-        launch(LabyrinthGetter.getInitResult(), 0);
-        pause();
+        quickApply(LabyrinthGetter.getInitResult());
+        controlPanel.setToStart();
+        controlPanel.setDisable(FAST_FORWARD, true);
+        controlPanel.setDisable(PAUSE, true);
         List<String> algorithms = labyrinthModel.availableAlgorithms();
         algorithmBox.setItems(observableArrayList(algorithms));
         algorithmBox.setValue(algorithms.get(0));
@@ -60,19 +57,19 @@ public class ControlPanelLogic implements Config {
     void quickApply(Result result) {
         applier.quickApply(result);
     }
-    void launch(Result result, int waitMillis) {
+    void launch(Result result) {
         fastForward = false;
         stopped = false;
         controlPanel.setDisable(FAST_FORWARD, false);
         controlPanel.setDisable(PAUSE, false);
         controlPanel.setToStop();
         modificationPanel.setDisable(true);
-        workingThread = new Thread(()->applier.applyChanges(result, waitMillis));
+        workingThread = new Thread(()->applier.applyChanges(result, Config.ALGORITHM_DELAY));
         workingThread.setDaemon(true);
         workingThread.start();
     }
     void start() {
-        launch(labyrinthModel.perform(algorithmBox.getValue()), ALGORITHM_DELAY);
+        launch(labyrinthModel.perform(algorithmBox.getValue()));
     }
     void stop() {
         synchronized (applier.getLock()) {
@@ -100,8 +97,7 @@ public class ControlPanelLogic implements Config {
     }
     void pause() {
         fastForward();
-        launch(labyrinthModel.getClear(), 0);
-        fastForward();
+        quickApply(labyrinthModel.getClear());
         controlPanel.setDisable(START_STOP, false);
         controlPanel.setDisable(PAUSE, true);
         progressBar.setProgress(0);
