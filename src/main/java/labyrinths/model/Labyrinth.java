@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Labyrinth {
     Graph graph;
@@ -14,11 +12,13 @@ public class Labyrinth {
     int target;
     int width;
     int height;
+    List<Integer> teleports;
     public int getWidth() {return width-2;}
     public int getHeight() {return height-2;}
     public Labyrinth(int height, int width){
         this.width=width+2;
         this.height=height+2;
+        teleports=new ArrayList<>();
         start=0;
         target=0;
         graph=new Graph(this.height, this.width);
@@ -171,6 +171,15 @@ public class Labyrinth {
             result.add(new Field(graph.graph.get(target), Type.FREE));
         target=graph.indexOf(h+1, w+1);
         result.add(new Field(h, w, Type.TARGET));
+        return result;
+    }
+    public Result setTeleport(int h, int w){
+        for(Integer i : teleports){
+            graph.addEdge(graph.indexOf(h,w), i);
+        }
+        teleports.add(graph.indexOf(h,w));
+        Result result=new Result();
+        result.add(new Field(h, w, Type.TELEPORT));
         return result;
     }
     public Result getClear(){

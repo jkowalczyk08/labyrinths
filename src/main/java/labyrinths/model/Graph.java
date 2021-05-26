@@ -55,11 +55,11 @@ public class Graph {
         }
         graph.get(indexOf(h, w)).field.type=Type.FREE;
     }
-    void addEdge(Node one, Node two){
-        if(!one.neighbors.contains(indexOf(two)))
-        one.neighbors.add(indexOf(two));
-        if(!two.neighbors.contains(indexOf(one)))
-            two.neighbors.add(indexOf(one));
+    void addEdge(Integer x, Integer y){
+        if(!graph.get(x).neighbors.contains(indexOf(graph.get(y))))
+            graph.get(x).neighbors.add(indexOf(graph.get(y)));
+        if(!graph.get(y).neighbors.contains(indexOf(graph.get(x))))
+            graph.get(y).neighbors.add(indexOf(graph.get(x)));
     }
     void removeEdge(Node one, Node two){
             one.neighbors.remove(indexOf(two));
