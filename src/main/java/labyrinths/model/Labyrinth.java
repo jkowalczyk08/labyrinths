@@ -3,6 +3,8 @@ package labyrinths.model;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +23,24 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width);
     }
-    public Result perform(Algorithms algorithm){
+    public Result perform(String algorithm){
+            if(algorithm=="DFS")
+                return new Result(Dfs.startAlgorithm(graph, start, target));
+            if(algorithm=="BFS")
+                return new Result(Bfs.startAlgorithm(graph, start, target));
+            if(algorithm=="Astar")
+                return new Result(Astar.startAlgorithm(graph, start, target));
+            return new Result();
+    }
+    List<String> availableAlgorithms(){
+        List<String> a=new ArrayList<String>();
+        a.add("DFS");
+        a.add("BFS");
+        a.add("Astar");
+        return a;
+    }
+
+   /* public Result perform(Algorithms algorithm){
         if(algorithm==Algorithms.DFS)
             return new Result(Dfs.startAlgorithm(graph, start, target));
         if(algorithm==Algorithms.BFS)
@@ -29,7 +48,7 @@ public class Labyrinth {
         if(algorithm==Algorithms.Astar)
             return new Result(Astar.startAlgorithm(graph, start, target));
         return new Result();
-    }
+    }*/
     Result getFromString(String s){
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
@@ -57,7 +76,6 @@ public class Labyrinth {
         for(int i=2; i<height-1; i+=2){
             for(int j=1; j<width-1; j+=2){
                 if(!(i==height-2&&j==width-2)){
-                    //System.out.println(new Node(i, j))
                     graph.removeVertex(i, j);
                     res.add(new Field(i-1, j-1, Type.WALL));
                 }
@@ -74,7 +92,6 @@ public class Labyrinth {
         for(int i=2; i<height-1; i+=2){
             for(int j=1; j<width-1; j++){
                 if(!((j==1&&i%4==0)||(j==(width-2)&&(i%4==2)))){
-                    //System.out.println(new Node(i, j))
                     graph.removeVertex(i, j);
                     res.add(new Field(i-1, j-1, Type.WALL));
                 }
@@ -133,40 +150,41 @@ public class Labyrinth {
         }
         return res;
     }
-    public Result removeWall(int h, int w){
-        Result result=new Result();
-        result.add(new Field(h, w, Type.FREE));
-        graph.removeVertex(h+1, w+1);
-        return result;
-    }
     public Result addWall(int h, int w){
         Result result=new Result();
-        result.add(new Field(h, w, Type.WALL));
-        graph.addVertex(h+1, w+1);
+        if(graph.graph.get(graph.indexOf(h+1, w+1)).field.type!=Type.WALL){
+            result.add(new Field(h, w, Type.WALL));
+            graph.removeVertex(h+1, w+1);
+        }
+        else{
+            result.add(new Field(h, w, Type.FREE));
+            graph.addVertex(h+1, w+1);
+        }
         return result;
     }
     public Result setStart(int h, int w){
         Result result=new Result();
-        start=graph.indexOf(h+1, w+1);
-        result.add(new Field(h, w, Type.START));
         if(start!=0)
             result.add(new Field(graph.graph.get(start), Type.FREE));
+        start=graph.indexOf(h+1, w+1);
+        result.add(new Field(h, w, Type.START));
         return result;
     }
     public Result setTarget(int h, int w){
         Result result=new Result();
-        target=graph.indexOf(h+1, w+1);
-        result.add(new Field(h, w, Type.TARGET));
         if(target!=0)
             result.add(new Field(graph.graph.get(target), Type.FREE));
+        target=graph.indexOf(h+1, w+1);
+        result.add(new Field(h, w, Type.TARGET));
         return result;
     }
     public Result getClear(){
         Result res=new Result();
         for(int i=0; i<width*height; i++){
-            if(graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH)
-                res.add(new Field(i/width-1, i%width-1, Type.FREE));
-                graph.graph.get(i).field.type=Type.FREE;
+            if(graph.graph.get(i).field.type==Type.HIGHLIGHTED||graph.graph.get(i).field.type==Type.PATH) {
+                res.add(new Field(i / width - 1, i % width - 1, Type.FREE));
+                graph.graph.get(i).field.type = Type.FREE;
+            }
         }
         return res;
     }

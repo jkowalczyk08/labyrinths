@@ -53,6 +53,7 @@ public class Graph {
             graph.get(indexOf(h, w)).neighbors.add(indexOf(h, w+1));
             graph.get(indexOf(h, w+1)).neighbors.add(indexOf(h, w));
         }
+        graph.get(indexOf(h, w)).field.type=Type.FREE;
     }
     void addEdge(Node one, Node two){
         if(!one.neighbors.contains(indexOf(two)))
@@ -69,6 +70,7 @@ public class Graph {
             graph.get(nei).neighbors.remove(indexOf(h, w));
         }
         graph.get(indexOf(h, w)).neighbors.clear();
+        graph.get(indexOf(h, w)).field.type=Type.WALL;
     }
     @Override
     public String toString(){
