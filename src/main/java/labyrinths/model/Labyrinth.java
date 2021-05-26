@@ -176,6 +176,7 @@ public class Labyrinth {
     }
     public Result setTeleport(int h, int w){
         int f=graph.indexOf(h+1,w+1);
+        if(graph.graph.get(f).field.type==Type.WALL)return new Result();
         if(teleports.contains(f)){
             graph.removeVertex(h+1,w+1);
             graph.addVertex(h+1,w+1);
