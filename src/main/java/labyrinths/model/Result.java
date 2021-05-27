@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Result {
     List<Field> changes;
-    Result(){
+    public Result(){
         changes= new ArrayList<>();
     }
     Result(List<Field> x){

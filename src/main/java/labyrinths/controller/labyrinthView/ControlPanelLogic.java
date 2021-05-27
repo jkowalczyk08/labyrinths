@@ -19,15 +19,6 @@ public class ControlPanelLogic implements Config {
     ModificationPanel modificationPanel;
     ChoiceBox<String> algorithmBox;
 
-    boolean fastForward, stopped;
-    Thread workingThread = new Thread(()->{});
-
-    public boolean ifFastForward() {
-        return fastForward;
-    }
-    public boolean ifStopped() {
-        return stopped;
-    }
     public ProgressBar getProgressBar() {
         return progressBar;
     }
@@ -58,53 +49,36 @@ public class ControlPanelLogic implements Config {
         applier.quickApply(result);
     }
     void launch(Result result) {
-        fastForward = false;
-        stopped = false;
         controlPanel.setDisable(FAST_FORWARD, false);
         controlPanel.setDisable(PAUSE, false);
         controlPanel.setToStop();
         modificationPanel.setDisable(true);
-        workingThread = new Thread(()->applier.applyChanges(result, Config.ALGORITHM_DELAY));
-        workingThread.setDaemon(true);
-        workingThread.start();
+        applier.applyChanges(result, Config.ALGORITHM_DELAY);
     }
     void start() {
         launch(labyrinthModel.perform(algorithmBox.getValue()));
     }
     void stop() {
-        synchronized (applier.getLock()) {
-            stopped = true;
-            applier.getLock().notify();
-        }
+        applier.stop();
         controlPanel.setToGoOn();
     }
     void goOn() {
-        synchronized (applier.getLock()) {
-            stopped = false;
-            applier.getLock().notify();
-        }
+        applier.goOn();
         controlPanel.setToStop();
     }
     void fastForward() {
-        fastForward = true;
-        if(stopped)
-            goOn();
-        try {
-            workingThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        applier.fastForward();
     }
     void pause() {
         fastForward();
         quickApply(labyrinthModel.getClear());
+        controlPanel.setToStart();
         controlPanel.setDisable(START_STOP, false);
         controlPanel.setDisable(PAUSE, true);
         progressBar.setProgress(0);
     }
     public void end() {
         progressBar.setProgress(1);
-        controlPanel.setToStart();
         controlPanel.setDisable(START_STOP, true);
         controlPanel.setDisable(FAST_FORWARD, true);
         modificationPanel.setDisable(false);
