@@ -247,4 +247,54 @@ public class Labyrinth {
         return res;
     }
 
+    // changes labyrinth to string representation which can later be saved: height;width;fields
+    public String getSaveString() {
+        StringBuilder stringRepresentation = new StringBuilder();
+        int h = getHeight();
+        int w = getWidth();
+        int index;
+        Field data;
+        char nextEl;
+        stringRepresentation.append(h);
+        stringRepresentation.append(';');
+        stringRepresentation.append(w);
+        stringRepresentation.append(';');
+
+        //TODO: DELETE
+        System.out.println("saving:");
+
+        for(int i = 1; i < h+1; i++) {
+            for(int j = 1; j < w+1; j++) {
+                index = graph.indexOf(i,j);
+                data = graph.graph.get(index).field;
+                if(data.type == Type.WALL) {
+                    nextEl = 'x';
+                }
+                else if(data.type == Type.START) {
+                    nextEl = 's';
+                }
+                else if(data.type == Type.TARGET) {
+                    nextEl = 'f';
+                }
+                else if(data.type == Type.TELEPORT) {
+                    nextEl = 't';
+                }
+                else {
+                    nextEl = 'o';
+                }
+                //TODO: DELETE
+                stringRepresentation.append(nextEl);
+                System.out.print(nextEl);
+            }
+            //TODO: DELETE
+            System.out.println();
+
+            if(i != h) {
+                // append this instead of '\n' because '\n' causes problems
+                stringRepresentation.append("::");
+            }
+        }
+        return stringRepresentation.toString();
+    }
+
 }

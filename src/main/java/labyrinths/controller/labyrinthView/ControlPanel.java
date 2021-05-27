@@ -7,6 +7,8 @@ import javafx.stage.FileChooser;
 import labyrinths.App;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class ControlPanel {
     public enum ButtonType {
@@ -72,8 +74,13 @@ public class ControlPanel {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("LAB file", "*.lab"));
         File lab = fileChooser.showSaveDialog(App.mainStage);
         if(lab != null) {
-            /* TODO: ADD SAVING FUNCTIONALITY */
-            System.out.println("saving file");
+            /* TODO: getSaveString() NEEDS TO CORRECTLY FIND START, TARGET AND TELEPORTS */
+            String labString = controlPanelLogic.labyrinthModel.getSaveString();
+            try {
+                Files.writeString(lab.toPath(),labString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

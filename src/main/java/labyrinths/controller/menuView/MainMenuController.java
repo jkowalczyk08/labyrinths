@@ -64,9 +64,6 @@ public class MainMenuController implements Initializable {
                     int width = Integer.parseInt(labParameters[1]);
                     Labyrinth labyrinth = new Labyrinth(height,width);
                     Result initialResult = labyrinth.getInitialResult(labParameters[2]);
-                    System.out.println(height);
-                    System.out.println(width);
-                    System.out.println(labParameters[2]);
                     App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, initialResult));
                     App.mainStage.setMaximized(true);
                 } catch (IOException e) {
