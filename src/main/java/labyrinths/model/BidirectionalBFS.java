@@ -7,6 +7,7 @@ import java.util.List;
 
 public class BidirectionalBFS{
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
+        if(start==0)return new LinkedList<>();
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();
         if(!runBfs(graph, start, target, process, path) )return process;
@@ -57,7 +58,6 @@ public class BidirectionalBFS{
 
             Collections.shuffle(graph.graph.get(current1).neighbors);
             for(int x : graph.graph.get(current1).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED) {
                     list1.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED;
@@ -93,7 +93,6 @@ public class BidirectionalBFS{
             process.add(new Field(graph.graph.get(current2), Type.HIGHLIGHTED2));
             Collections.shuffle(graph.graph.get(current2).neighbors);
             for(int x : graph.graph.get(current2).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED2) {
                     list2.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED2;

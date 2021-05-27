@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Bfs{
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
+        if(start==0)return new LinkedList<>();
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();
         if(!runBfs(graph, start, target, process, path) )return process;
@@ -38,7 +39,6 @@ public class Bfs{
             process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
             Collections.shuffle(graph.graph.get(current).neighbors);
             for(int x : graph.graph.get(current).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type==Type.FREE||graph.graph.get(x).field.type==Type.TELEPORT||graph.graph.get(x).field.type==Type.TARGET) {
                     list.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED;
