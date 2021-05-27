@@ -74,7 +74,6 @@ public class ControlPanel {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("LAB file", "*.lab"));
         File lab = fileChooser.showSaveDialog(App.mainStage);
         if(lab != null) {
-            /* TODO: getSaveString() NEEDS TO CORRECTLY FIND START, TARGET AND TELEPORTS */
             String labString = controlPanelLogic.labyrinthModel.getSaveString();
             try {
                 Files.writeString(lab.toPath(),labString);

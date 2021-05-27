@@ -270,9 +270,6 @@ public class Labyrinth {
         stringRepresentation.append(w);
         stringRepresentation.append(';');
 
-        //TODO: DELETE
-        System.out.println("saving:");
-
         for(int i = 1; i < h+1; i++) {
             for(int j = 1; j < w+1; j++) {
                 index = graph.indexOf(i,j);
@@ -280,24 +277,20 @@ public class Labyrinth {
                 if(data.type == Type.WALL) {
                     nextEl = 'x';
                 }
-                else if(data.type == Type.START) {
+                else if(index == start) {
                     nextEl = 's';
                 }
-                else if(data.type == Type.TARGET) {
+                else if(index == target) {
                     nextEl = 'f';
                 }
-                else if(data.type == Type.TELEPORT) {
+                else if(teleports.contains(index)) {
                     nextEl = 't';
                 }
                 else {
                     nextEl = 'o';
                 }
-                //TODO: DELETE
                 stringRepresentation.append(nextEl);
-                System.out.print(nextEl);
             }
-            //TODO: DELETE
-            System.out.println();
 
             if(i != h) {
                 // append this instead of '\n' because '\n' causes problems
