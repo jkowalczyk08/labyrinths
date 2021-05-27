@@ -1,5 +1,8 @@
 package labyrinths.controller;
 
 public interface Config {
-    int ALGORITHM_DELAY = 50;
+    long ALGORITHM_DELAY = 50;
+    int FRAMERATE = 30;
+    int TRANSFORMATION_TIME = 300;
+    double MIN_OPACITY = 0.4;
 }

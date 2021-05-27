@@ -8,6 +8,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import labyrinths.controller.Config;
+import labyrinths.model.Field;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.Type;
 
@@ -15,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fields {
+public class Fields implements Config {
     List<List<Button>> fields;
     ModificationPanel modificationPanel;
     Fields(Labyrinth labyrinthModel, ModificationPanel modificationPanel) {
@@ -88,5 +90,10 @@ public class Fields {
                 button.setBackground(teleport);
                 break;
         }
+    }
+
+    public void setOpacity(Field field, double v) {
+        Button button = fields.get(field.getH()).get(field.getW());
+        button.setOpacity(MIN_OPACITY+v*(1-MIN_OPACITY));
     }
 }

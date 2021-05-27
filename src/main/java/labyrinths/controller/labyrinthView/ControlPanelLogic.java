@@ -46,14 +46,14 @@ public class ControlPanelLogic implements Config {
         algorithmBox.setValue(algorithms.get(0));
     }
     void quickApply(Result result) {
-        applier.quickApply(result);
+        applier.quickApply(result, 0);
     }
     void launch(Result result) {
         controlPanel.setDisable(FAST_FORWARD, false);
         controlPanel.setDisable(PAUSE, false);
         controlPanel.setToStop();
         modificationPanel.setDisable(true);
-        applier.applyChanges(result, Config.ALGORITHM_DELAY);
+        applier.applyChanges(result);
     }
     void start() {
         launch(labyrinthModel.perform(algorithmBox.getValue()));
