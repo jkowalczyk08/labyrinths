@@ -54,12 +54,13 @@ public class BidirectionalBFS{
                 return true;
             }
             process.add(new Field(graph.graph.get(current1), Type.HIGHLIGHTED));
-            graph.graph.get(current1).field.type=Type.HIGHLIGHTED;
+
             Collections.shuffle(graph.graph.get(current1).neighbors);
             for(int x : graph.graph.get(current1).neighbors){
                 //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED) {
                     list1.add(x);
+                    graph.graph.get(x).field.type=Type.HIGHLIGHTED;
                     previous1[x] = current1;
                 }
             }
@@ -89,13 +90,13 @@ public class BidirectionalBFS{
                 path.add(new Field(graph.graph.get(current2), Type.PATH));
                 return true;
             }
-            graph.graph.get(current2).field.type=Type.HIGHLIGHTED2;
             process.add(new Field(graph.graph.get(current2), Type.HIGHLIGHTED2));
             Collections.shuffle(graph.graph.get(current2).neighbors);
             for(int x : graph.graph.get(current2).neighbors){
                 //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED2) {
                     list2.add(x);
+                    graph.graph.get(x).field.type=Type.HIGHLIGHTED2;
                     previous2[x] = current2;
                 }
             }
