@@ -24,12 +24,10 @@ public class Dfs {
             return false;
         }
         process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
-        //System.out.println(process);
 
         graph.graph.get(current).field.type=Type.PATH;
         Collections.shuffle(graph.graph.get(current).neighbors);
         for(int x : graph.graph.get(current).neighbors){
-            //System.out.println(x);
                 if(runDfs(graph, x, target, process, path))
                     return true;
                 path.remove(path.size()-1);

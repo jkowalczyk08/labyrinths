@@ -39,7 +39,6 @@ public class Bfs{
             process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
             Collections.shuffle(graph.graph.get(current).neighbors);
             for(int x : graph.graph.get(current).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type==Type.FREE||graph.graph.get(x).field.type==Type.TELEPORT||graph.graph.get(x).field.type==Type.TARGET) {
                     list.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED;

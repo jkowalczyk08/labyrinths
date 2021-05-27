@@ -1,14 +1,8 @@
 package labyrinths.model;
 
-import labyrinths.model.Field;
-import labyrinths.model.Graph;
-import labyrinths.model.Type;
-
 import java.util.*;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.min;
-
 public class Astar{
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
         if(start==0)return new LinkedList<>();
@@ -29,7 +23,6 @@ public class Astar{
         Integer[] costb=new Integer[graph.height* graph.width];
         for(int i=0; i<cost.length; i++){
             costb[i]=abs(h-i/graph.width)+abs(w-i%graph.width);
-            //System.out.println(i/graph.width+" "+i%graph.width+" "+costb[i]);
         }
         cost[start]=costb[start];
         Comparator<Integer> minComparator = new Comparator<Integer>() {
@@ -40,13 +33,10 @@ public class Astar{
             }
         };
         while(!open.isEmpty()){
-            //open.stream().forEach(i->System.out.println(cost[i]+" "+costb[i]));
-
             current=open.stream().min(minComparator).get();
             graph.graph.get(current).field.type=Type.HIGHLIGHTED;
             open.remove(current);
 
-            //System.out.println("***"+cost[current]+" "+costb[current]);
             if(current==target){
                 process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
                 graph.graph.get(current).field.type=Type.PATH;
@@ -62,7 +52,6 @@ public class Astar{
             }
             process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
             for(int x : graph.graph.get(current).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type==Type.FREE||graph.graph.get(x).field.type==Type.TELEPORT||graph.graph.get(x).field.type==Type.TARGET) {
                     if(open.contains(x)&&cost[x]>costb[x]+1+cost[current]-costb[current]){
                         cost[x]=costb[x]+cost[current]-costb[current]+1;
@@ -73,8 +62,6 @@ public class Astar{
                         open.add(x);
                         cost[x]=costb[x]+cost[current]-costb[current]+1;
                     }
-                    //System.out.println(cost[x]);
-                    //System.out.println(x/graph.width+" "+x%graph.height+" "+costb[x]);
                 }
             }
         }

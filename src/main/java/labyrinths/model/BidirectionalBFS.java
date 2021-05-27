@@ -58,7 +58,6 @@ public class BidirectionalBFS{
 
             Collections.shuffle(graph.graph.get(current1).neighbors);
             for(int x : graph.graph.get(current1).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED) {
                     list1.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED;
@@ -94,7 +93,6 @@ public class BidirectionalBFS{
             process.add(new Field(graph.graph.get(current2), Type.HIGHLIGHTED2));
             Collections.shuffle(graph.graph.get(current2).neighbors);
             for(int x : graph.graph.get(current2).neighbors){
-                //System.out.println(x);
                 if(graph.graph.get(x).field.type!=Type.WALL&&graph.graph.get(x).field.type!=Type.HIGHLIGHTED2) {
                     list2.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED2;
