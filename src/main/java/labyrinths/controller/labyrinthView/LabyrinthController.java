@@ -18,6 +18,7 @@ import static javafx.application.Application.launch;
 
 public class LabyrinthController implements Initializable {
     Fields fields;
+    Backgrounds backgrounds;
     ModificationPanel modificationPanel;
 
     @FXML
@@ -41,6 +42,7 @@ public class LabyrinthController implements Initializable {
     Pane labyrinthPane;
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
         fields = new Fields(labyrinthModel, modificationPanel);
+        backgrounds = new Backgrounds(labyrinthModel);
         int height = labyrinthModel.getHeight(), width = labyrinthModel.getWidth();
         GridPane gridPane = new GridPane();
         for(int i=0; i<height; ++i) {
@@ -48,7 +50,9 @@ public class LabyrinthController implements Initializable {
                 Button field = fields.get(i).get(j);
                 field.prefWidthProperty().bind(labyrinthPane.heightProperty().divide(height));
                 field.prefHeightProperty().bind(labyrinthPane.heightProperty().divide(height));
-                gridPane.add(field, j, i);
+                Pane pane = backgrounds.get(i).get(j);
+                pane.getChildren().add(field);
+                gridPane.add(pane, j, i);
             }
         }
         labyrinthPane.getChildren().add(gridPane);
@@ -70,7 +74,7 @@ public class LabyrinthController implements Initializable {
         File file2 = new File("src/main/resources/drawable/pause.png");
         pauseImg.setImage(new Image(file2.toURI().toString()));
 
-        ChangesApplier applier = new ChangesApplier(fields);
+        ChangesApplier applier = new ChangesApplier(fields, backgrounds);
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, modificationPanel, progressBar, algorithmBox);
         applier.initialize(logic);
         modificationPanel.initialize(logic);
