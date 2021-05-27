@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Bfs{
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
+        if(start==0)return new LinkedList<>();
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();
         if(!runBfs(graph, start, target, process, path) )return process;
