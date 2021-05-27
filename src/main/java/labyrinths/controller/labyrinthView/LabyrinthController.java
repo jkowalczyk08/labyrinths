@@ -67,19 +67,26 @@ public class LabyrinthController implements Initializable {
         labyrinthPane.prefWidthProperty().bind(mainPane.widthProperty());
     }
 
+
+    Image getImage(String name) {
+        File file = new File("src/main/resources/drawable/"+name);
+        return new Image(file.toURI().toString());
+    }
     @FXML
     Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn, saveBtn;
     @FXML
     ChoiceBox<String> algorithmBox;
     @FXML
-    ImageView startStopImg, fastForwardImg, pauseImg;
+    ImageView startStopImg, fastForwardImg, pauseImg, changeImg, targetImg, startImg, teleportImg;
     @FXML
     ProgressBar progressBar;
     void initializePanel(Labyrinth labyrinthModel) {
-        File file = new File("src/main/resources/drawable/fastForward.png");
-        fastForwardImg.setImage(new Image(file.toURI().toString()));
-        File file2 = new File("src/main/resources/drawable/pause.png");
-        pauseImg.setImage(new Image(file2.toURI().toString()));
+        fastForwardImg.setImage(getImage("fastForward.png"));
+        pauseImg.setImage(getImage("pause.png"));
+        changeImg.setImage(getImage("changeTile.png"));
+        targetImg.setImage(getImage("treasure.jpg"));
+        startImg.setImage(getImage("adventurer.png"));
+        teleportImg.setImage(getImage("teleportTile.png"));
 
         ChangesApplier applier = new ChangesApplier(fields, backgrounds);
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, modificationPanel, progressBar, algorithmBox);

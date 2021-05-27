@@ -1,7 +1,6 @@
 package labyrinths.controller.labyrinthView;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -63,7 +62,7 @@ public class Fields implements Config {
     Background highlighted2 = new Background(
             new BackgroundFill(Color.MEDIUMSEAGREEN, CornerRadii.EMPTY, Insets.EMPTY));
     Background teleport = new Background(
-            new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY));
+            new BackgroundFill(Color.MEDIUMORCHID, CornerRadii.EMPTY, Insets.EMPTY));
     void changeFieldType(int height, int width, Type type) {
         Pane pane = fields.get(height).get(width);
         ImageView view = getImages(height).get(width);
