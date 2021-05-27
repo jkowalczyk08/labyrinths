@@ -109,7 +109,7 @@ public class MainMenuController implements Initializable {
             try {
                 Labyrinth labyrinth = new Labyrinth((int) heightSlider.getValue(),(int) widthSlider.getValue());
                 App.mainStage.setScene(LabyrinthGetter.
-                        getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.DEFAULT)));
+                        getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.EMPTY)));
                 App.mainStage.setMaximized(true);
             } catch (IOException e) {
                 e.printStackTrace();
