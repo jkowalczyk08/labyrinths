@@ -33,7 +33,7 @@ public class ChangesApplier implements Config {
     long startTime;
     Result toDo = new Result();
     int index = 0;
-    LinkedList<Integer> transforming = new LinkedList<>();
+    LinkedList<Integer> transforming;
     void makeOneChange(int i) {
         List<Field> changes = toDo.getChanges();
         Field field = changes.get(i);

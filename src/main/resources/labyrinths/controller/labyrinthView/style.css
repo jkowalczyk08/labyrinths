@@ -3,6 +3,11 @@
     -fx-border-radius: 0;
     -fx-border-width: 1;
 }
+.grid-pane {
+    -fx-background-color: grey;
+    -fx-border-radius: 0;
+    -fx-border-width: 1;
+}
 .progress-bar .bar {
     -fx-accent: #999999;
     /*-fx-accent: #007300;*/

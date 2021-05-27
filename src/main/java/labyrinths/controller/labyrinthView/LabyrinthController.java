@@ -47,12 +47,17 @@ public class LabyrinthController implements Initializable {
         GridPane gridPane = new GridPane();
         for(int i=0; i<height; ++i) {
             for(int j=0; j<width; ++j) {
-                Button field = fields.get(i).get(j);
-                field.prefWidthProperty().bind(labyrinthPane.heightProperty().divide(height));
-                field.prefHeightProperty().bind(labyrinthPane.heightProperty().divide(height));
+                StackPane stackPane = new StackPane();
+                stackPane.prefWidthProperty().bind(labyrinthPane.heightProperty().divide(height));
+                stackPane.prefHeightProperty().bind(labyrinthPane.heightProperty().divide(height));
+                stackPane.setStyle("-fx-border-color: gray; -fx-border-width: 1;");
+
                 Pane pane = backgrounds.get(i).get(j);
-                pane.getChildren().add(field);
-                gridPane.add(pane, j, i);
+                Pane field = fields.get(i).get(j);
+                ImageViewPane imageViewPane = new ImageViewPane();
+                imageViewPane.setImageView(fields.getImages(i).get(j));
+                stackPane.getChildren().addAll(pane, field, imageViewPane);
+                gridPane.add(stackPane, j, i);
             }
         }
         labyrinthPane.getChildren().add(gridPane);
@@ -78,7 +83,6 @@ public class LabyrinthController implements Initializable {
         ControlPanelLogic logic = new ControlPanelLogic(labyrinthModel, applier, modificationPanel, progressBar, algorithmBox);
         applier.initialize(logic);
         modificationPanel.initialize(logic);
-
 
         ControlPanel panel = new ControlPanel(logic, backBtn, saveBtn, startStopBtn, fastForwardBtn, pauseBtn, startStopImg);
         panel.initialize();

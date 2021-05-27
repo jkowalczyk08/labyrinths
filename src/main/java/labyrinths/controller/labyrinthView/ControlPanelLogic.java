@@ -76,11 +76,11 @@ public class ControlPanelLogic implements Config {
         controlPanel.setDisable(START_STOP, false);
         controlPanel.setDisable(PAUSE, true);
         progressBar.setProgress(0);
+        modificationPanel.setDisable(false);
     }
     public void end() {
         progressBar.setProgress(1);
         controlPanel.setDisable(START_STOP, true);
         controlPanel.setDisable(FAST_FORWARD, true);
-        modificationPanel.setDisable(false);
     }
 }
