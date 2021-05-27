@@ -77,6 +77,7 @@ public class MainMenuController implements Initializable {
         preset10x10Btn.setOnAction(actionEvent -> {
             try {
                 Labyrinth labyrinth = new Labyrinth(10,10);
+                fileLabel.setText("");
                 App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.PRESET_10x10)));
                 App.mainStage.setMaximized(true);
             } catch (IOException e) {
@@ -88,6 +89,7 @@ public class MainMenuController implements Initializable {
         preset15x30Btn.setOnAction(actionEvent -> {
             try {
                 Labyrinth labyrinth = new Labyrinth(15,30);
+                fileLabel.setText("");
                 App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.PRESET_15x30)));
                 App.mainStage.setMaximized(true);
             } catch (IOException e) {
@@ -99,6 +101,7 @@ public class MainMenuController implements Initializable {
         preset20x40Btn.setOnAction(actionEvent -> {
             try {
                 Labyrinth labyrinth = new Labyrinth(20,40);
+                fileLabel.setText("");
                 App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.PRESET_20x40)));
                 App.mainStage.setMaximized(true);
             } catch (IOException e) {
@@ -110,6 +113,7 @@ public class MainMenuController implements Initializable {
         confirmBtn.setOnAction((actionEvent -> {
             try {
                 Labyrinth labyrinth = new Labyrinth((int) heightSlider.getValue(),(int) widthSlider.getValue());
+                fileLabel.setText("");
                 App.mainStage.setScene(LabyrinthGetter.
                         getLabyrinthScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.EMPTY)));
                 App.mainStage.setMaximized(true);
