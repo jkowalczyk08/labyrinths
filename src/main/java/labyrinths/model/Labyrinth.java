@@ -225,32 +225,60 @@ public class Labyrinth {
         return res;
     }
 
-    public Result getInitialResult(String s) {
+    public Result getInitialResult(String s) throws FileFormatException {
         Result res=new Result();
         int i=0;
         while(i<s.length()) {
             int j=s.charAt(i);
 
             if((char)j=='x') {
+                if(i % width == width-1 || i % width == width - 2) {
+                    throw new FileFormatException();
+                }
+
                 graph.removeVertex(i / width +1, i % width+1);
                 res.add(new Field(i / width , i % width , Type.WALL));
             }
+            else if((char)j=='s') {
+                if(i % width == width-1 || i % width == width - 2) {
+                    throw new FileFormatException();
+                }
 
-            if((char)j=='s') {
                 start=graph.indexOf(i / width +1, i % width +1);
                 res.add(new Field(i / width , i % width , Type.START));
             }
             else if((char)j=='f') {
+                if(i % width == width-1 || i % width == width - 2) {
+                    throw new FileFormatException();
+                }
+
                 target = graph.indexOf(i / width +1, i % width +1);
                 res.add(new Field(i / width , i % width , Type.TARGET));
             }
             else if((char)j=='t') {
+                if(i % width == width-1 || i % width == width - 2) {
+                    throw new FileFormatException();
+                }
+
                 int f=graph.indexOf(i / width +1, i % width +1);
                 for(Integer t : teleports){
                     graph.addEdge(f, t);
                 }
                 teleports.add(f);
                 res.add(new Field(i / width, i % width, Type.TELEPORT));
+            }
+            else if((char)j==':') {
+                if(i % width != width-1 && i % width != width - 2) {
+                    throw new FileFormatException();
+                }
+            }
+            else if((char)j=='o') {
+                if(i % width == width-1 || i % width == width - 2) {
+                    throw new FileFormatException();
+                }
+            }
+            else {
+                throw new FileFormatException();
             }
             i++;
         }

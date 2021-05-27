@@ -10,9 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import labyrinths.App;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
-import labyrinths.model.Labyrinth;
-import labyrinths.model.LabyrinthPreset;
-import labyrinths.model.Result;
+import labyrinths.model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,11 +60,15 @@ public class MainMenuController implements Initializable {
                     String[] labParameters = labRepresentation.split(";");
                     int height = Integer.parseInt(labParameters[0]);
                     int width = Integer.parseInt(labParameters[1]);
+                    FileChecker.checkSize(height,width);
+                    FileChecker.checkStringLength(height,width,labParameters[2]);
                     Labyrinth labyrinth = new Labyrinth(height,width);
                     Result initialResult = labyrinth.getInitialResult(labParameters[2]);
+                    fileLabel.setText("");
                     App.mainStage.setScene(LabyrinthGetter.getLabyrinthScene(labyrinth, initialResult));
                     App.mainStage.setMaximized(true);
-                } catch (IOException e) {
+                } catch (Exception e) {
+                    fileLabel.setText("File is incorrect");
                     e.printStackTrace();
                 }
             }
