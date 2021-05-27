@@ -11,6 +11,7 @@ import static java.lang.Math.min;
 
 public class Astar{
     public static List<Field> startAlgorithm(Graph graph, int start, int target){
+        if(start==0)return new LinkedList<>();
         List<Field> process=new LinkedList<>();
         List<Field> path=new LinkedList<>();
         if(!runA(graph, start, target, process, path) )return process;
@@ -21,7 +22,6 @@ public class Astar{
         Integer current;
         int h=target/graph.width;
         int w=target%graph.width;
-        System.out.println(h+" "+w);
         Set<Integer>open = new HashSet<>();
         open.add(start);
         Integer[] previous=new Integer[graph.height* graph.width];
