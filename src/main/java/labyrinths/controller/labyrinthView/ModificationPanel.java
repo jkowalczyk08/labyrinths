@@ -1,16 +1,7 @@
 package labyrinths.controller.labyrinthView;
 
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import labyrinths.model.Labyrinth;
-import labyrinths.model.Result;
+
 
 import java.util.Arrays;
 import java.util.List;

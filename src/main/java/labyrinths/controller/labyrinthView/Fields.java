@@ -31,8 +31,6 @@ public class Fields implements Config {
             for (int j = 0; j < width; ++j) {
                 Pane field = new Pane();
                 field.setBackground(free);
-                final int finalI = i, finalJ = j;
-                field.setOnMouseClicked(e -> this.modificationPanel.modify(finalI, finalJ));
                 row.add(field);
 
                 ImageView imageView = new ImageView();

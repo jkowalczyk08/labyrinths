@@ -57,6 +57,8 @@ public class LabyrinthController implements Initializable {
                 ImageViewPane imageViewPane = new ImageViewPane();
                 imageViewPane.setImageView(fields.getImages(i).get(j));
                 stackPane.getChildren().addAll(pane, field, imageViewPane);
+                final int finalI = i, finalJ = j;
+                stackPane.setOnMouseClicked(e -> this.modificationPanel.modify(finalI, finalJ));
                 gridPane.add(stackPane, j, i);
             }
         }
