@@ -3,6 +3,7 @@ package labyrinths.model;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.HttpRetryException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -162,18 +163,24 @@ public class Labyrinth {
     }
     public Result setStart(int h, int w){
         Result result=new Result();
-        if(start!=0)
+        if(start!=0){
             result.add(new Field(graph.graph.get(start), Type.FREE));
+            graph.graph.get(start).field.type= Type.FREE;
+        }
         start=graph.indexOf(h+1, w+1);
         result.add(new Field(h, w, Type.START));
+        graph.graph.get(start).field.type= Type.START;
         return result;
     }
     public Result setTarget(int h, int w){
         Result result=new Result();
-        if(target!=0)
+        if(target!=0){
             result.add(new Field(graph.graph.get(target), Type.FREE));
+            graph.graph.get(target).field.type= Type.FREE;
+        }
         target=graph.indexOf(h+1, w+1);
         result.add(new Field(h, w, Type.TARGET));
+        graph.graph.get(target).field.type= Type.TARGET;
         return result;
     }
     public Result setTeleport(int h, int w){
@@ -195,6 +202,7 @@ public class Labyrinth {
             graph.addEdge(f, i);
         }
         teleports.add(f);
+        graph.graph.get(f).field.type= Type.TELEPORT;
         Result result=new Result();
         result.add(new Field(h, w, Type.TELEPORT));
         return result;

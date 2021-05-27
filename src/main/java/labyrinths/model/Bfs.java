@@ -39,7 +39,7 @@ public class Bfs{
             Collections.shuffle(graph.graph.get(current).neighbors);
             for(int x : graph.graph.get(current).neighbors){
                 //System.out.println(x);
-                if(graph.graph.get(x).field.type==Type.FREE) {
+                if(graph.graph.get(x).field.type==Type.FREE||graph.graph.get(x).field.type==Type.TELEPORT) {
                     list.add(x);
                     graph.graph.get(x).field.type=Type.HIGHLIGHTED;
                     previous[x] = current;

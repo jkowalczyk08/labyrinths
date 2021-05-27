@@ -19,7 +19,7 @@ public class Dfs {
             graph.graph.get(current).field.type=Type.PATH;
             return true;
         }path.add(new Field(graph.graph.get(current), Type.PATH));
-        if(graph.graph.get(current).field.type!=Type.FREE){
+        if(graph.graph.get(current).field.type!=Type.FREE&&graph.graph.get(current).field.type!=Type.TELEPORT){
             return false;
         }
         process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
