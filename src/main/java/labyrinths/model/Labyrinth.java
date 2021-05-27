@@ -117,8 +117,10 @@ public class Labyrinth {
         Result res=new Result();
         res.add(new Field(0, 0, Type.START));
         start=width+1;
+        graph.graph.get(graph.indexOf(1,1)).field.type=Type.START;
         target=width*(height-1)-2;
         res.add(new Field(height-2-1, width-2-1, Type.TARGET));
+        graph.graph.get(graph.indexOf(height-2,width-2)).field.type=Type.TARGET;
         FileReader fr= null;
         try {
             fr = new FileReader(s);

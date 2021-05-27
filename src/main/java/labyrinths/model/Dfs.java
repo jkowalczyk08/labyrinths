@@ -19,7 +19,7 @@ public class Dfs {
             graph.graph.get(current).field.type=Type.PATH;
             return true;
         }path.add(new Field(graph.graph.get(current), Type.PATH));
-        if(graph.graph.get(current).field.type!=Type.FREE&&graph.graph.get(current).field.type!=Type.TELEPORT){
+        if(graph.graph.get(current).field.type!=Type.FREE&&graph.graph.get(current).field.type!=Type.START&&graph.graph.get(current).field.type!=Type.TELEPORT&&graph.graph.get(current).field.type!=Type.TARGET){
             return false;
         }
         process.add(new Field(graph.graph.get(current), Type.HIGHLIGHTED));
