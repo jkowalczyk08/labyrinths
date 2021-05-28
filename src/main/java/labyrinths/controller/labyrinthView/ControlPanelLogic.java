@@ -46,7 +46,7 @@ public class ControlPanelLogic implements Config {
         algorithmBox.setValue(algorithms.get(0));
     }
     void quickApply(Result result) {
-        applier.quickApply(result, 0);
+        applier.quickApply(result);
     }
     void launch(Result result) {
         controlPanel.setDisable(FAST_FORWARD, false);

@@ -29,7 +29,6 @@ public class ControlPanel {
     }
     public void initialize() {
         controlPanelLogic.initialize(this);
-
         backBtn.setOnAction(actionEvent -> back());
         saveBtn.setOnAction(actionEvent -> save());
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.start());
@@ -53,8 +52,8 @@ public class ControlPanel {
                 break;
         }
     }
-    Image stop = new Image(new File("src/main/resources/drawable/stop_grey.png").toURI().toString());
-    Image start = new Image(new File("src/main/resources/drawable/start.png").toURI().toString());
+    Image stop = Getter.getImage("stop_grey.png");
+    Image start = Getter.getImage("start.png");
     public void setToStart() {
         startStopBtn.setOnAction(actionEvent -> controlPanelLogic.start());
         startStopImg.setImage(start);
