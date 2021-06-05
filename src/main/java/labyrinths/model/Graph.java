@@ -6,6 +6,16 @@ public class Graph {
     int width;
     int height;
     List<Node> graph;
+    Graph(int height, int width, int t){
+        this.height=height;
+        this.width=width;
+        graph=new ArrayList<>();
+        for(int i=0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                    graph.add(new Node(i, j, Type.WALL));
+            }
+        }
+    }
     Graph(int height, int width){
         this.height=height;
         this.width=width;
@@ -71,6 +81,13 @@ public class Graph {
         }
         graph.get(indexOf(h, w)).neighbors.clear();
         graph.get(indexOf(h, w)).field.type=Type.WALL;
+    }
+    boolean checkIfOK(int index){
+        if(index<width)return false;
+        if(index%width==0)return false;
+        if(index>(width*(height-1)-1))return false;
+        if(index%width==width-1)return false;
+        return true;
     }
     @Override
     public String toString(){

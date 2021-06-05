@@ -27,9 +27,105 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width);
     }
+    public Labyrinth(int height, int width, int t){
+        this.width=width+2;
+        this.height=height+2;
+        teleports=new ArrayList<>();
+        start=0;
+        target=0;
+        graph=new Graph(this.height, this.width, t);
+    }
+    public Result getRandomLabyrinth(){
+        teleports.clear();
+        Result res=new Result();
+        res.add(new Field(start/width-1, start%width-1, Type.FREE));
+        res.add(new Field(target/width-1, target%width-1, Type.FREE));
+        start=0;
+        target=0;
+        for(int i=0; i<height-2; i++){
+            for(int j=0; j<width-2; j++)
+                res.add(new Field(i, j, Type.WALL));
+        }
+        graph=new Graph(this.height, this.width, 1);
+        int current=5*width+5;
+        List<Integer> toVisit=new ArrayList<>();
+        graph.addVertex(current/width, current%width);
+        res.add(new Field(current/width-1, current%width-1, Type.FREE));
+        if(graph.checkIfOK(current+2))
+            toVisit.add(current+2);
+        if(graph.checkIfOK(current-2))
+            toVisit.add(current-2);
+        if(graph.checkIfOK(current+2*width))
+            toVisit.add(current+2*width);
+        if(graph.checkIfOK(current-2*width))
+            toVisit.add(current-2*width);
+        while(!toVisit.isEmpty()){
+            List<Integer>myOptions=new ArrayList<>();
+            Collections.shuffle(toVisit);
+            current=toVisit.remove(0);
+            if(graph.checkIfOK(current+2)&&graph.graph.get(current+2).field.type==Type.FREE)
+                myOptions.add(current+2);
+            if(graph.checkIfOK(current-2)&&graph.graph.get(current-2).field.type==Type.FREE)
+                myOptions.add(current-2);
+            if(graph.checkIfOK(current+2*width)&&graph.graph.get(current+2*width).field.type==Type.FREE)
+                myOptions.add(current+2*width);
+            if(graph.checkIfOK(current-2*width)&&graph.graph.get(current-2*width).field.type==Type.FREE)
+                myOptions.add(current-2*width);
+            Collections.shuffle(myOptions);
+            Integer next=myOptions.remove(0);
+            next=(next+current)/2;
+            graph.addVertex(next/width, next%width);
+            res.add(new Field(next/width-1, next%width-1, Type.FREE));
+            graph.addVertex(current/width, current%width);
+            res.add(new Field(current/width-1, current%width-1, Type.FREE));
+            if(graph.checkIfOK(current+2)&&graph.graph.get(current+2).field.type==Type.WALL&&!toVisit.contains(current+2))
+                toVisit.add(current+2);
+            if(graph.checkIfOK(current-2)&&!toVisit.contains(current-2)&&graph.graph.get(current-2).field.type==Type.WALL)
+                toVisit.add(current-2);
+            if(graph.checkIfOK(current+2*width)&&!toVisit.contains(current+2*width)&&graph.graph.get(current+2*width).field.type==Type.WALL)
+                toVisit.add(current+2*width);
+            if(graph.checkIfOK(current-2*width)&&!toVisit.contains(current-2*width)&&graph.graph.get(current-2*width).field.type==Type.WALL)
+                toVisit.add(current-2*width);
+        }
+        if(graph.graph.get(width+1).field.type==Type.FREE){
+            setStart(0,0);
+            res.add(new Field(0, 0, Type.START));
+        }else
+        if(graph.graph.get(width+2).field.type==Type.FREE){
+            setStart(0,1);
+            res.add(new Field(0, 1, Type.START));
+        }else
+        if(graph.graph.get(2*width+1).field.type==Type.FREE){
+            setStart(1,0);
+            res.add(new Field(1, 0, Type.START));
+        }else
+        if(graph.graph.get(width*2+2).field.type==Type.FREE){
+            setStart(1,1);
+            res.add(new Field(1, 1, Type.START));
+        }
+        if(graph.graph.get(height*width-width-2).field.type==Type.FREE){
+            setTarget(height-3,width-3);
+            res.add(new Field(height-3, width-3, Type.TARGET));
+        }else
+        if(graph.graph.get(height*width-width-3).field.type==Type.FREE){
+            setTarget(height-3,width-4);
+            res.add(new Field(height-3, width-4, Type.TARGET));
+        }else
+        if(graph.graph.get(height*width-2*width-2).field.type==Type.FREE){
+            setTarget(height-4,width-3);
+            res.add(new Field(height-4, width-3, Type.TARGET));
+        }else
+        if(graph.graph.get(height*width-width*2-3).field.type==Type.FREE){
+            setTarget(height-4,width-4);
+            res.add(new Field(height-4, width-4, Type.TARGET));
+        }
+        return res;
+    }
     public Result perform(String algorithm){
             if(algorithm.equals("DFS"))
                 return new Result(Dfs.startAlgorithm(graph, start, target));
+        if(algorithm.equals("get"))
+            return getRandomLabyrinth();
             if(algorithm.equals("BFS"))
                 return new Result(Bfs.startAlgorithm(graph, start, target));
             if(algorithm.equals("Astar"))
@@ -43,6 +139,7 @@ public class Labyrinth {
     public List<String> availableAlgorithms(){
         List<String> a=new ArrayList<>();
         a.add("DFS");
+        a.add("get");
         a.add("BFS");
         a.add("Astar");
         a.add("BidirectionalBFS");
