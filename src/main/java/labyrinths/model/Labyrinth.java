@@ -3,9 +3,7 @@ package labyrinths.model;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.HttpRetryException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Labyrinth {
@@ -217,8 +215,10 @@ public class Labyrinth {
                 graph.graph.get(i).field.type = Type.FREE;
             }
         }
-        res.add(new Field(start/ width - 1, start % width - 1, Type.START));
-        res.add(new Field(target/ width - 1, target % width - 1, Type.TARGET));
+        if(start!=0)
+            res.add(new Field(start/ width - 1, start % width - 1, Type.START));
+        if(target!=0)
+            res.add(new Field(target/ width - 1, target % width - 1, Type.TARGET));
         for(Integer i : teleports){
             res.add(new Field(i/ width - 1, i % width - 1, Type.TELEPORT));
         }
