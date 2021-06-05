@@ -4,7 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Labyrinth {
     Graph graph;
@@ -45,29 +49,9 @@ public class Labyrinth {
         a.add("GreedyBestFirstSearch");
         return a;
     }
-    Result getFromString(String s){
-        Result res=new Result();
-        res.add(new Field(0, 0, Type.START));
-        start=width+1;
-        target=width*(height-1)-2;
-        res.add(new Field(height-2-1, width-2-1, Type.TARGET));
-        int i=0;
-        while(i<s.length()) {
-            int j=s.charAt(i);
-            if((char)j=='x') {
-                graph.removeVertex(i / width +1, i % width+1);
-                res.add(new Field(i / width , i % width , Type.WALL));
-            }
-            i++;
-        }
-        return res;
-    }
     Result getDefault(){
-        Result res=new Result();
-        res.add(new Field(0, 0, Type.START));
-        start=width+1;
-        target=width*(height-1)-2;
-        res.add(new Field(height-2-1, width-2-1, Type.TARGET));
+        Result res=new Result(Stream.of(setStart(0,0).changes,(setTarget(width-2, height-2).changes)).flatMap(Collection::stream)
+                .collect(Collectors.toList()));
         for(int i=2; i<height-1; i+=2){
             for(int j=1; j<width-1; j+=2){
                 if(!(i==height-2&&j==width-2)){
@@ -76,6 +60,8 @@ public class Labyrinth {
                 }
             }
         }
+
+
         return res;
     }
     Result getSnake(){
@@ -97,7 +83,8 @@ public class Labyrinth {
     public Result getPreset(LabyrinthPreset presetType) {
         switch (presetType) {
             case EMPTY:
-                return new Result();
+                return new Result(Stream.of(setStart(0,0).changes,(setTarget(height-3, width-3).changes)).flatMap(Collection::stream)
+                    .collect(Collectors.toList()));
             case SNAKE:
                 return getSnake();
             case DEFAULT:
@@ -149,13 +136,13 @@ public class Labyrinth {
     }
     public Result addWall(int h, int w){
         Result result=new Result();
-        if(teleports.contains(graph.indexOf(h+1, w+1)))
-            setTeleport(h,w);
-        if(graph.graph.get(graph.indexOf(h+1, w+1)).field.type!=Type.WALL){
+        if(teleports.contains(graph.indexOf(h+1, w+1))||start==graph.indexOf(h+1, w+1)||target==graph.indexOf(h+1, w+1))
+            return result;
+        if(graph.graph.get(graph.indexOf(h+1, w+1)).field.type==Type.FREE){
             result.add(new Field(h, w, Type.WALL));
             graph.removeVertex(h+1, w+1);
         }
-        else{
+        else if(graph.graph.get(graph.indexOf(h+1, w+1)).field.type==Type.WALL){
             result.add(new Field(h, w, Type.FREE));
             graph.addVertex(h+1, w+1);
         }
@@ -163,9 +150,18 @@ public class Labyrinth {
     }
     public Result setStart(int h, int w){
         Result result=new Result();
+        if(target==graph.indexOf(h+1, w+1)||graph.graph.get(graph.indexOf(h+1, w+1)).field.type==Type.WALL)
+            return result;
         if(start!=0){
-            result.add(new Field(graph.graph.get(start), Type.FREE));
-            graph.graph.get(start).field.type= Type.FREE;
+            if(teleports.contains(start)){
+                result.add(new Field(graph.graph.get(start), Type.FREE));
+                result.add(new Field(graph.graph.get(start), Type.TELEPORT));
+                graph.graph.get(start).field.type= Type.FREE;
+            }
+            else{
+                result.add(new Field(graph.graph.get(start), Type.FREE));
+                graph.graph.get(start).field.type= Type.FREE;
+            }
         }
         start=graph.indexOf(h+1, w+1);
         result.add(new Field(h, w, Type.START));
@@ -174,9 +170,17 @@ public class Labyrinth {
     }
     public Result setTarget(int h, int w){
         Result result=new Result();
-        if(target!=0){
-            result.add(new Field(graph.graph.get(target), Type.FREE));
-            graph.graph.get(target).field.type= Type.FREE;
+        if(start==graph.indexOf(h+1, w+1)||graph.graph.get(graph.indexOf(h+1, w+1)).field.type==Type.WALL)
+            return result;
+        if(target!=0) {
+            if (teleports.contains(target)) {
+                result.add(new Field(graph.graph.get(target), Type.FREE));
+                result.add(new Field(graph.graph.get(target), Type.TELEPORT));
+                graph.graph.get(target).field.type = Type.FREE;
+            } else {
+                result.add(new Field(graph.graph.get(target), Type.FREE));
+                graph.graph.get(target).field.type = Type.FREE;
+            }
         }
         target=graph.indexOf(h+1, w+1);
         result.add(new Field(h, w, Type.TARGET));
@@ -191,11 +195,11 @@ public class Labyrinth {
             graph.addVertex(h+1,w+1);
             teleports.remove(teleports.indexOf(f));
             Result result=new Result();
+            result.add(new Field(h, w, Type.FREE));
             if(f==start)
                 result.add(new Field(h, w, Type.START));
             else if(f==target)
                 result.add(new Field(h, w, Type.TARGET));
-            else result.add(new Field(h, w, Type.FREE));
             return result;
         }
         for(Integer i : teleports){
