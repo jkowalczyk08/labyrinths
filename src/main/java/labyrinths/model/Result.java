@@ -8,7 +8,7 @@ public class Result {
     public Result(){
         changes= new ArrayList<>();
     }
-    Result(List<Field> x){
+    public Result(List<Field> x){
         changes=x;
     }
     void add(Field f){

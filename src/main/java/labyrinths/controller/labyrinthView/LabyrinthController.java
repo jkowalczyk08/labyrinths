@@ -41,9 +41,7 @@ public class LabyrinthController implements Initializable {
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
         fields = new Fields(modificationPanel, labyrinthModel.getHeight(), labyrinthModel.getWidth());
         fields.addFields(labyrinthPane);
-        //labyrinthPane.setBackground(Getter.getBackground(Color.AQUA));
     }
-
 
     @FXML
     Button backBtn,  startStopBtn, fastForwardBtn, pauseBtn, saveBtn;

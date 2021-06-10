@@ -15,7 +15,7 @@ public class ChangesApplier implements Config {
     ControlPanelLogic logic;
     Timeline timeline;
 
-    ChangesApplier(Fields fields) {
+    public ChangesApplier(Fields fields) {
         this.fields = fields;
     }
     public void initialize(ControlPanelLogic logic) {

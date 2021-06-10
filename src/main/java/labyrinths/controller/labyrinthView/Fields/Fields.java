@@ -42,7 +42,8 @@ public class Fields implements Config {
                 stackPane.prefHeightProperty().bind(pane.heightProperty().divide(height));
                 stackPane.setStyle("-fx-border-color: gray; -fx-border-width: 1;");
                 final int finalI = i, finalJ = j;
-                stackPane.setOnMouseClicked(e -> this.modificationPanel.modify(finalI, finalJ));
+                if(modificationPanel != null)
+                    stackPane.setOnMouseClicked(e -> this.modificationPanel.modify(finalI, finalJ));
                 gridPane.add(stackPane, j, i);
             }
         }

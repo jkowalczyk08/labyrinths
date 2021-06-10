@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.labyrinthView.LabyrinthGame">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.gameView.LabyrinthGame">
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox alignment="BOTTOM_LEFT" spacing="20.0">
             <opaqueInsets>
@@ -21,10 +21,12 @@
             </Button>
             <Pane HBox.hgrow="ALWAYS" />
         </HBox>
-        <VBox fx:id="labyrinthPane" alignment="TOP_CENTER" fillWidth="false" VBox.vgrow="ALWAYS">
+        <StackPane VBox.vgrow="ALWAYS">
             <VBox.margin>
-                <Insets bottom="50.0" left="80.0" right="80.0" top="30.0" />
+                <Insets bottom="50.0" left="80.0" right="80.0" top="30.0"/>
             </VBox.margin>
-        </VBox>
+            <VBox fx:id="labyrinthPane" alignment="TOP_CENTER" fillWidth="false"/>
+            <VBox fx:id="coverPane" alignment="TOP_CENTER" fillWidth="false" layoutX="10.0" layoutY="10.0"/>
+        </StackPane>
     </VBox>
 </AnchorPane>
