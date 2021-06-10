@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Result {
     List<Field> changes;
+    boolean win=false;
     public Result(){
         changes= new ArrayList<>();
     }

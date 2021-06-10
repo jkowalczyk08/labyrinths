@@ -35,6 +35,66 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width, t);
     }
+    public Result up(){
+        if(graph.graph.get(start-width).field.type==Type.WALL){
+            return new Result();
+        }
+        if(start-width==target){
+            start-=width;
+            Result res=setStart(start/width-1, start%width-1);
+            res.win=true;
+            return res;
+        }
+        else{
+            start-=width;
+            return setStart(start/width-1, start%width-1);
+        }
+    }
+    public Result down(){
+        if(graph.graph.get(start+width).field.type==Type.WALL){
+            return new Result();
+        }
+        if(start+width==target){
+            start+=width;
+            Result res=setStart(start/width-1, start%width-1);
+            res.win=true;
+            return res;
+        }
+        else{
+            start+=width;
+            return setStart(start/width-1, start%width-1);
+        }
+    }
+    public Result right(){
+        if(graph.graph.get(start+1).field.type==Type.WALL){
+            return new Result();
+        }
+        if(start+1==target){
+            start+=1;
+            Result res=setStart(start/width-1, start%width-1);
+            res.win=true;
+            return res;
+        }
+        else{
+            start+=1;
+            return setStart(start/width-1, start%width-1);
+        }
+    }
+    public Result left(){
+        if(graph.graph.get(start-1).field.type==Type.WALL){
+            return new Result();
+        }
+        if(start-1==target){
+            start-=1;
+            Result res=setStart(start/width-1, start%width-1);
+            res.win=true;
+            return res;
+        }
+        else{
+            start-=1;
+            return setStart(start/width-1, start%width-1);
+        }
+    }
     public Result getRandomLabyrinth(){
         teleports.clear();
         Result res=new Result();
