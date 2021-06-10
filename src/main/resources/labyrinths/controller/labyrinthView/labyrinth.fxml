@@ -56,6 +56,11 @@
                   <ImageView fx:id="teleportImg" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                </graphic></ToggleButton>
          </HBox>
+         <Button fx:id="generateBtn" layoutX="159.0" layoutY="78.0" mnemonicParsing="false" text="Generate">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
          <HBox alignment="BOTTOM_LEFT" spacing="20.0">
             <Label text="Algorithm:">
                <font>
@@ -95,9 +100,6 @@
          </padding>
       </HBox>
       <VBox fx:id="labyrinthPane" alignment="TOP_CENTER" fillWidth="false" VBox.vgrow="ALWAYS">
-         <stylesheets>
-            <URL value="@style.css" />
-         </stylesheets>
          <VBox.margin>
             <Insets bottom="50.0" left="80.0" right="80.0" top="30.0" />
          </VBox.margin>

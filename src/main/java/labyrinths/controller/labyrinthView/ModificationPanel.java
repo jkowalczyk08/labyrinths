@@ -1,5 +1,6 @@
 package labyrinths.controller.labyrinthView;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 
 
@@ -14,17 +15,20 @@ public class ModificationPanel {
     List<ToggleButton> buttons;
     ToggleButton current = null;
     ControlPanelLogic logic;
+    Button generateBtn;
 
-    ModificationPanel( ToggleButton changeBtn, ToggleButton startBtn,
-                       ToggleButton targetBtn, ToggleButton teleportBtn) {
+    ModificationPanel(ToggleButton changeBtn, ToggleButton startBtn,
+                      ToggleButton targetBtn, ToggleButton teleportBtn, Button generateBtn) {
         this.changeBtn = changeBtn;
         this.startBtn = startBtn;
         this.targetBtn = targetBtn;
         this.teleportBtn = teleportBtn;
         buttons = Arrays.asList(changeBtn, startBtn, targetBtn, teleportBtn);
+        this.generateBtn = generateBtn;
     }
     public void initialize(ControlPanelLogic logic) {
         this.logic = logic;
+        generateBtn.setOnAction(e -> logic.getRandom());
         for(ToggleButton button : buttons) {
             button.setOnAction(e -> changeCurrent(button));
         }
@@ -39,7 +43,8 @@ public class ModificationPanel {
             current = button;
     }
 
-    public void setDisable(boolean x) { //use this
+    public void setDisable(boolean x) {
+        generateBtn.setDisable(x);
         for(ToggleButton button : buttons)
             button.setDisable(x);
         if(x) {

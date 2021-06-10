@@ -3,7 +3,6 @@ package labyrinths.controller.labyrinthView.Fields;
 import javafx.scene.image.ImageView;
 import labyrinths.controller.labyrinthView.Getter;
 import labyrinths.model.Field;
-import labyrinths.model.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ public class Images {
             List<ImageView> imageRow= new ArrayList<>();
             for (int j = 0; j < width; ++j) {
                 ImageView imageView = new ImageView();
-
                 imageView.setPreserveRatio(true);
                 imageRow.add(imageView);
             }

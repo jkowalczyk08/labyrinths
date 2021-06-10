@@ -83,4 +83,7 @@ public class ControlPanelLogic implements Config {
         controlPanel.setDisable(START_STOP, true);
         controlPanel.setDisable(FAST_FORWARD, true);
     }
+    public void getRandom() {
+        quickApply(labyrinthModel.getRandomLabyrinth());
+    }
 }

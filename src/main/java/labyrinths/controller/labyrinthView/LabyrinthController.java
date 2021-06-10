@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import labyrinths.controller.labyrinthView.Fields.Fields;
 import labyrinths.model.Labyrinth;
 
@@ -21,6 +22,8 @@ public class LabyrinthController implements Initializable {
     AnchorPane mainPane;
     @FXML
     ToggleButton changeBtn, startBtn, targetBtn, teleportBtn;
+    @FXML
+    Button generateBtn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BackgroundImage myBI = new BackgroundImage(Getter.getImage("white_background.png"),
@@ -28,7 +31,7 @@ public class LabyrinthController implements Initializable {
                 BackgroundSize.DEFAULT);
         mainPane.setBackground(new Background(myBI));
         Labyrinth labyrinthModel = LabyrinthGetter.getLabyrinthModel();
-        modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn, teleportBtn);
+        modificationPanel = new ModificationPanel(changeBtn, startBtn, targetBtn, teleportBtn, generateBtn);
         constructEmptyLabyrinth(labyrinthModel);
         initializePanel(labyrinthModel);
     }
@@ -38,8 +41,7 @@ public class LabyrinthController implements Initializable {
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
         fields = new Fields(modificationPanel, labyrinthModel.getHeight(), labyrinthModel.getWidth());
         fields.addFields(labyrinthPane);
-        labyrinthPane.prefHeightProperty().bind(mainPane.heightProperty());
-        labyrinthPane.prefWidthProperty().bind(mainPane.widthProperty());
+        //labyrinthPane.setBackground(Getter.getBackground(Color.AQUA));
     }
 
 
