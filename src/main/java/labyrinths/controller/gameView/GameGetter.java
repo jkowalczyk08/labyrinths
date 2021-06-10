@@ -34,15 +34,22 @@ public class GameGetter {
         GameGetter.labyrinthModel = labyrinthModel;
         GameGetter.initResult = initResult;
         FXMLLoader fxmlLoader = new FXMLLoader(GameGetter.class.getResource("labyrinth_game.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        LabyrinthGame game = LabyrinthGame.getInstance();
         eventHandler = (key) -> {
             if(key.getCode().equals(KeyCode.W)) {
-                LabyrinthGame.getInstance().apply(new Result(Collections.singletonList(new Field(10, 10, Type.START))));
+                game.apply(labyrinthModel.up());
             }
-            if(key.getCode().equals(KeyCode.Q)) {
-                LabyrinthGame.getInstance().end();
+            else if(key.getCode().equals(KeyCode.A)) {
+                game.apply(labyrinthModel.left());
+            }
+            else if(key.getCode().equals(KeyCode.S)) {
+                game.apply(labyrinthModel.down());
+            }
+            else if(key.getCode().equals(KeyCode.D)) {
+                game.apply(labyrinthModel.right());
             }
         };
-        scene = new Scene(fxmlLoader.load());
         scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
         return scene;
     }

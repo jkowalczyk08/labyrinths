@@ -16,6 +16,7 @@ public class Result {
         changes.add(f);
     }
     public List<Field> getChanges() {return changes;}
+    public boolean getWin() {return win;}
     @Override
     public String toString(){
         return changes.toString();

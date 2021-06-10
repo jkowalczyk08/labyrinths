@@ -35,6 +35,7 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width, t);
     }
+    // TODO: make move functions clear prev position
     public Result up(){
         if(graph.graph.get(start-width).field.type==Type.WALL){
             return new Result();
@@ -350,7 +351,7 @@ public class Labyrinth {
         if(teleports.contains(f)){
             graph.removeVertex(h+1,w+1);
             graph.addVertex(h+1,w+1);
-            teleports.remove(teleports.indexOf(f));
+            teleports.remove(f);
             Result result=new Result();
             result.add(new Field(h, w, Type.FREE));
             if(f==start)

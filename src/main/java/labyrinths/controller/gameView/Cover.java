@@ -37,7 +37,7 @@ public class Cover {
     }
 
     public void apply(Result result) {
-        for(Field field : result.getChanges()){
+        for(Field field : result.getChanges()) {
             if(field.getType() == Type.START) {
                 preset.setViewport(new Rectangle2D(startW-field.getW()*tileSize, startH-field.getH()*tileSize,
                         w*tileSize, h*tileSize));

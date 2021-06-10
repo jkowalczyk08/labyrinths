@@ -41,6 +41,10 @@ public class LabyrinthGame implements Initializable {
     }
 
     void apply(Result result) {
+        if(result.getWin()) {
+            end();
+            return;
+        }
         changesApplier.quickApply(result);
         cover.apply(result);
     }
