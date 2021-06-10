@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import labyrinths.controller.labyrinthView.ChangesApplier;
 import labyrinths.controller.labyrinthView.Fields.Fields;
 import labyrinths.controller.labyrinthView.Fields.ImageViewPane;
@@ -45,7 +48,7 @@ public class LabyrinthGame implements Initializable {
     @FXML
     public Button backBtn;
     @FXML
-    public Pane labyrinthPane, coverPane;
+    public Pane labyrinthPane, coverPane, stackPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labyrinthModel = GameGetter.getLabyrinthModel();
@@ -56,5 +59,13 @@ public class LabyrinthGame implements Initializable {
         changesApplier = new ChangesApplier(fields);
         apply(GameGetter.getInitResult());
         instance = this;
+    }
+
+    public void end() {
+        Label label = new Label("Congratulations!");
+        label.setTextFill(Color.WHITE);
+        label.setFont((new Font( 40)));
+        stackPane.getChildren().add(label);
+        GameGetter.removeHandler();
     }
 }

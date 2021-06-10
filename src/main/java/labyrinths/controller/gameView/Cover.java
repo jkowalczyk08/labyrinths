@@ -30,8 +30,8 @@ public class Cover {
         ImageViewPane imageViewPane = new ImageViewPane();
         imageViewPane.setImageView(preset);
         StackPane stackPane = new StackPane();
-        stackPane.prefWidthProperty().bind(pane.widthProperty());
-        stackPane.prefHeightProperty().bind(pane.heightProperty());
+        stackPane.minWidthProperty().bind(pane.widthProperty());
+        stackPane.minHeightProperty().bind(pane.heightProperty());
         stackPane.getChildren().add(imageViewPane);
         pane.getChildren().add(stackPane);
     }
