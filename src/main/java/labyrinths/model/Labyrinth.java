@@ -35,7 +35,6 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width, t);
     }
-    // TODO: make move functions clear prev position
     public Result up(){
         if(graph.graph.get(start-width).field.type==Type.WALL){
             return new Result();
