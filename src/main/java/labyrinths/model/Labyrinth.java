@@ -41,14 +41,12 @@ public class Labyrinth {
             return new Result();
         }
         if(start-width==target){
-            start-=width;
-            Result res=setStart(start/width-1, start%width-1);
+            Result res=setStart(start/width-1-1, start%width-1);
             res.win=true;
             return res;
         }
         else{
-            start-=width;
-            return setStart(start/width-1, start%width-1);
+            return setStart(start/width-1-1, start%width-1);
         }
     }
     public Result down(){
@@ -56,14 +54,12 @@ public class Labyrinth {
             return new Result();
         }
         if(start+width==target){
-            start+=width;
-            Result res=setStart(start/width-1, start%width-1);
+            Result res=setStart(start/width, start%width-1);
             res.win=true;
             return res;
         }
         else{
-            start+=width;
-            return setStart(start/width-1, start%width-1);
+            return setStart(start/width, start%width-1);
         }
     }
     public Result right(){
@@ -71,14 +67,12 @@ public class Labyrinth {
             return new Result();
         }
         if(start+1==target){
-            start+=1;
-            Result res=setStart(start/width-1, start%width-1);
+            Result res=setStart(start/width-1, start%width);
             res.win=true;
             return res;
         }
         else{
-            start+=1;
-            return setStart(start/width-1, start%width-1);
+            return setStart(start/width-1, start%width);
         }
     }
     public Result left(){
@@ -86,14 +80,12 @@ public class Labyrinth {
             return new Result();
         }
         if(start-1==target){
-            start-=1;
-            Result res=setStart(start/width-1, start%width-1);
+            Result res=setStart(start/width-1, start%width-2);
             res.win=true;
             return res;
         }
         else{
-            start-=1;
-            return setStart(start/width-1, start%width-1);
+            return setStart(start/width-1, start%width-2);
         }
     }
     public Result getRandomLabyrinth(){
