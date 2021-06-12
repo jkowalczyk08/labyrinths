@@ -181,7 +181,6 @@ public class Labyrinth {
     public List<String> availableAlgorithms(){
         List<String> a=new ArrayList<>();
         a.add("DFS");
-        a.add("get");
         a.add("BFS");
         a.add("Astar");
         a.add("BidirectionalBFS");
