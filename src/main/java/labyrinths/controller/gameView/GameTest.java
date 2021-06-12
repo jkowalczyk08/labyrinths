@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
 
-import java.io.IOException;
-
 public class GameTest extends Application {
     public static Scene scene;
     public static Stage mainStage;
@@ -17,9 +15,10 @@ public class GameTest extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainStage = stage;
-        Labyrinth labyrinth = new Labyrinth(20, 30);
-        labyrinth.getPreset(LabyrinthPreset.EMPTY);
-        scene = GameGetter.getGameScene(labyrinth, labyrinth.getRandomLabyrinth());
+        Labyrinth labyrinth = new Labyrinth(20, 33);
+        //labyrinth.getPreset(LabyrinthPreset.EMPTY);
+        //scene = GameGetter.getGameScene(labyrinth, labyrinth.getRandomLabyrinth());
+        scene = GameGetter.getGameScene(labyrinth, labyrinth.getPreset(LabyrinthPreset.EMPTY));
         mainStage.setScene(scene);
         mainStage.setMaximized(true);
         mainStage.show();
