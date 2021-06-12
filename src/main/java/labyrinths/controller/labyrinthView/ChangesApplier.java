@@ -77,10 +77,13 @@ public class ChangesApplier implements Config {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+    long stoppedAt;
     public void stop() {
         timeline.pause();
+        stoppedAt = System.currentTimeMillis();
     }
     public void goOn() {
+        startTime = startTime+System.currentTimeMillis()-stoppedAt;
         timeline.play();
     }
     public void fastForward() {
