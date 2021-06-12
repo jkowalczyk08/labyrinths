@@ -2,6 +2,8 @@ package labyrinths.controller.labyrinthView;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 
 import java.util.Arrays;
@@ -32,7 +34,10 @@ public class ModificationPanel {
         for(ToggleButton button : buttons) {
             button.setOnAction(e -> changeCurrent(button));
         }
+        initializeBtnTooltips();
     }
+
+
 
     private void changeCurrent(ToggleButton button) {
         if(current != null)
@@ -69,5 +74,23 @@ public class ModificationPanel {
         else if(current == teleportBtn) {
             logic.quickApply(logic.getLabyrinthModel().setTeleport(h, w));
         }
+    }
+
+    private void initializeBtnTooltips() {
+        Tooltip changeTooltip = new Tooltip("Press to modify labyrinth layout\nClick on walls to remove them\nor click on free fields to add a wall");
+        Tooltip startTooltip = new Tooltip("Press to select starting field");
+        Tooltip targetTooltip = new Tooltip("Press to select target field");
+        Tooltip teleportTooltip = new Tooltip("Press to add teleports");
+        Tooltip generateTooltip = new Tooltip("Press to generate labyrinth layout");
+        for(Tooltip t : Arrays.asList(changeTooltip,startTooltip,targetTooltip,teleportTooltip,generateTooltip)) {
+            t.setShowDelay(Duration.millis(300));
+            t.setStyle("-fx-font-size: 15");
+        }
+
+        changeBtn.setTooltip(changeTooltip);
+        startBtn.setTooltip(startTooltip);
+        targetBtn.setTooltip(targetTooltip);
+        teleportBtn.setTooltip(teleportTooltip);
+        generateBtn.setTooltip(generateTooltip);
     }
 }
