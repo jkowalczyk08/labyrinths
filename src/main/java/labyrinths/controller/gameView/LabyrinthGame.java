@@ -9,7 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -29,7 +32,6 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class LabyrinthGame implements Initializable {
-
     Labyrinth labyrinthModel;
     ChangesApplier changesApplier;
     Cover cover;
@@ -47,18 +49,13 @@ public class LabyrinthGame implements Initializable {
         changesApplier.quickApply(result);
         cover.apply(result);
     }
-    @FXML
-    public AnchorPane mainPane;
+
     @FXML
     public Button backBtn;
     @FXML
     public Pane labyrinthPane, coverPane, stackPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        BackgroundImage myBI = new BackgroundImage(Getter.getImage("white_background.png"),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        mainPane.setBackground(new Background(myBI));
         labyrinthModel = GameGetter.getLabyrinthModel();
         Fields fields = new Fields(null, labyrinthModel.getHeight(), labyrinthModel.getWidth());
         fields.addFields(labyrinthPane);
@@ -71,13 +68,10 @@ public class LabyrinthGame implements Initializable {
     }
 
     public void end() {
-        StackPane temp = new StackPane();
         Label label = new Label("Congratulations!");
-        label.setTextFill(Color.DARKVIOLET);
-        label.setFont((new Font( "Verdana", 60)));
-        label.setBackground(Getter.getBackground(Color.SNOW));
+        label.setTextFill(Color.WHITE);
+        label.setFont((new Font( 40)));
         stackPane.getChildren().add(label);
-        coverPane.setVisible(false);
         GameGetter.removeHandler();
     }
     void initializeButtons() {
