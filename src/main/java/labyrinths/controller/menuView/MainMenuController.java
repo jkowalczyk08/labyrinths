@@ -5,10 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import labyrinths.App;
+import labyrinths.controller.gameView.GameGetter;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
 import labyrinths.model.*;
 
@@ -29,7 +31,7 @@ public class MainMenuController implements Initializable {
     FileChooser fileChooser;
 
     @FXML
-    Button preset10x10Btn, preset20x40Btn, preset15x30Btn, confirmBtn, chooseFileBtn;
+    Button preset10x10Btn, preset20x40Btn, preset15x30Btn, confirmBtn, chooseFileBtn, adventureBtn;
     @FXML
     Slider heightSlider, widthSlider;
     @FXML
@@ -51,6 +53,17 @@ public class MainMenuController implements Initializable {
 
         heightSlider.setValue(14);
         widthSlider.setValue(30);
+
+        adventureBtn.setOnAction(actionEvent -> {
+            Labyrinth labyrinth = new Labyrinth(20, 30);
+            labyrinth.getPreset(LabyrinthPreset.EMPTY);
+            try {
+                App.mainStage.setScene(GameGetter.getGameScene(labyrinth, labyrinth.getRandomLabyrinth()));
+                App.mainStage.setMaximized(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         chooseFileBtn.setOnAction(actionEvent -> {
             labyrinthFile = fileChooser.showOpenDialog(App.mainStage);

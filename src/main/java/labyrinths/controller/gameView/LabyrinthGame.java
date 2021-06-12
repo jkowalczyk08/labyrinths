@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import labyrinths.App;
 import labyrinths.controller.labyrinthView.ChangesApplier;
 import labyrinths.controller.labyrinthView.Fields.Fields;
 import labyrinths.controller.labyrinthView.Fields.ImageViewPane;
@@ -63,6 +64,7 @@ public class LabyrinthGame implements Initializable {
         changesApplier = new ChangesApplier(fields);
         apply(GameGetter.getInitResult());
         instance = this;
+        initializeButtons();
     }
 
     public void end() {
@@ -71,5 +73,11 @@ public class LabyrinthGame implements Initializable {
         label.setFont((new Font( 40)));
         stackPane.getChildren().add(label);
         GameGetter.removeHandler();
+    }
+    void initializeButtons() {
+        backBtn.setOnAction(actionEvent -> {
+            App.mainStage.setMaximized(false);
+            App.mainStage.setScene(App.scene);
+        });
     }
 }
