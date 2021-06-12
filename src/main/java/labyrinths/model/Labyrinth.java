@@ -27,14 +27,6 @@ public class Labyrinth {
         target=0;
         graph=new Graph(this.height, this.width);
     }
-    public Labyrinth(int height, int width, int t){
-        this.width=width+2;
-        this.height=height+2;
-        teleports=new ArrayList<>();
-        start=0;
-        target=0;
-        graph=new Graph(this.height, this.width, t);
-    }
     public Result up(){
         if(graph.graph.get(start-width).field.type==Type.WALL){
             return new Result();
@@ -176,8 +168,6 @@ public class Labyrinth {
     public Result perform(String algorithm){
             if(algorithm.equals("DFS"))
                 return new Result(Dfs.startAlgorithm(graph, start, target));
-        if(algorithm.equals("get"))
-            return getRandomLabyrinth();
             if(algorithm.equals("BFS"))
                 return new Result(Bfs.startAlgorithm(graph, start, target));
             if(algorithm.equals("Astar"))
