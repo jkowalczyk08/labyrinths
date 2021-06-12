@@ -147,22 +147,26 @@ public class Labyrinth {
             setStart(1,1);
             res.add(new Field(1, 1, Type.START));
         }
-        if(graph.graph.get(height*width-width-2).field.type==Type.FREE){
-            setTarget(height-3,width-3);
-            res.add(new Field(height-3, width-3, Type.TARGET));
-        }else
-        if(graph.graph.get(height*width-width-3).field.type==Type.FREE){
-            setTarget(height-3,width-4);
-            res.add(new Field(height-3, width-4, Type.TARGET));
-        }else
-        if(graph.graph.get(height*width-2*width-2).field.type==Type.FREE){
-            setTarget(height-4,width-3);
-            res.add(new Field(height-4, width-3, Type.TARGET));
-        }else
-        if(graph.graph.get(height*width-width*2-3).field.type==Type.FREE){
-            setTarget(height-4,width-4);
-            res.add(new Field(height-4, width-4, Type.TARGET));
+
+        if(width%2==0){
+            for(int i=1; i<height-1; i+=2){
+                graph.addVertex(i, width-2);
+                res.add(new Field(i-1, width-3, Type.FREE));
+            }
         }
+        if(height%2==0){
+            for(int i=1; i<width-1; i+=2){
+                graph.addVertex(height-2, i);
+                res.add(new Field(height-3, i-1, Type.FREE));
+            }
+        }
+        if(graph.graph.get(width*2+2).field.type==Type.WALL) {
+            //graph.graph.get(width*2+2).field.type=Type.FREE;
+            graph.addVertex(height-2, width-2);
+            res.add(new Field(height-3, width-3, Type.FREE));
+        }
+        setTarget(height-3,width-3);
+        res.add(new Field(height-3, width-3, Type.TARGET));
         return res;
     }
     public Result perform(String algorithm){
@@ -331,7 +335,7 @@ public class Labyrinth {
         if(teleports.contains(f)){
             graph.removeVertex(h+1,w+1);
             graph.addVertex(h+1,w+1);
-            teleports.remove(f);
+            teleports.remove(teleports.indexOf(f));
             Result result=new Result();
             result.add(new Field(h, w, Type.FREE));
             if(f==start)
