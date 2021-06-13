@@ -3,10 +3,7 @@ package labyrinths.model;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,6 +13,7 @@ public class Labyrinth {
     int target;
     int width;
     int height;
+    int torch;
     List<Integer> teleports;
     public int getWidth() {return width-2;}
     public int getHeight() {return height-2;}
@@ -31,52 +29,69 @@ public class Labyrinth {
         if(graph.graph.get(start-width).field.type==Type.WALL){
             return new Result();
         }
+        Result res=setStart(start/width-1-1, start%width-1);
         if(start-width==target){
-            Result res=setStart(start/width-1-1, start%width-1);
             res.win=true;
             return res;
         }
         else{
-            return setStart(start/width-1-1, start%width-1);
+            if(start==torch){
+                torch=0;
+                res.vision=true;
+            }
+
+            return res;
         }
     }
     public Result down(){
         if(graph.graph.get(start+width).field.type==Type.WALL){
             return new Result();
         }
+        Result res=setStart(start/width, start%width-1);
         if(start+width==target){
-            Result res=setStart(start/width, start%width-1);
             res.win=true;
             return res;
         }
         else{
-            return setStart(start/width, start%width-1);
+            if(start==torch){
+                torch=0;
+                res.vision=true;
+            }
+            return res;
         }
     }
     public Result right(){
         if(graph.graph.get(start+1).field.type==Type.WALL){
             return new Result();
         }
+        Result res=setStart(start/width-1, start%width);
         if(start+1==target){
-            Result res=setStart(start/width-1, start%width);
             res.win=true;
             return res;
         }
         else{
-            return setStart(start/width-1, start%width);
+            if(start==torch){
+                torch=0;
+                res.vision=true;
+            }
+            return res;
         }
     }
     public Result left(){
         if(graph.graph.get(start-1).field.type==Type.WALL){
             return new Result();
         }
+        Result res=setStart(start/width-1, start%width-2);
         if(start-1==target){
-            Result res=setStart(start/width-1, start%width-2);
             res.win=true;
             return res;
         }
         else{
-            return setStart(start/width-1, start%width-2);
+            if(start==torch){
+                torch=0;
+                res.vision=true;
+            }
+            return res;
         }
     }
     public Result getRandomLabyrinth(){
@@ -167,6 +182,11 @@ public class Labyrinth {
         }
         setTarget(height-3,width-3);
         res.add(new Field(height-3, width-3, Type.TARGET));
+        Random rand = new Random();
+        int n = rand.nextInt(height/2-1);
+        int m = rand.nextInt(width/2-1);
+        torch = (n*2+1)*width+m*2+1;
+        res.add(new Field(n*2, m*2, Type.VISION));
         return res;
     }
     public Result perform(String algorithm){
