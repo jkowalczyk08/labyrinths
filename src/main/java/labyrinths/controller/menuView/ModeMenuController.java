@@ -3,8 +3,10 @@ package labyrinths.controller.menuView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.*;
 import labyrinths.App;
 import labyrinths.controller.gameView.GameGetter;
+import labyrinths.controller.labyrinthView.Getter;
 import labyrinths.model.Labyrinth;
 import labyrinths.model.LabyrinthPreset;
 
@@ -16,6 +18,8 @@ public class ModeMenuController implements Initializable {
 
     @FXML
     Button sandboxBtn, adventureBtn;
+    @FXML
+    AnchorPane mainPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -31,5 +35,10 @@ public class ModeMenuController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        BackgroundImage myBI = new BackgroundImage(Getter.getImage("white_background.png"),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        mainPane.setBackground(new Background(myBI));
     }
 }

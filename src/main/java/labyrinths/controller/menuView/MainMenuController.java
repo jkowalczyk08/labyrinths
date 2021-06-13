@@ -2,15 +2,14 @@ package labyrinths.controller.menuView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import labyrinths.App;
 import labyrinths.controller.gameView.GameGetter;
+import labyrinths.controller.labyrinthView.Getter;
 import labyrinths.controller.labyrinthView.LabyrinthGetter;
 import labyrinths.model.*;
 
@@ -18,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
@@ -26,7 +26,9 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configureFileChooser();
         initializeControls();
+        initializeBackground();
     }
+
     File labyrinthFile;
     FileChooser fileChooser;
 
@@ -38,6 +40,8 @@ public class MainMenuController implements Initializable {
     ImageView preset10x10Img, preset15x30Img, preset20x40Img;
     @FXML
     Label fileLabel;
+    @FXML
+    AnchorPane mainPane;
 
     Image preset10x10 = new Image(new File("src/main/resources/drawable/preset_10x10.png").toURI().toString());
     Image preset15x30 = new Image(new File("src/main/resources/drawable/preset_15x30.png").toURI().toString());
@@ -125,5 +129,12 @@ public class MainMenuController implements Initializable {
         }));
 
         backBtn.setOnAction(actionEvent -> App.mainStage.setScene(App.modeScene));
+    }
+
+    void initializeBackground() {
+        BackgroundImage myBI = new BackgroundImage(Getter.getImage("white_background.png"),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        mainPane.setBackground(new Background(myBI));
     }
 }

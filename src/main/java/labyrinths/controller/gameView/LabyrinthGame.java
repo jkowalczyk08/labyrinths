@@ -11,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -62,7 +59,7 @@ public class LabyrinthGame implements Initializable, Config {
     @FXML
     public Button backBtn;
     @FXML
-    public Pane labyrinthPane, coverPane, stackPane;
+    public Pane labyrinthPane, coverPane, stackPane, mainPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labyrinthModel = GameGetter.getLabyrinthModel();
@@ -74,6 +71,7 @@ public class LabyrinthGame implements Initializable, Config {
         apply(GameGetter.getInitResult());
         instance = this;
         initializeButtons();
+        initializeBackground();
     }
     @FXML
     public Button showBtn;
@@ -92,5 +90,13 @@ public class LabyrinthGame implements Initializable, Config {
             App.mainStage.setMaximized(false);
             App.mainStage.setScene(App.modeScene);
         });
+        backBtn.setFocusTraversable(false);
+        showBtn.setFocusTraversable(false);
+    }
+    void initializeBackground() {
+        BackgroundImage myBI = new BackgroundImage(Getter.getImage("white_background.png"),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        mainPane.setBackground(new Background(myBI));
     }
 }

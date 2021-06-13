@@ -5,20 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="680.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.ModeMenuController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.ModeMenuController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="191.0" layoutY="74.0" text="Labyrinths">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="adventureBtn" layoutX="349.0" layoutY="223.0" mnemonicParsing="false" prefWidth="120.0" text="Adventure">
+      <Button fx:id="adventureBtn" focusTraversable="false" layoutX="349.0" layoutY="223.0" mnemonicParsing="false" prefWidth="120.0" text="Adventure">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="sandboxBtn" layoutX="131.0" layoutY="223.0" mnemonicParsing="false" prefWidth="120.0" text="Sandbox">
+      <Button fx:id="sandboxBtn" focusTraversable="false" layoutX="131.0" layoutY="223.0" mnemonicParsing="false" prefWidth="120.0" text="Sandbox">
          <font>
             <Font size="20.0" />
          </font>

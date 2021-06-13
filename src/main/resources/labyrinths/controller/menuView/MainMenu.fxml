@@ -11,40 +11,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.MainMenuController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.MainMenuController">
    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <top>
-         <Label alignment="CENTER" text="Labyrinths" BorderPane.alignment="CENTER_LEFT">
-            <BorderPane.margin>
-               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </BorderPane.margin>
-            <font>
-               <Font size="26.0" />
-            </font>
-         </Label>
-      </top>
       <center>
-         <VBox BorderPane.alignment="CENTER">
+         <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
             <Label text="Select labyrinth from presets">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
                <VBox.margin>
-                  <Insets left="60.0" top="5.0" />
+                  <Insets left="60.0" top="40.0" />
                </VBox.margin>
             </Label>
-            <AnchorPane prefHeight="200.0" prefWidth="600.0">
-               <HBox AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="196.0" prefWidth="600.0">
+               <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <VBox>
                      <HBox.margin>
                         <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
                      </HBox.margin>
-                     <Label text="10x10">
+                     <Label alignment="TOP_CENTER" prefHeight="25.0" prefWidth="120.0" text="10x10">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Button fx:id="preset10x10Btn" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
+                     <Button fx:id="preset10x10Btn" focusTraversable="false" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -57,12 +47,12 @@
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
-                     <Label text="15x30">
+                     <Label alignment="TOP_CENTER" prefHeight="25.0" prefWidth="120.0" text="15x30">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Button fx:id="preset15x30Btn" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
+                     <Button fx:id="preset15x30Btn" focusTraversable="false" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -75,12 +65,12 @@
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
-                     <Label text="20x40">
+                     <Label alignment="TOP_CENTER" prefHeight="25.0" prefWidth="120.0" text="20x40">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Button fx:id="preset20x40Btn" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
+                     <Button fx:id="preset20x40Btn" focusTraversable="false" mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -96,17 +86,17 @@
                   <Insets left="60.0" />
                </VBox.margin>
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-            <AnchorPane prefHeight="100.0" prefWidth="600.0">
+            <AnchorPane prefHeight="70.0" prefWidth="600.0">
                <HBox prefHeight="60.0" prefWidth="600.0">
-                  <Button fx:id="chooseFileBtn" mnemonicParsing="false" text="Select file">
+                  <Button fx:id="chooseFileBtn" focusTraversable="false" mnemonicParsing="false" text="Select file">
                      <HBox.margin>
                         <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="16.0" />
                      </font>
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -130,7 +120,7 @@
                   <Insets left="60.0" />
                </VBox.margin>
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
             <AnchorPane>
@@ -141,13 +131,16 @@
                            <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
                         </HBox.margin>
                         <font>
-                           <Font size="14.0" />
+                           <Font size="16.0" />
                         </font>
                      </Label>
-                     <Slider fx:id="heightSlider" blockIncrement="2.0" majorTickUnit="2.0" max="20.0" min="10.0" minorTickCount="0" prefWidth="350.0" showTickLabels="true" snapToTicks="true">
+                     <Slider fx:id="heightSlider" blockIncrement="2.0" focusTraversable="false" majorTickUnit="2.0" max="20.0" min="10.0" minorTickCount="0" prefHeight="50.0" prefWidth="350.0" showTickLabels="true" snapToTicks="true">
                         <HBox.margin>
                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </HBox.margin>
+                        <opaqueInsets>
+                           <Insets top="3.0" />
+                        </opaqueInsets>
                      </Slider>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -156,10 +149,10 @@
                            <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
                         </HBox.margin>
                         <font>
-                           <Font size="14.0" />
+                           <Font size="16.0" />
                         </font>
                      </Label>
-                     <Slider fx:id="widthSlider" blockIncrement="5.0" majorTickUnit="5.0" max="40.0" min="10.0" minorTickCount="0" prefWidth="350.0" showTickLabels="true" snapToTicks="true">
+                     <Slider fx:id="widthSlider" blockIncrement="5.0" focusTraversable="false" majorTickUnit="5.0" max="40.0" min="10.0" minorTickCount="0" prefWidth="350.0" showTickLabels="true" snapToTicks="true">
                         <HBox.margin>
                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </HBox.margin>
@@ -172,12 +165,12 @@
       <bottom>
          <AnchorPane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-               <Button fx:id="confirmBtn" alignment="TOP_CENTER" layoutX="486.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="CONFIRM" textAlignment="CENTER">
+               <Button fx:id="confirmBtn" alignment="TOP_CENTER" focusTraversable="false" layoutX="486.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="CONFIRM" textAlignment="CENTER">
                   <font>
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button fx:id="backBtn" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="BACK">
+               <Button fx:id="backBtn" focusTraversable="false" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="BACK">
                   <font>
                      <Font size="14.0" />
                   </font>
