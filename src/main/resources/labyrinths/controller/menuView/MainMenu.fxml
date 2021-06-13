@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.MainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labyrinths.controller.menuView.MainMenuController">
    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
          <Label alignment="CENTER" text="Labyrinths" BorderPane.alignment="CENTER_LEFT">
@@ -25,14 +25,6 @@
       </top>
       <center>
          <VBox BorderPane.alignment="CENTER">
-            <Button fx:id="adventureBtn" mnemonicParsing="false" text="Adventure mode">
-               <VBox.margin>
-                  <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
             <Label text="Select labyrinth from presets">
                <font>
                   <Font size="16.0" />
@@ -178,16 +170,26 @@
          </VBox>
       </center>
       <bottom>
-         <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
-            <Button fx:id="confirmBtn" mnemonicParsing="false" text="CONFIRM">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-         </HBox>
+         <AnchorPane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+               <Button fx:id="confirmBtn" alignment="TOP_CENTER" layoutX="486.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="CONFIRM" textAlignment="CENTER">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button fx:id="backBtn" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" prefWidth="100.0" text="BACK">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+            </children>
+            <BorderPane.margin>
+               <Insets />
+            </BorderPane.margin>
+            <padding>
+               <Insets top="20.0" />
+            </padding>
+         </AnchorPane>
       </bottom>
    </BorderPane>
 </AnchorPane>

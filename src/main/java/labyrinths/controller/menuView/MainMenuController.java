@@ -31,7 +31,7 @@ public class MainMenuController implements Initializable {
     FileChooser fileChooser;
 
     @FXML
-    Button preset10x10Btn, preset20x40Btn, preset15x30Btn, confirmBtn, chooseFileBtn, adventureBtn;
+    Button preset10x10Btn, preset20x40Btn, preset15x30Btn, confirmBtn, chooseFileBtn, backBtn;
     @FXML
     Slider heightSlider, widthSlider;
     @FXML
@@ -53,17 +53,6 @@ public class MainMenuController implements Initializable {
 
         heightSlider.setValue(14);
         widthSlider.setValue(30);
-
-        adventureBtn.setOnAction(actionEvent -> {
-            Labyrinth labyrinth = new Labyrinth(20, 30);
-            labyrinth.getPreset(LabyrinthPreset.EMPTY);
-            try {
-                App.mainStage.setScene(GameGetter.getGameScene(labyrinth, labyrinth.getRandomLabyrinth()));
-                App.mainStage.setMaximized(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
         chooseFileBtn.setOnAction(actionEvent -> {
             labyrinthFile = fileChooser.showOpenDialog(App.mainStage);
@@ -134,5 +123,7 @@ public class MainMenuController implements Initializable {
                 e.printStackTrace();
             }
         }));
+
+        backBtn.setOnAction(actionEvent -> App.mainStage.setScene(App.modeScene));
     }
 }

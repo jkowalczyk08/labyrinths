@@ -11,19 +11,20 @@ import java.io.IOException;
 
 public class App extends Application {
 
-    public static Scene scene;
+    public static Scene scene, modeScene;
     public static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
-        scene = new Scene(loadFXML());
-        mainStage.setScene(scene);
+        scene = new Scene(loadFXML("MainMenu.fxml"));
+        modeScene = new Scene(loadFXML("ModeMenu.fxml"));
+        mainStage.setScene(modeScene);
         mainStage.show();
     }
 
-    private static Parent loadFXML() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainMenuController.class.getResource("MainMenu.fxml"));
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainMenuController.class.getResource(fxml));
         return fxmlLoader.load();
     }
 

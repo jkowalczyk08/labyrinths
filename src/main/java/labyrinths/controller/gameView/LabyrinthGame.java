@@ -90,7 +90,7 @@ public class LabyrinthGame implements Initializable, Config {
     void initializeButtons() {
         backBtn.setOnAction(actionEvent -> {
             App.mainStage.setMaximized(false);
-            App.mainStage.setScene(App.scene);
+            App.mainStage.setScene(App.modeScene);
         });
     }
 }
