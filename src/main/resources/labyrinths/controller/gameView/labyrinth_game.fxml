@@ -19,14 +19,19 @@
                     <Font size="14.0" />
                 </font>
             </Button>
+         <Button fx:id="showBtn" layoutX="90.0" layoutY="60.0" mnemonicParsing="false" text="Show labyrinth" visible="false">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
             <Pane HBox.hgrow="ALWAYS" />
         </HBox>
         <StackPane fx:id="stackPane" VBox.vgrow="ALWAYS">
             <VBox.margin>
-                <Insets bottom="50.0" left="80.0" right="80.0" top="30.0"/>
+                <Insets bottom="50.0" left="80.0" right="80.0" top="30.0" />
             </VBox.margin>
-            <VBox fx:id="labyrinthPane" alignment="TOP_CENTER" fillWidth="false"/>
-            <VBox fx:id="coverPane" alignment="TOP_CENTER" fillWidth="false" layoutX="10.0" layoutY="10.0"/>
+            <VBox fx:id="labyrinthPane" alignment="TOP_CENTER" fillWidth="false" />
+            <VBox fx:id="coverPane" alignment="TOP_CENTER" fillWidth="false" layoutX="10.0" layoutY="10.0" />
         </StackPane>
     </VBox>
 </AnchorPane>

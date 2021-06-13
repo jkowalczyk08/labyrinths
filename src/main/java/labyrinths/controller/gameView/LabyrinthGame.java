@@ -66,11 +66,15 @@ public class LabyrinthGame implements Initializable {
         instance = this;
         initializeButtons();
     }
-
+    @FXML
+    public Button showBtn;
     public void end() {
         Label label = new Label("Congratulations!");
         label.setTextFill(Color.WHITE);
         label.setFont((new Font( 40)));
+        showBtn.setOnMousePressed((e) -> {coverPane.setVisible(false); label.setVisible(false);});
+        showBtn.setOnMouseReleased((e) -> {coverPane.setVisible(true); label.setVisible(true);});
+        showBtn.setVisible(true);
         stackPane.getChildren().add(label);
         GameGetter.removeHandler();
     }
