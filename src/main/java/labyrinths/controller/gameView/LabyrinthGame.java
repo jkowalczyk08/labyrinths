@@ -1,5 +1,7 @@
 package labyrinths.controller.gameView;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -16,7 +18,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import labyrinths.App;
+import labyrinths.controller.Config;
 import labyrinths.controller.labyrinthView.ChangesApplier;
 import labyrinths.controller.labyrinthView.Fields.Fields;
 import labyrinths.controller.labyrinthView.Fields.ImageViewPane;
@@ -31,7 +35,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class LabyrinthGame implements Initializable {
+public class LabyrinthGame implements Initializable, Config {
     Labyrinth labyrinthModel;
     ChangesApplier changesApplier;
     Cover cover;
@@ -48,6 +52,11 @@ public class LabyrinthGame implements Initializable {
         }
         changesApplier.quickApply(result);
         cover.apply(result);
+        if(result.getVision()) {
+            coverPane.setVisible(false);
+            KeyFrame kf = new KeyFrame(Duration.seconds(VISION_TIME), e -> coverPane.setVisible(true));
+            new Timeline(kf).play();
+        }
     }
 
     @FXML

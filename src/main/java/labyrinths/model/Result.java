@@ -5,7 +5,9 @@ import java.util.List;
 
 public class Result {
     List<Field> changes;
-    boolean win=false;
+    boolean win = false;
+    boolean vision = false;
+
     public Result(){
         changes= new ArrayList<>();
     }
@@ -17,6 +19,7 @@ public class Result {
     }
     public List<Field> getChanges() {return changes;}
     public boolean getWin() {return win;}
+    public boolean getVision() {return vision;}
     @Override
     public String toString(){
         return changes.toString();

@@ -36,6 +36,9 @@ public class Images {
             case TARGET:
                 view.setImage(Getter.getImage("treasure.jpg"));
                 break;
+            case VISION:
+                view.setImage(Getter.getImage("eye.png"));
+                break;
         }
     }
 }
