@@ -15,11 +15,11 @@ public class Fields implements Config {
     int height;
     int width;
 
-    public Fields(ModificationPanel modificationPanel, int height, int width) {
+    public Fields(ModificationPanel modificationPanel, int height, int width, boolean withEyes) {
         this.modificationPanel = modificationPanel;
         tiles = new Tiles(height, width);
         backgrounds = new Tiles(height, width);
-        images = new Images(height, width);
+        images = new Images(height, width, withEyes);
         this.height = height;
         this.width = width;
     }

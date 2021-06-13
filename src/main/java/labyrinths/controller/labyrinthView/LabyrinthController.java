@@ -39,7 +39,7 @@ public class LabyrinthController implements Initializable {
     @FXML
     Pane labyrinthPane;
     void constructEmptyLabyrinth(Labyrinth labyrinthModel) {
-        fields = new Fields(modificationPanel, labyrinthModel.getHeight(), labyrinthModel.getWidth());
+        fields = new Fields(modificationPanel, labyrinthModel.getHeight(), labyrinthModel.getWidth(), false);
         fields.addFields(labyrinthPane);
     }
 

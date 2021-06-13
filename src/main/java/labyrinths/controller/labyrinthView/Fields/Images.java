@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Images {
+    public boolean withEyes;
     List<List<ImageView>> images = new ArrayList<>();
-    public Images(int height, int width) {
+    public Images(int height, int width, boolean withEyes) {
+        this.withEyes = withEyes;
         for(int i=0; i<height; ++i) {
             List<ImageView> imageRow= new ArrayList<>();
             for (int j = 0; j < width; ++j) {
@@ -37,7 +39,8 @@ public class Images {
                 view.setImage(Getter.getImage("treasure.jpg"));
                 break;
             case VISION:
-                view.setImage(Getter.getImage("eye.png"));
+                if(withEyes)
+                    view.setImage(Getter.getImage("eye.png"));
                 break;
         }
     }

@@ -66,7 +66,7 @@ public class LabyrinthGame implements Initializable, Config {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labyrinthModel = GameGetter.getLabyrinthModel();
-        Fields fields = new Fields(null, labyrinthModel.getHeight(), labyrinthModel.getWidth());
+        Fields fields = new Fields(null, labyrinthModel.getHeight(), labyrinthModel.getWidth(), true);
         fields.addFields(labyrinthPane);
         cover = new Cover(labyrinthModel.getHeight(), labyrinthModel.getWidth());
         cover.addCover(coverPane);
